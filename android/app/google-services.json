@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "719758580576",
+    "project_id": "keepyoga-ef7a0",
+    "storage_bucket": "keepyoga-ef7a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719758580576:android:153b29901b1b5c74049c05",
+        "android_client_info": {
+          "package_name": "com.keepyoga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719758580576-fjfc9q7dfojnid1aab6k4h56h9oh0sm3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.keepyoga",
+            "certificate_hash": "862bb01f1f08654202453be1da440638faf5a648"
+          }
+        },
+        {
+          "client_id": "719758580576-1hgli2r1blk86hgd8n861tfs755e6sii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCx1Tz3XucYZayaUuxFI8zbsnVIycEOy0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719758580576-1hgli2r1blk86hgd8n861tfs755e6sii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

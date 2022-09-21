@@ -18,6 +18,10 @@
       "sha1": "dd9ec1ae67dd85143bacf7a3cb37e9f0ac979843"
     },
     {
+      "path": "src/assets/fonts/Inter-Medium.ttf",
+      "sha1": "a418a8ba73bbcfa8c131c426ab836d78457afa9b"
+    },
+    {
       "path": "src/assets/fonts/Inter-Regular.ttf",
       "sha1": "7237d9cf55f177702066a28a4dde1e4c7e8ab576"
     }

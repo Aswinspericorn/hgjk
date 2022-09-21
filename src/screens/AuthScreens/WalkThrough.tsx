@@ -1,13 +1,16 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import {Box, Text, TouchableBox} from '../../theme/theme';
-
-const WalkThrough = ({navigation}) => {
+interface Props {
+  navigation: any;
+}
+const WalkThrough = ({navigation}: Props) => {
   return (
     <Box flex={1} backgroundColor="secondaryBackground">
       <Box
         flex={1}
         flexDirection="row"
+        alignItems="center"
         paddingTop="xl"
         paddingBottom="l"
         justifyContent="center">
@@ -22,50 +25,55 @@ const WalkThrough = ({navigation}) => {
         flex={3}
         justifyContent="center"
         alignItems="center"
-        paddingVertical="l">
+        paddingHorizontal="m"
+        paddingVertical="s">
         <Image
           source={require('../../assets/images/youlearn.png')}
-          height={327}
-          width={327}
+          style={styles.image}
         />
       </Box>
-      <Box flex={2.4} justifyContent="center">
-        <Text variant="body" color="primaryTitleText" textAlign="center">
-          Create brilliant learning pathways
+      <Box flex={2} justifyContent="flex-end">
+        <Text
+          variant="body"
+          lineHeight={32}
+          color="primaryTitleText"
+          textAlign="center"
+          paddingBottom="xs">
+          Create brilliant learning {'\n'} pathways
         </Text>
       </Box>
       <Box
+        flex={0.9}
         flexDirection="row"
         paddingVertical="xs"
         justifyContent="center"
-        marginBottom="s"
         alignItems="center">
         <Box
           marginRight="xs"
           width={7}
           height={7}
-          borderRadius="f"
+          borderRadius="xxl"
           backgroundColor="pointerFill"
         />
         <Box
           marginRight="xs"
           width={7}
           height={7}
-          borderRadius="f"
+          borderRadius="xxl"
           backgroundColor="pointerFill"
         />
         <Box
           marginRight="xs"
           width={7}
           height={7}
-          borderRadius="f"
+          borderRadius="xxl"
           backgroundColor="pointerFill"
         />
         <Box
           marginRight="xs"
           width={7}
           height={7}
-          borderRadius="f"
+          borderRadius="xxl"
           backgroundColor="blueTitleText"
         />
       </Box>
@@ -77,7 +85,7 @@ const WalkThrough = ({navigation}) => {
           paddingVertical="s"
           marginBottom="s"
           width="60%"
-          onPress={() => navigation.navigate('GetStarted')}>
+          onPress={() => navigation.navigate('EmailSignup')}>
           <Text
             variant="buttonTitle"
             textAlign="center"
@@ -92,9 +100,11 @@ const WalkThrough = ({navigation}) => {
         alignItems="center"
         marginBottom="s"
         paddingBottom="l">
-        <Text variant="TextButtonTitle">Have an account?</Text>
+        <Text variant="TextButtonTitle" lineHeight={24}>
+          Have an account?
+        </Text>
         <TouchableBox onPress={() => navigation.navigate('LoginMobile')}>
-          <Text variant="TextButtonTitle" color="blueTitleText">
+          <Text variant="TextButtonTitle" lineHeight={24} color="blueTitleText">
             Log in.
           </Text>
         </TouchableBox>
@@ -103,3 +113,9 @@ const WalkThrough = ({navigation}) => {
   );
 };
 export default WalkThrough;
+const styles = StyleSheet.create({
+  image: {
+    height: '100%',
+    width: '100%',
+  },
+});

@@ -1,7 +1,10 @@
 import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import {Box, Text, TouchableBox} from '../../theme/theme';
-export const GetStarted = ({navigation}) => {
+interface Props {
+  navigation: any;
+}
+export const GetStarted = ({navigation}: Props) => {
   return (
     <Box flex={1}>
       <Box
@@ -14,34 +17,36 @@ export const GetStarted = ({navigation}) => {
         </Box>
         <Box width="85%">
           <Text variant="header" textAlign="center">
-            Practice yoga whenever you want.
+            Practice yoga{'\n'} whenever you want.
           </Text>
         </Box>
       </Box>
-      <ImageBackground
-        source={require('../../assets/images/Image.png')}
-        style={styles.background}>
-        <TouchableBox
-          justifyContent="center"
-          backgroundColor="secondaryBackground"
-          borderRadius="xl"
-          paddingVertical="s"
-          marginBottom="s"
-          width="90%"
-          onPress={() => navigation.navigate('YouLearn')}>
-          <Text variant="buttonTitle" textAlign="center">
-            Get Started
-          </Text>
-        </TouchableBox>
-      </ImageBackground>
+      <Box flex={3}>
+        <ImageBackground
+          source={require('../../assets/images/getStarted.png')}
+          style={styles.background}>
+          <TouchableBox
+            justifyContent="center"
+            backgroundColor="secondaryBackground"
+            borderRadius="xl"
+            paddingVertical="s"
+            marginBottom="s"
+            width="90%"
+            onPress={() => navigation.navigate('YouLearn')}>
+            <Text variant="buttonTitle" textAlign="center">
+              Get Started
+            </Text>
+          </TouchableBox>
+        </ImageBackground>
+      </Box>
     </Box>
   );
 };
 export default GetStarted;
 const styles = StyleSheet.create({
   background: {
-    flex: 3,
-    resizeMode: 'stretch',
+    flex: 1,
+    height: '100%',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },

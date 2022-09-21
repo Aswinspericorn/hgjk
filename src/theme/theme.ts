@@ -2,10 +2,9 @@ import {
   TextInputProps,
   TouchableOpacity,
   TouchableOpacityProps,
-  TextInput as RNTextInput
+  TextInput as RNTextInput,
 } from 'react-native';
 import {createBox, createText, createTheme} from '@shopify/restyle';
-
 export const palette = {
   primary: '#6B4EFF',
   white: '#FFF',
@@ -13,17 +12,18 @@ export const palette = {
   darkGray: '#DAE2EB',
   lightGray: '#AFBCCB',
   pointerGrey: '#E3E5E5',
+  TextGrey: '#6C7072',
 };
 
 const theme = createTheme({
   spacing: {
-    xs: 10,
-    s: 20,
-    m: 30,
-    l: 40,
-    xl: 60,
-    xxl: 70,
-    xxxl: 80,
+    xs: 8,
+    s: 16,
+    m: 24,
+    l: 36,
+    xl: 48,
+    xxl: 54,
+    xxxl: 62,
   },
   colors: {
     mainBackground: palette.darkGray,
@@ -34,25 +34,24 @@ const theme = createTheme({
     secondaryTitleText: palette.lightGray,
     blueTitleText: palette.primary,
     pointerFill: palette.pointerGrey,
+    smallTextLogin: palette.TextGrey,
   },
   breakpoints: {
     phone: 0,
   },
   textVariants: {
     header: {
-      fontFamily: 'Inter-ExtraBold',
+      fontFamily: 'Inter-Bold',
       fontStyle: 'Normal',
-      fontWeight: 'bold',
       fontSize: 32,
-      lineHeight: 46,
+      lineHeight: 36,
       color: 'primaryTitleText',
     },
-    boldHeader: {
-      fontFamily: 'Inter-ExtraBold',
-      fontWeight: '600',
-      fontSize: 28,
-      lineHeight: 16,
-      color: 'secondaryTitleText',
+    subHeader: {
+      fontFamily: 'Inter-Bold',
+      fontSize: 24,
+      lineHeight: 32,
+      color: 'primaryTitleText',
     },
     body: {
       fontFamily: 'Inter-Bold',
@@ -69,17 +68,25 @@ const theme = createTheme({
     TextButtonTitle: {
       fontFamily: 'Inter-Regular',
       fontSize: 16,
-      lineHeight: 24,
+      lineHeight: 16,
       color: 'primaryTitleText',
-      fontWeight: '500',
+    },
+    interMedium: {
+      fontFamily: 'Inter-Medium',
+      fontSize: 16,
+      lineHeight: 16,
+      color: 'blueTitleText',
     },
   },
   borderRadii: {
-    s: 4,
-    m: 8,
-    l: 12,
-    xl: 26,
-    f: 50,
+    xxs: 4,
+    xs: 8,
+    s: 16,
+    m: 24,
+    l: 36,
+    xl: 48,
+    xxl: 54,
+    xxxl: 62,
   },
 });
 

@@ -3,6 +3,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import GetStarted from '../screens/AuthScreens/GetStarted';
 import WalkThrough from '../screens/AuthScreens/WalkThrough';
 import LoginMobile from '../screens/AuthScreens/LoginMobile';
+import AuthenticateOtp from '../screens/AuthScreens/AuthenticateOtp';
+import EmailSignUp from '../screens/AuthScreens/EmailSignUp';
+import EmailSignIn from '../screens/AuthScreens/EmailSignIn';
 // import LoginScreen from '../screens/LoginScreen';
 const Auth = createNativeStackNavigator();
 const AuthNavigation = () => {
@@ -28,6 +31,34 @@ const AuthNavigation = () => {
         options={{
           headerTitle: '',
           headerTransparent: true,
+        }}
+      />
+      <Auth.Screen
+        name="AuthenticateOtp"
+        component={AuthenticateOtp}
+        options={{
+          headerTitle: '',
+          headerTransparent: true,
+        }}
+      />
+      <Auth.Screen
+        name="EmailSignup"
+        component={EmailSignUp}
+        options={{
+          headerTitle: 'Sign up',
+          headerTransparent: true,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {fontFamily: 'inter-Regular', fontSize: 18},
+        }}
+      />
+      <Auth.Screen
+        name="EmailSignin"
+        component={EmailSignIn}
+        options={{
+          headerTitle: 'Sign in',
+          headerTransparent: true,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {fontFamily: 'inter-Regular', fontSize: 18},
         }}
       />
     </Auth.Navigator>
