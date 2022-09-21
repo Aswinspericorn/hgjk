@@ -19,7 +19,6 @@ const EmailSignUp = () => {
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
           setIsLoading(false);
-          console.log('User account created & signed in!');
           dispatch(changeAuthStatus(true));
         })
         .catch(error => {

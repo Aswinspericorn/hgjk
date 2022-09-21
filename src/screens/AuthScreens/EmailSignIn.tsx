@@ -19,7 +19,6 @@ const EmailSignIn = () => {
         .signInWithEmailAndPassword(email, password)
         .then(() => {
           setIsLoading(false);
-          console.log('User signed in!');
           dispatch(changeAuthStatus(true));
         })
         .catch(error => {

@@ -16,7 +16,6 @@ const LoginMobile = ({navigation}: Props) => {
   // Handle the button press
   async function signInWithPhoneNumber() {
     const confirmation = await auth().signInWithPhoneNumber(`+91${phno}`);
-    console.log('confirm', confirmation);
     // setConfirm(confirmation);
     navigation.navigate('AuthenticateOtp', {confirmation});
   }

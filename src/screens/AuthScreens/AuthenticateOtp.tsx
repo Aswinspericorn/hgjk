@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {LogBox, StyleSheet} from 'react-native';
+import {Alert, LogBox, StyleSheet} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Box, Text} from '../../theme/theme';
 import PrimaryButton from '../../components/PrimaryButton';
@@ -26,18 +26,16 @@ const AuthenticateOtp = ({route}: Props) => {
 
     RNOtpVerify.getOtp()
       .then(() => RNOtpVerify.addListener(otpHandler))
-      .catch(p => console.log(p));
+      .catch();
   }, []);
 
   const otpHandler = (message: any = {}) => {
-    console.log('message==', message);
     const otp = `/(d{6})/g.exec(${message})[1]`;
     setCode(otp);
     RNOtpVerify.removeListener();
   };
 
   function onAuthStateChanged(userr: any) {
-    console.log(userr);
     if (userr) {
       setUser(userr);
     }
@@ -56,11 +54,10 @@ const AuthenticateOtp = ({route}: Props) => {
         await confirm.confirm(code);
         setIsLoading(false);
       } catch (error) {
-        console.log('Invalid code.');
+        Alert.alert('Invalid code.');
       }
     }
   }
-  console.log(code, 'code');
   return (
     <Box
       flex={1}
