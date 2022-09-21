@@ -77,10 +77,8 @@ const AuthenticateOtp = ({route}: Props) => {
         <OTPInputView
           style={styles.OTPInput}
           pinCount={6}
-          // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
-          // onCodeChanged = {code => { this.setState({code})}}
           code={code}
-          autoFocusOnLoad={false}
+          autoFocusOnLoad={true}
           codeInputFieldStyle={styles.underlineStyleBase}
           codeInputHighlightStyle={styles.underlineStyleHighLighted}
           onCodeChanged={value => {

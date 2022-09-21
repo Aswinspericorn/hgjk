@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, KeyboardAvoidingView, StyleSheet} from 'react-native';
+import {Alert, KeyboardAvoidingView, Pressable, StyleSheet} from 'react-native';
 import PrimaryButton from '../../components/PrimaryButton';
 import {Box, Text, TextInput, TouchableBox} from '../../theme/theme';
 import auth from '@react-native-firebase/auth';
@@ -90,13 +90,33 @@ const EmailSignIn = () => {
         </Box>
         <Box flex={3} justifyContent="flex-end">
           <Box paddingBottom="s">
-            <Text
-              variant="TextButtonTitle"
-              fontSize={12}
-              paddingHorizontal="xs">
-              By continuing, you agree to our Terms of Service and {'\n'}Privacy
-              Policy.
-            </Text>
+            <Box paddingHorizontal="xs" alignItems="flex-start">
+              <Box flexDirection="row">
+                <Text variant="TextButtonTitle" fontSize={12}>
+                  By continuing, you agree to our {''}
+                </Text>
+                <Pressable onPress={() => {}}>
+                  <Text
+                    variant="TextButtonTitle"
+                    fontSize={12}
+                    color="blueTitleText">
+                    Terms of Service {''}
+                  </Text>
+                </Pressable>
+                <Text variant="TextButtonTitle" fontSize={12}>
+                  and {''}
+                </Text>
+              </Box>
+              <Pressable onPress={() => {}}>
+                <Text
+                  textAlign="center"
+                  variant="TextButtonTitle"
+                  fontSize={12}
+                  color="blueTitleText">
+                  Privacy Policy.
+                </Text>
+              </Pressable>
+            </Box>
           </Box>
           <Box paddingBottom="m">
             <PrimaryButton
