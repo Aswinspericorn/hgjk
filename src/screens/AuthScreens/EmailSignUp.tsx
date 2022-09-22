@@ -5,15 +5,25 @@ import {Box, Text, TextInput} from '../../theme/theme';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {changeAuthStatus} from '../../store/redux/AuthStatus';
+import {EmailValidation} from '../../utils/regex';
 
 const EmailSignUp = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const createAccount = () => {
-    if (email && password) {
+    const emailIsValid = EmailValidation(email);
+    if (!emailIsValid) {
+      setEmailError(true);
+    }
+    if (password.length < 6) {
+      setPasswordError(true);
+    }
+    if (email && password.length > 5) {
       setIsLoading(true);
       auth()
         .createUserWithEmailAndPassword(email, password)
@@ -45,37 +55,45 @@ const EmailSignUp = () => {
         backgroundColor="secondaryBackground"
         paddingHorizontal="m"
         paddingTop="l">
-        <Box flex={1} justifyContent="center" paddingTop="m">
+        <Box height={200} justifyContent="center" paddingTop="m">
           <Box
             flexDirection="row"
             borderWidth={1}
-            borderColor="pointerFill"
+            borderColor={emailError ? 'errorColor' : 'pointerFill'}
             height={48}
             borderRadius="xs"
             marginVertical="s"
             alignItems="center">
             <TextInput
-              width="100%"
+              placeholderTextColor="#6C7072"
+              style={styles.width}
               paddingHorizontal="s"
               variant="TextButtonTitle"
               placeholder="Email"
-              onChangeText={value => setEmail(value)}
+              onChangeText={value => {
+                setEmailError(false);
+                setEmail(value);
+              }}
             />
           </Box>
           <Box
             flexDirection="row"
             borderWidth={1}
-            borderColor="pointerFill"
+            borderColor={passwordError ? 'errorColor' : 'pointerFill'}
             height={48}
             borderRadius="xs"
             alignItems="center">
             <TextInput
-              width="100%"
+              placeholderTextColor="#6C7072"
+              style={styles.width}
               paddingLeft="s"
               variant="TextButtonTitle"
               placeholder="Password"
               textContentType="password"
-              onChangeText={value => setPassword(value)}
+              onChangeText={value => {
+                setPasswordError(false);
+                setPassword(value);
+              }}
             />
           </Box>
         </Box>
@@ -125,5 +143,8 @@ export default EmailSignUp;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+  },
+  width: {
+    width: '100%',
   },
 });

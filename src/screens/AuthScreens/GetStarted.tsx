@@ -15,9 +15,12 @@ export const GetStarted = ({navigation}: Props) => {
         <Box paddingBottom="s" paddingTop="l">
           <Text variant="body">keepyoga</Text>
         </Box>
-        <Box width="85%">
+        <Box>
           <Text variant="header" textAlign="center">
-            Practice yoga{'\n'}whenever you want.
+            Practice yoga
+          </Text>
+          <Text variant="header" textAlign="center">
+            whenever you want.
           </Text>
         </Box>
       </Box>

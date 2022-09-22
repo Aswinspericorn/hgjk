@@ -3,7 +3,7 @@ import {Box, Text, TextInput, TouchableBox} from '../../theme/theme';
 import Arrow from '../../assets/icons/Svg/downArrow.svg';
 import Flag from '../../assets/icons/Svg/indian.svg';
 import PrimaryButton from '../../components/PrimaryButton';
-import {KeyboardAvoidingView, Pressable, StyleSheet} from 'react-native';
+import {Alert, KeyboardAvoidingView, Pressable, StyleSheet} from 'react-native';
 
 import auth from '@react-native-firebase/auth';
 interface Props {
@@ -13,14 +13,30 @@ const LoginMobile = ({navigation}: Props) => {
   // If null, no SMS has been sent
   const [phno, setPhno] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   // Handle the button press
   async function signInWithPhoneNumber() {
+    if (phno.length !== 10) {
+      setError(true);
+    }
     setIsLoading(true);
-    if (phno) {
-      const confirmation = await auth().signInWithPhoneNumber(`+91${phno}`);
-      setIsLoading(false);
-      navigation.navigate('AuthenticateOtp', {confirmation});
+    if (phno.length === 10) {
+      await auth()
+        .signInWithPhoneNumber(`+91${phno}`)
+        .then(confirmation => {
+          setIsLoading(false);
+          navigation.navigate('AuthenticateOtp', {
+            data: confirmation,
+            phno: phno,
+          });
+        })
+        .catch(err => {
+          if (err.code === 'auth/too-many-requests') {
+            Alert.alert('Something went wrong.Please try again later');
+            return;
+          }
+        });
     }
     setIsLoading(false);
   }
@@ -28,7 +44,7 @@ const LoginMobile = ({navigation}: Props) => {
   return (
     <KeyboardAvoidingView style={styles.screen} behavior="height">
       <Box flex={1} backgroundColor="secondaryBackground" paddingHorizontal="m">
-        <Box flex={1} justifyContent="flex-end" paddingTop="xs">
+        <Box height={150} justifyContent="flex-end" paddingTop="xs">
           <Box justifyContent="center">
             <Text variant="header">Welcome back.</Text>
           </Box>
@@ -40,7 +56,7 @@ const LoginMobile = ({navigation}: Props) => {
           <Box
             flexDirection="row"
             borderWidth={1}
-            borderColor="pointerFill"
+            borderColor={error ? 'errorColor' : 'pointerFill'}
             height={48}
             borderRadius="xs"
             alignItems="center">
@@ -61,10 +77,14 @@ const LoginMobile = ({navigation}: Props) => {
             </Box>
             <Box flex={3}>
               <TextInput
-                width="100%"
+                placeholderTextColor="#6C7072"
+                style={styles.width}
                 variant="TextButtonTitle"
                 placeholder="Mobile number"
-                onChangeText={value => setPhno(value)}
+                onChangeText={value => {
+                  setError(false);
+                  setPhno(value);
+                }}
               />
             </Box>
           </Box>
@@ -82,7 +102,7 @@ const LoginMobile = ({navigation}: Props) => {
           <Box justifyContent="center" alignItems="center">
             <PrimaryButton
               disabled={isLoading}
-              title="Login"
+              title={isLoading ? 'Sending...' : 'Login'}
               onPress={signInWithPhoneNumber}
             />
           </Box>
@@ -103,5 +123,8 @@ export default LoginMobile;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+  },
+  width: {
+    width: '100%',
   },
 });

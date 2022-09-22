@@ -13,6 +13,7 @@ export const palette = {
   lightGray: '#AFBCCB',
   pointerGrey: '#E3E5E5',
   TextGrey: '#6C7072',
+  ErrorRed: '#D22A0A',
 };
 
 const theme = createTheme({
@@ -35,6 +36,7 @@ const theme = createTheme({
     blueTitleText: palette.primary,
     pointerFill: palette.pointerGrey,
     smallTextLogin: palette.TextGrey,
+    errorColor: palette.ErrorRed,
   },
   breakpoints: {
     phone: 0,
