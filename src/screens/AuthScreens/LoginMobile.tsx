@@ -12,12 +12,17 @@ interface Props {
 const LoginMobile = ({navigation}: Props) => {
   // If null, no SMS has been sent
   const [phno, setPhno] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Handle the button press
   async function signInWithPhoneNumber() {
-    const confirmation = await auth().signInWithPhoneNumber(`+91${phno}`);
-    // setConfirm(confirmation);
-    navigation.navigate('AuthenticateOtp', {confirmation});
+    setIsLoading(true);
+    if (phno) {
+      const confirmation = await auth().signInWithPhoneNumber(`+91${phno}`);
+      setIsLoading(false);
+      navigation.navigate('AuthenticateOtp', {confirmation});
+    }
+    setIsLoading(false);
   }
 
   return (
@@ -75,7 +80,11 @@ const LoginMobile = ({navigation}: Props) => {
         </Box>
         <Box flex={1}>
           <Box justifyContent="center" alignItems="center">
-            <PrimaryButton title="Login" onPress={signInWithPhoneNumber} />
+            <PrimaryButton
+              disabled={isLoading}
+              title="Login"
+              onPress={signInWithPhoneNumber}
+            />
           </Box>
           <Box justifyContent="center" marginTop="s" alignItems="center">
             <Pressable
