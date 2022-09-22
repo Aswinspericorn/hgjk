@@ -71,7 +71,7 @@ const EmailSignUp = () => {
             alignItems="center">
             <TextInput
               width="100%"
-              paddingHorizontal="s"
+              paddingLeft="s"
               variant="TextButtonTitle"
               placeholder="Password"
               textContentType="password"

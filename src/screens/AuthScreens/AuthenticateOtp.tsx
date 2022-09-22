@@ -3,10 +3,10 @@ import {useDispatch} from 'react-redux';
 import {Alert, LogBox, StyleSheet} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Box, Text} from '../../theme/theme';
-import PrimaryButton from '../../components/PrimaryButton';
 import auth from '@react-native-firebase/auth';
 import {changeAuthStatus} from '../../store/redux/AuthStatus';
 import RNOtpVerify from 'react-native-otp-verify';
+import SecondaryButton from '../../components/SecondaryButton';
 
 interface Props {
   route: any;
@@ -87,7 +87,7 @@ const AuthenticateOtp = ({route}: Props) => {
         />
       </Box>
       <Box>
-        <PrimaryButton
+        <SecondaryButton
           disabled={isLoading}
           title="Continue"
           onPress={confirmCode}
