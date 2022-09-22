@@ -56,6 +56,7 @@ const LoginMobile = ({navigation}: Props) => {
             </Box>
             <Box flex={3}>
               <TextInput
+                width="100%"
                 variant="TextButtonTitle"
                 placeholder="Mobile number"
                 onChangeText={value => setPhno(value)}
