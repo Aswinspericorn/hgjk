@@ -5,6 +5,7 @@ import {Box, Text, TextInput, TouchableBox} from '../../theme/theme';
 import auth from '@react-native-firebase/auth';
 import {changeAuthStatus} from '../../store/redux/AuthStatus';
 import {useDispatch} from 'react-redux';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const EmailSignIn = () => {
   const [email, setEmail] = useState<string>('');
@@ -43,91 +44,93 @@ const EmailSignIn = () => {
     }
   };
   return (
-    <KeyboardAvoidingView style={styles.screen} behavior="height">
-      <Box
-        flex={1}
-        backgroundColor="secondaryBackground"
-        paddingHorizontal="m"
-        paddingTop="l">
-        <Box flex={1} justifyContent="center" paddingTop="l">
-          <Box
-            flexDirection="row"
-            borderWidth={1}
-            borderColor="pointerFill"
-            height={48}
-            borderRadius="xs"
-            marginVertical="s"
-            alignItems="center">
-            <TextInput
-              width="100%"
-              paddingHorizontal="s"
-              variant="TextButtonTitle"
-              placeholder="Email"
-              onChangeText={value => setEmail(value)}
-            />
+    <SafeAreaView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.screen} behavior="height">
+        <Box
+          flex={1}
+          backgroundColor="secondaryBackground"
+          paddingHorizontal="m"
+          paddingTop="l">
+          <Box flex={1} justifyContent="center" paddingTop="l">
+            <Box
+              flexDirection="row"
+              borderWidth={1}
+              borderColor="pointerFill"
+              height={48}
+              borderRadius="xs"
+              marginVertical="s"
+              alignItems="center">
+              <TextInput
+                width="100%"
+                paddingHorizontal="s"
+                variant="TextButtonTitle"
+                placeholder="Email"
+                onChangeText={value => setEmail(value)}
+              />
+            </Box>
+            <Box
+              flexDirection="row"
+              borderWidth={1}
+              borderColor="pointerFill"
+              height={48}
+              borderRadius="xs"
+              alignItems="center">
+              <TextInput
+                width="100%"
+                paddingLeft="s"
+                variant="TextButtonTitle"
+                placeholder="Password"
+                textContentType="password"
+                onChangeText={value => setPassword(value)}
+              />
+            </Box>
+            <Box>
+              <TouchableBox paddingTop="xs">
+                <Text variant="interMedium">Forgot password?</Text>
+              </TouchableBox>
+            </Box>
           </Box>
-          <Box
-            flexDirection="row"
-            borderWidth={1}
-            borderColor="pointerFill"
-            height={48}
-            borderRadius="xs"
-            alignItems="center">
-            <TextInput
-              width="100%"
-              paddingLeft="s"
-              variant="TextButtonTitle"
-              placeholder="Password"
-              textContentType="password"
-              onChangeText={value => setPassword(value)}
-            />
-          </Box>
-          <Box>
-            <TouchableBox paddingTop="xs">
-              <Text variant="interMedium">Forgot password?</Text>
-            </TouchableBox>
-          </Box>
-        </Box>
-        <Box flex={3} justifyContent="flex-end">
-          <Box paddingBottom="s">
-            <Box paddingHorizontal="xs" alignItems="flex-start">
-              <Box flexDirection="row">
-                <Text variant="TextButtonTitle" fontSize={12}>
-                  By continuing, you agree to our {''}
-                </Text>
+          <Box flex={3} justifyContent="flex-end">
+            <Box paddingBottom="s">
+              <Box paddingHorizontal="xs" alignItems="flex-start">
+                <Box flexDirection="row">
+                  <Text variant="TextButtonTitle" fontSize={12}>
+                    By continuing, you agree to our {''}
+                  </Text>
+                  <Pressable onPress={() => {}}>
+                    <Text
+                      variant="TextButtonTitle"
+                      fontSize={12}
+                      color="blueTitleText">
+                      Terms of Service {''}
+                    </Text>
+                  </Pressable>
+                  <Text variant="TextButtonTitle" fontSize={12}>
+                    and {''}
+                  </Text>
+                </Box>
                 <Pressable onPress={() => {}}>
                   <Text
+                    textAlign="center"
                     variant="TextButtonTitle"
                     fontSize={12}
                     color="blueTitleText">
-                    Terms of Service {''}
+                    Privacy Policy.
                   </Text>
                 </Pressable>
-                <Text variant="TextButtonTitle" fontSize={12}>
-                  and {''}
-                </Text>
               </Box>
-              <Pressable onPress={() => {}}>
-                <Text
-                  textAlign="center"
-                  variant="TextButtonTitle"
-                  fontSize={12}
-                  color="blueTitleText">
-                  Privacy Policy.
-                </Text>
-              </Pressable>
+            </Box>
+            <Box paddingBottom="m">
+              <PrimaryButton
+                disabled={isLoading}
+                title="Sign in"
+                onPress={signInAccount}
+              />
             </Box>
           </Box>
-          <Box paddingBottom="m">
-            <PrimaryButton
-              disabled={isLoading}
-              title="Sign in"
-              onPress={signInAccount}
-            />
-          </Box>
         </Box>
-      </Box>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 export default EmailSignIn;

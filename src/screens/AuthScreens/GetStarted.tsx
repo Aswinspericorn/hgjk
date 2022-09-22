@@ -13,11 +13,11 @@ export const GetStarted = ({navigation}: Props) => {
         justifyContent="center"
         alignItems="center">
         <Box paddingBottom="s" paddingTop="l">
-          <Text variant="body">keepYoga</Text>
+          <Text variant="body">keepyoga</Text>
         </Box>
         <Box width="85%">
           <Text variant="header" textAlign="center">
-            Practice yoga{'\n'} whenever you want.
+            Practice yoga{'\n'}whenever you want.
           </Text>
         </Box>
       </Box>
