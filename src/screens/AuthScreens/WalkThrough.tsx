@@ -3,7 +3,7 @@ import {Alert, Image, Pressable, StyleSheet} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {Box, Text, TouchableBox} from '../../theme/theme';
 import Facebook from '../../assets/icons/Svg/facebook.svg';
-import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
+import {LoginManager, AccessToken, Settings} from 'react-native-fbsdk-next';
 import Google from '../../assets/icons/Svg/google.svg';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
@@ -29,28 +29,29 @@ const WalkThrough = ({navigation}: Props) => {
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       await auth()
         .signInWithCredential(googleCredential)
-        .then(user => {
-          console.log(user);
+        .then(() => {
           dispatch(changeAuthStatus(true));
           return;
         })
-        .catch(err => {
-          console.log('err=', err);
+        .catch(() => {
+          Alert.alert('Something went wrong,try again later');
           return;
         });
     } catch (err) {
-      console.log('ERRR=', err);
+      Alert.alert('Something went wrong,try again later');
       return;
     }
   }
 
   async function onFacebookButtonPress() {
+    Settings.initializeSDK();
     // Attempt login with permissions
     setIsLoading(true);
     try {
       const result = await LoginManager.logInWithPermissions([
         'public_profile',
         'email',
+        'user_friends',
       ]);
 
       if (result.isCancelled) {
@@ -62,7 +63,7 @@ const WalkThrough = ({navigation}: Props) => {
       const data = await AccessToken.getCurrentAccessToken();
 
       if (!data) {
-        Alert.alert('Something went wrong obtaining access token');
+        // Alert.alert('Something went wrong obtaining access token');
         setIsLoading(false);
         return;
       }
@@ -76,17 +77,17 @@ const WalkThrough = ({navigation}: Props) => {
       await auth()
         .signInWithCredential(facebookCredential)
         .then(() => {
-          setIsLoading(false);
           dispatch(changeAuthStatus(true));
-        })
-        .catch(err => {
           setIsLoading(false);
-          console.log(err);
+        })
+        .catch(() => {
+          setIsLoading(false);
           return;
         });
     } catch (err) {
       setIsLoading(false);
-      Alert.alert('Something went wrong');
+      console.log(err);
+      Alert.alert('Something went wrong,check your internet connection');
       return;
     }
   }
@@ -193,8 +194,7 @@ const WalkThrough = ({navigation}: Props) => {
           <Box
             flex={0.7}
             borderBottomColor="pointerFill"
-            borderWidth={1}
-            height={1}
+            borderBottomWidth={1}
             width="100%"
           />
           <Box flex={1} alignItems="center">
@@ -208,40 +208,40 @@ const WalkThrough = ({navigation}: Props) => {
           <Box
             flex={0.7}
             borderBottomColor="pointerFill"
-            borderWidth={1}
-            height={1}
+            borderBottomWidth={1}
             width="100%"
           />
         </Box>
         <Box flexDirection="row" overflow="hidden">
-          <Pressable
-            onPress={()=>{}}
-            disabled={isLoading}
-            android_ripple={{color: 'black', borderless: true}}>
-            <Box
-              marginHorizontal="xs"
-              paddingHorizontal="m"
-              paddingVertical="xs"
-              borderWidth={2}
-              borderRadius="xs"
-              borderColor="pointerFill">
-              <Facebook width={40} height={30} fill="none" />
-            </Box>
-          </Pressable>
-          <Pressable
-            onPress={onGoogleButtonPress}
-            disabled={isLoading}
-            android_ripple={{color: 'black', borderless: true}}>
-            <Box
-              marginHorizontal="xs"
-              paddingHorizontal="m"
-              paddingVertical="xs"
-              borderWidth={2}
-              borderRadius="xs"
-              borderColor="pointerFill">
-              <Google width={40} height={30} fill="none" />
-            </Box>
-          </Pressable>
+          <Box
+            marginHorizontal="xs"
+            borderRadius="xs"
+            borderWidth={2}
+            borderColor="pointerFill">
+            <Pressable
+              onPress={onFacebookButtonPress}
+              disabled={isLoading}
+              style={({pressed}) => (pressed ? styles.pressed : {})}>
+              <Box paddingHorizontal="m" paddingVertical="xs">
+                <Facebook width={40} height={30} fill="none" />
+              </Box>
+            </Pressable>
+          </Box>
+
+          <Box
+            marginHorizontal="xs"
+            borderRadius="xs"
+            borderWidth={2}
+            borderColor="pointerFill">
+            <Pressable
+              onPress={onGoogleButtonPress}
+              disabled={isLoading}
+              style={({pressed}) => (pressed ? styles.pressed : {})}>
+              <Box paddingHorizontal="m" paddingVertical="xs">
+                <Google width={40} height={30} fill="none" />
+              </Box>
+            </Pressable>
+          </Box>
         </Box>
       </Box>
       <Box
@@ -269,5 +269,8 @@ const styles = StyleSheet.create({
   image: {
     height: '100%',
     width: '100%',
+  },
+  pressed: {
+    opacity: 0.3,
   },
 });

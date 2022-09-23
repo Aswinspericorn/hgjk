@@ -41,9 +41,11 @@ const EmailSignUp = () => {
           if (error.code === 'auth/invalid-email') {
             Alert.alert('That email address is invalid!');
             return;
+          } else {
+            Alert.alert(
+              'Something went wrong, please check your internet connection',
+            );
           }
-
-          Alert.alert(error);
           return;
         });
     }

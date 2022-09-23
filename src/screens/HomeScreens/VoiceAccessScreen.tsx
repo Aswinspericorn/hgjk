@@ -1,12 +1,21 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-
+import {Button} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {changeAuthStatus} from '../../store/redux/AuthStatus';
+import {Box, Text} from '../../theme/theme';
 export const VoiceAccessScreen = () => {
+  const dispatch = useDispatch();
   return (
     <>
-      <View>
-        <Text>HGjh</Text>
-      </View>
+      <Box>
+        <Text variant="header">Welcome</Text>
+        <Button
+          title="Logout"
+          onPress={() => {
+            dispatch(changeAuthStatus(false));
+          }}
+        />
+      </Box>
     </>
   );
 };

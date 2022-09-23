@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {Alert, LogBox, StyleSheet} from 'react-native';
+import {Alert, KeyboardAvoidingView, LogBox, StyleSheet} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Box, Text} from '../../theme/theme';
-// import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import {changeAuthStatus} from '../../store/redux/AuthStatus';
 import RNOtpVerify from 'react-native-otp-verify';
 import PrimaryButton from '../../components/PrimaryButton';
@@ -36,26 +36,23 @@ const AuthenticateOtp = ({route}: Props) => {
     let otp = '';
     if (message.length > 0) {
       // otp = /(d{6})/g.exec(message)[1];
-      otp = message.replace(/^\D+/g, '');
+      otp = message.match(/\d{6}/ || [false])[0];
     }
     setCode(otp);
     RNOtpVerify.removeListener();
   };
 
-  // function onAuthStateChanged(userr: any) {
-  //   if (userr) {
-  //     setUser(userr);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber; // unsubscribe on unmount
-  // }, []);
+  function onAuthStateChanged(userr: any) {
+    if (userr) {
+    }
+  }
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
 
   async function confirmCode() {
     setIsLoading(true);
-    console.log(AuthData.data.confirm);
     await AuthData.data
       .confirm(code)
       .then(() => {
@@ -80,30 +77,33 @@ const AuthenticateOtp = ({route}: Props) => {
       flex={1}
       backgroundColor="secondaryBackground"
       paddingHorizontal="m"
+      justifyContent="space-between"
       paddingTop="xl">
-      <Box justifyContent="center" paddingTop="l" paddingHorizontal="xs">
-        <Text variant="subHeader">Enter authentication code</Text>
+      <Box height={300}>
+        <Box justifyContent="center" paddingTop="l" paddingHorizontal="xs">
+          <Text variant="subHeader">Enter authentication code</Text>
+        </Box>
+        <Box paddingTop="xs" alignItems="flex-start">
+          <Text variant="TextButtonTitle" lineHeight={24} textAlign="center">
+            Enter the 4-digit that we have sent via the{'\n'}
+            phone number +91 {AuthData.phno}
+          </Text>
+        </Box>
+        <Box paddingTop="s">
+          <OTPInputView
+            style={styles.OTPInput}
+            pinCount={6}
+            code={code}
+            autoFocusOnLoad={false}
+            codeInputFieldStyle={styles.underlineStyleBase}
+            codeInputHighlightStyle={styles.underlineStyleHighLighted}
+            onCodeChanged={value => {
+              setCode(value);
+            }}
+          />
+        </Box>
       </Box>
-      <Box paddingTop="xs" alignItems="flex-start">
-        <Text variant="TextButtonTitle" lineHeight={24} textAlign="center">
-          Enter the 4-digit that we have sent via the{'\n'}
-          phone number +91 {AuthData.phno}
-        </Text>
-      </Box>
-      <Box flex={1} paddingTop="s">
-        <OTPInputView
-          style={styles.OTPInput}
-          pinCount={6}
-          code={code}
-          autoFocusOnLoad={false}
-          codeInputFieldStyle={styles.underlineStyleBase}
-          codeInputHighlightStyle={styles.underlineStyleHighLighted}
-          onCodeChanged={value => {
-            setCode(value);
-          }}
-        />
-      </Box>
-      <Box>
+      <Box justifyContent="flex-end" flex={1}>
         <PrimaryButton
           disabled={isLoading}
           title={isLoading ? 'Sending...' : 'Continue'}
@@ -115,6 +115,9 @@ const AuthenticateOtp = ({route}: Props) => {
 };
 export default AuthenticateOtp;
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   underlineStyleBase: {
     width: 48,
     borderRadius: 64,
