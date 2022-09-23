@@ -29,7 +29,7 @@ const AuthenticateOtp = ({route}: Props) => {
       .catch();
   }, []);
 
-  const otpHandler = (message: string = '000000') => {
+  const otpHandler = (message: string) => {
     if (message.includes('Error')) {
       return;
     }

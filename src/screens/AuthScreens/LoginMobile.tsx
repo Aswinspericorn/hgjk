@@ -1,11 +1,16 @@
 import React, {useState} from 'react';
 import {Box, Text, TextInput, TouchableBox} from '../../theme/theme';
-import Arrow from '../../assets/icons/Svg/downArrow.svg';
-import Flag from '../../assets/icons/Svg/indian.svg';
 import PrimaryButton from '../../components/PrimaryButton';
 import {Alert, KeyboardAvoidingView, Pressable, StyleSheet} from 'react-native';
-
 import auth from '@react-native-firebase/auth';
+
+// import {sha256} from 'react-native-sha256';
+import {changeAuthStatus} from '../../store/redux/AuthStatus';
+import {useDispatch} from 'react-redux';
+
+import Arrow from '../../assets/icons/Svg/downArrow.svg';
+import Flag from '../../assets/icons/Svg/indian.svg';
+
 interface Props {
   navigation: any;
 }
@@ -14,8 +19,8 @@ const LoginMobile = ({navigation}: Props) => {
   const [phno, setPhno] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
-  // Handle the button press
   async function signInWithPhoneNumber() {
     if (phno.length !== 10) {
       setError(true);
@@ -26,6 +31,7 @@ const LoginMobile = ({navigation}: Props) => {
         .signInWithPhoneNumber(`+91${phno}`)
         .then(confirmation => {
           setIsLoading(false);
+          dispatch(changeAuthStatus(true));
           navigation.navigate('AuthenticateOtp', {
             data: confirmation,
             phno: phno,
@@ -77,6 +83,7 @@ const LoginMobile = ({navigation}: Props) => {
             </Box>
             <Box flex={3}>
               <TextInput
+                keyboardType="phone-pad"
                 placeholderTextColor="#6C7072"
                 style={styles.width}
                 variant="TextButtonTitle"

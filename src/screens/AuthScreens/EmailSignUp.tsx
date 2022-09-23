@@ -65,6 +65,7 @@ const EmailSignUp = () => {
             marginVertical="s"
             alignItems="center">
             <TextInput
+              keyboardType="email-address"
               placeholderTextColor="#6C7072"
               style={styles.width}
               paddingHorizontal="s"
@@ -84,6 +85,7 @@ const EmailSignUp = () => {
             borderRadius="xs"
             alignItems="center">
             <TextInput
+              secureTextEntry={true}
               placeholderTextColor="#6C7072"
               style={styles.width}
               paddingLeft="s"
