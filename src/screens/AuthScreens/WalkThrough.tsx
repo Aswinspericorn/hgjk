@@ -38,7 +38,6 @@ const WalkThrough = ({navigation}: Props) => {
           return;
         });
     } catch (err) {
-      Alert.alert('Something went wrong,try again later');
       return;
     }
   }
@@ -51,12 +50,11 @@ const WalkThrough = ({navigation}: Props) => {
       const result = await LoginManager.logInWithPermissions([
         'public_profile',
         'email',
-        'user_friends',
       ]);
 
       if (result.isCancelled) {
         // console.log('User cancelled the login process');
-        result;
+        return;
       }
 
       // Once signed in, get the users AccesToken

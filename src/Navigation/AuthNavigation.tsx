@@ -6,6 +6,8 @@ import LoginMobile from '../screens/AuthScreens/LoginMobile';
 import AuthenticateOtp from '../screens/AuthScreens/AuthenticateOtp';
 import EmailSignUp from '../screens/AuthScreens/EmailSignUp';
 import EmailSignIn from '../screens/AuthScreens/EmailSignIn';
+import SetupPersonalizationOne from '../screens/AuthScreens/SetupPersonalization1';
+import SetupPersonalizationTwo from '../screens/AuthScreens/SetupPersonalization2';
 // import LoginScreen from '../screens/LoginScreen';
 const Auth = createNativeStackNavigator();
 const AuthNavigation = () => {
@@ -59,6 +61,17 @@ const AuthNavigation = () => {
           headerTransparent: true,
           headerTitleAlign: 'center',
           headerTitleStyle: {fontFamily: 'inter-Regular', fontSize: 18},
+        }}
+      />
+      <Auth.Screen
+        name="SetupPersonalizationOne"
+        component={SetupPersonalizationOne}
+      />
+      <Auth.Screen
+        name="SetupPersonalizationTwo"
+        component={SetupPersonalizationTwo}
+        options={{
+          headerShown: false,
         }}
       />
     </Auth.Navigator>

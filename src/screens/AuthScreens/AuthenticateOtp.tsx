@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {Alert, KeyboardAvoidingView, LogBox, StyleSheet} from 'react-native';
+import {Alert, LogBox, StyleSheet} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Box, Text} from '../../theme/theme';
 import auth from '@react-native-firebase/auth';
@@ -11,7 +11,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 interface Props {
   route: any;
 }
-const AuthenticateOtp = ({route}: Props) => {
+const AuthenticateOtp = ({navigation, route}: Props) => {
   const [code, setCode] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const AuthData = route.params;
@@ -36,7 +36,7 @@ const AuthenticateOtp = ({route}: Props) => {
     let otp = '';
     if (message.length > 0) {
       // otp = /(d{6})/g.exec(message)[1];
-      otp = message.match(/\d{6}/ || [false])[0];
+      otp = `${message}.match(/\d{6}/ || [false])[0]`;
     }
     setCode(otp);
     RNOtpVerify.removeListener();
@@ -44,12 +44,14 @@ const AuthenticateOtp = ({route}: Props) => {
 
   function onAuthStateChanged(userr: any) {
     if (userr) {
+      // dispatch(changeAuthStatus(true));
+      navigation.navigate('SetupPersonalizationOne');
     }
   }
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
-  }, []);
+  });
 
   async function confirmCode() {
     setIsLoading(true);
@@ -57,7 +59,8 @@ const AuthenticateOtp = ({route}: Props) => {
       .confirm(code)
       .then(() => {
         setIsLoading(false);
-        dispatch(changeAuthStatus(true));
+        // dispatch(changeAuthStatus(true));
+        navigation.navigate('SetupPersonalizationOne');
         setIsLoading(false);
       })
       .catch((err: any) => {

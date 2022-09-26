@@ -14,6 +14,9 @@ export const palette = {
   pointerGrey: '#E3E5E5',
   TextGrey: '#6C7072',
   ErrorRed: '#D22A0A',
+  buttonGrey: '#979C9E',
+  PracticeBlue: '#F2F4F5',
+  selectedBlue: '#E7E7FF',
 };
 
 const theme = createTheme({
@@ -37,6 +40,9 @@ const theme = createTheme({
     pointerFill: palette.pointerGrey,
     smallTextLogin: palette.TextGrey,
     errorColor: palette.ErrorRed,
+    buttonSetupGrey: palette.buttonGrey,
+    PracticAreaBg: palette.PracticeBlue,
+    SelectedPracticeAreaBg: palette.selectedBlue,
   },
   breakpoints: {
     phone: 0,
@@ -78,6 +84,12 @@ const theme = createTheme({
       fontSize: 16,
       lineHeight: 16,
       color: 'blueTitleText',
+    },
+    PersonalizationRegular: {
+      fontFamily: 'Inter-Regular',
+      fontSize: 16,
+      lineHeight: 24,
+      color: 'primaryTitleText',
     },
   },
   borderRadii: {

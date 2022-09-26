@@ -3,17 +3,20 @@ import {Alert, KeyboardAvoidingView, Pressable, StyleSheet} from 'react-native';
 import PrimaryButton from '../../components/PrimaryButton';
 import {Box, Text, TextInput} from '../../theme/theme';
 import auth from '@react-native-firebase/auth';
-import {useDispatch} from 'react-redux';
-import {changeAuthStatus} from '../../store/redux/AuthStatus';
+// import {useDispatch} from 'react-redux';
+// import {changeAuthStatus} from '../../store/redux/AuthStatus';
 import {EmailValidation} from '../../utils/regex';
 
-const EmailSignUp = () => {
+interface Props {
+  navigation: any;
+}
+const EmailSignUp = ({navigation}: Props) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const createAccount = () => {
     const emailIsValid = EmailValidation(email);
@@ -29,7 +32,8 @@ const EmailSignUp = () => {
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
           setIsLoading(false);
-          dispatch(changeAuthStatus(true));
+          // dispatch(changeAuthStatus(true));
+          navigation.navigate('SetupPersonalizationOne');
         })
         .catch(error => {
           setIsLoading(false);
