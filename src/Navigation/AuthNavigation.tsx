@@ -8,6 +8,8 @@ import EmailSignUp from '../screens/AuthScreens/EmailSignUp';
 import EmailSignIn from '../screens/AuthScreens/EmailSignIn';
 import SetupPersonalizationOne from '../screens/AuthScreens/SetupPersonalization1';
 import SetupPersonalizationTwo from '../screens/AuthScreens/SetupPersonalization2';
+import AddEmail from '../screens/AuthScreens/AddEmail';
+import SetupLocation from '../screens/AuthScreens/SetupLocation';
 // import LoginScreen from '../screens/LoginScreen';
 const Auth = createNativeStackNavigator();
 const AuthNavigation = () => {
@@ -72,6 +74,21 @@ const AuthNavigation = () => {
         component={SetupPersonalizationTwo}
         options={{
           headerShown: false,
+        }}
+      />
+      <Auth.Screen
+        name="AddEmail"
+        component={AddEmail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Auth.Screen
+        name="SetupLocation"
+        component={SetupLocation}
+        options={{
+          headerTitle: '',
+          headerTransparent: true,
         }}
       />
     </Auth.Navigator>

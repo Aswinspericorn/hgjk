@@ -46,9 +46,7 @@ const EmailSignUp = ({navigation}: Props) => {
             Alert.alert('That email address is invalid!');
             return;
           } else {
-            Alert.alert(
-              'Something went wrong, please check your internet connection',
-            );
+            Alert.alert('Try again later');
           }
           return;
         });

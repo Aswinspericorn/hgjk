@@ -24,7 +24,7 @@ const WalkThrough = ({navigation}: Props) => {
     // Get the users ID token
     try {
       const {idToken} = await GoogleSignin.signIn();
-      await GoogleSignin.signOut();
+      // await GoogleSignin.signOut();
       // Create a Google credential with the token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       await auth()
@@ -53,10 +53,8 @@ const WalkThrough = ({navigation}: Props) => {
       ]);
 
       if (result.isCancelled) {
-        // console.log('User cancelled the login process');
-        return;
+        Alert.alert('Something went wrong');
       }
-
       // Once signed in, get the users AccesToken
       const data = await AccessToken.getCurrentAccessToken();
 
@@ -84,7 +82,6 @@ const WalkThrough = ({navigation}: Props) => {
         });
     } catch (err) {
       setIsLoading(false);
-      console.log(err);
       Alert.alert('Something went wrong,check your internet connection');
       return;
     }

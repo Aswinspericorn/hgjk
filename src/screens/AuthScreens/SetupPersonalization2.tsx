@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {Questions} from '../../constants/QuestionsArray';
@@ -6,8 +7,24 @@ import {Box, Text, TouchableBox} from '../../theme/theme';
 
 interface Props {
   navigation: any;
+  route: any;
 }
-const SetupPersonalizationTwo = ({navigation}: Props) => {
+const SetupPersonalizationTwo = ({navigation, route}: Props) => {
+  const [selected, setSelected] = useState<string>('');
+  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+  const [selectedAnswers, setSelectedAnswers] = useState<Array<object>>([]);
+
+  const questionHandler = (opt: string, question: string) => {
+    if (Questions.length - 1 === currentQuestion) {
+      navigation.navigate('AddEmail', {
+        PArea: route.params,
+        QA: selectedAnswers,
+      });
+    }
+    setCurrentQuestion(prev => prev + 1);
+    setSelectedAnswers(prev => [...prev, {question: question, answer: opt}]);
+    setSelected(opt);
+  };
   return (
     <Box
       flex={1}
@@ -38,26 +55,26 @@ const SetupPersonalizationTwo = ({navigation}: Props) => {
           </Text>
         </Box>
         <Box flex={2} paddingTop="m">
-          {Questions.map((item, index) => (
-            <Box key={index}>
-              {item?.options.map((opt, indx) => (
-                <TouchableBox
-                  key={indx}
-                  onPress={() => {}}
-                  borderRadius="xl"
-                  height={48}
-                  justifyContent="center"
-                  backgroundColor="PracticAreaBg"
-                  marginVertical="xs">
-                  <Text
-                    variant="TextButtonTitle"
-                    textAlign="center"
-                    color="primaryTitleText">
-                    {opt}
-                  </Text>
-                </TouchableBox>
-              ))}
-            </Box>
+          {Questions[currentQuestion]?.options.map((opt, indx) => (
+            <TouchableBox
+              key={indx}
+              onPress={() =>
+                questionHandler(opt, Questions[currentQuestion].question)
+              }
+              borderRadius="xl"
+              height={48}
+              justifyContent="center"
+              backgroundColor={
+                opt === selected ? 'PracticAreaBg' : 'secondaryBackground'
+              }
+              marginVertical="xs">
+              <Text
+                variant="TextButtonTitle"
+                textAlign="center"
+                color="primaryTitleText">
+                {opt}
+              </Text>
+            </TouchableBox>
           ))}
         </Box>
       </Box>
@@ -66,10 +83,15 @@ const SetupPersonalizationTwo = ({navigation}: Props) => {
           start={{x: 1, y: 1}}
           end={{x: 0.6, y: 0}}
           colors={['#99b8ee', '#d4d9f4', '#d6b9e3', '#fbf4fa', '#fff']}
-          style={{flex: 1}}
+          style={styles.screen}
         />
       </Box>
     </Box>
   );
 };
 export default SetupPersonalizationTwo;
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
+});

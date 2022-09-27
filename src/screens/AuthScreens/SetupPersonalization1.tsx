@@ -69,8 +69,6 @@ const SetupPersonalizationOne = ({navigation}: Props) => {
       });
     }
   };
-
-  console.log(selected);
   return (
     <Box
       flex={1}
@@ -97,7 +95,6 @@ const SetupPersonalizationOne = ({navigation}: Props) => {
             <TouchableBox
               key={index}
               onPress={() => {
-                item.isSelected = !item.isSelected;
                 checkItem(item);
               }}
               borderRadius="xs"

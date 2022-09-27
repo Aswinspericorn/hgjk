@@ -44,13 +44,15 @@ export const PracticeArea = [
 // eslint-disable-next-line no-sparse-arrays
 export const Questions = [
   {
-    questions: ' We will recommend diets and exercises that suit you',
+    question: ' We will recommend diets and exercises that suit you',
     options: [
       'Lose weight and increase stamina',
       'Maintain weight for health',
       'Gain weight for building muscle',
     ],
   },
-
-  ,
+  {
+    question: 'How long have you been practicing yoga? ',
+    options: ['Beginner', 'Trained', 'Professional'],
+  },
 ];

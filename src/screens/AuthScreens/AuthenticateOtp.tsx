@@ -9,9 +9,10 @@ import RNOtpVerify from 'react-native-otp-verify';
 import PrimaryButton from '../../components/PrimaryButton';
 
 interface Props {
+  navigation: any;
   route: any;
 }
-const AuthenticateOtp = ({navigation, route}: Props) => {
+const AuthenticateOtp = ({route}: Props) => {
   const [code, setCode] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const AuthData = route.params;
@@ -26,7 +27,9 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
 
     RNOtpVerify.getOtp()
       .then(() => RNOtpVerify.addListener(otpHandler))
-      .catch();
+      .catch(() => {
+        return;
+      });
   }, []);
 
   const otpHandler = (message: string) => {
@@ -41,13 +44,13 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
     setCode(otp);
     RNOtpVerify.removeListener();
   };
-
   function onAuthStateChanged(userr: any) {
     if (userr) {
-      // dispatch(changeAuthStatus(true));
-      navigation.navigate('SetupPersonalizationOne');
+      dispatch(changeAuthStatus(true));
+      // navigation.navigate('SetupPersonalizationOne');
     }
   }
+
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
@@ -59,8 +62,14 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
       .confirm(code)
       .then(() => {
         setIsLoading(false);
-        // dispatch(changeAuthStatus(true));
-        navigation.navigate('SetupPersonalizationOne');
+        dispatch(changeAuthStatus(true));
+        //if email exits redirect to home
+        // if (auth().currentUser?.email) {
+        //   dispatch(changeAuthStatus(true));
+        // } else {
+        //   //if email not exits add setup
+        //   navigation.navigate('SetupPersonalizationOne');
+        // }
         setIsLoading(false);
       })
       .catch((err: any) => {
