@@ -21,6 +21,7 @@ export const palette = {
 
 const theme = createTheme({
   spacing: {
+    xxs: 2,
     xs: 8,
     s: 16,
     m: 24,
@@ -97,7 +98,7 @@ const theme = createTheme({
     xs: 8,
     s: 16,
     m: 24,
-    l: 36,
+    l: 32,
     xl: 48,
     xxl: 54,
     xxxl: 62,

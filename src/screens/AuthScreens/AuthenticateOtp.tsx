@@ -4,6 +4,7 @@ import {Alert, LogBox, StyleSheet} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Box, Text} from '../../theme/theme';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 import {changeAuthStatus} from '../../store/redux/AuthStatus';
 import RNOtpVerify from 'react-native-otp-verify';
 import PrimaryButton from '../../components/PrimaryButton';
@@ -12,7 +13,7 @@ interface Props {
   navigation: any;
   route: any;
 }
-const AuthenticateOtp = ({route}: Props) => {
+const AuthenticateOtp = ({navigation, route}: Props) => {
   const [code, setCode] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const AuthData = route.params;
@@ -44,32 +45,39 @@ const AuthenticateOtp = ({route}: Props) => {
     setCode(otp);
     RNOtpVerify.removeListener();
   };
+
   function onAuthStateChanged(userr: any) {
     if (userr) {
-      dispatch(changeAuthStatus(true));
-      // navigation.navigate('SetupPersonalizationOne');
+      checkIsNewUser();
     }
   }
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  const checkIsNewUser = () => {
+    const userId = auth().currentUser?.uid;
+    const userRef = database()
+      .ref(`/user/${userId}`)
+      .once('value', snapshot => {
+        if (snapshot.val() === null) {
+          navigation.navigate('SetupPersonalizationOne');
+        } else {
+          dispatch(changeAuthStatus(true));
+        }
+      });
+    return userRef;
+  };
   async function confirmCode() {
     setIsLoading(true);
     await AuthData.data
       .confirm(code)
       .then(() => {
         setIsLoading(false);
-        dispatch(changeAuthStatus(true));
-        //if email exits redirect to home
-        // if (auth().currentUser?.email) {
-        //   dispatch(changeAuthStatus(true));
-        // } else {
-        //   //if email not exits add setup
-        //   navigation.navigate('SetupPersonalizationOne');
-        // }
+        checkIsNewUser();
         setIsLoading(false);
       })
       .catch((err: any) => {

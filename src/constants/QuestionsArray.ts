@@ -55,4 +55,36 @@ export const Questions = [
     question: 'How long have you been practicing yoga? ',
     options: ['Beginner', 'Trained', 'Professional'],
   },
+  {
+    question: ' We will recommend diets and exercises that suit you',
+    options: [
+      'Lose weight and increase stamina',
+      'Maintain weight for health',
+      'Gain weight for building muscle',
+    ],
+  },
+  {
+    question: 'Have you tried yoga? ',
+    options: ['Yes', 'No'],
+  },
+  {
+    question: 'Howmany hours daily do you wish to practice',
+    options: ['0.5', '1', 'More'],
+  },
+  {
+    question: 'How long have you been practicing yoga? ',
+    options: ['Beginner', 'Trained', 'Professional'],
+  },
+  {
+    question: ' We will recommend diets and exercises that suit you',
+    options: [
+      'Lose weight and increase stamina',
+      'Maintain weight for health',
+      'Gain weight for building muscle',
+    ],
+  },
+  {
+    question: 'Do you have any physical problem ? ',
+    options: ['Yes', 'No'],
+  },
 ];

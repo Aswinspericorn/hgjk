@@ -15,13 +15,15 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
   const [selectedAnswers, setSelectedAnswers] = useState<Array<object>>([]);
 
   const questionHandler = (opt: string, question: string) => {
-    if (Questions.length - 1 === currentQuestion) {
+    const tempData = currentQuestion + 1;
+    setCurrentQuestion(tempData);
+    if (tempData > Questions.length - 1) {
       navigation.navigate('AddEmail', {
         PArea: route.params,
         QA: selectedAnswers,
       });
+      setCurrentQuestion(0);
     }
-    setCurrentQuestion(prev => prev + 1);
     setSelectedAnswers(prev => [...prev, {question: question, answer: opt}]);
     setSelected(opt);
   };
@@ -38,7 +40,7 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
           backgroundColor="pointerFill"
           borderRadius="s">
           <Box
-            width={'10%'}
+            width={`${((currentQuestion + 1) / Questions.length) * 100}%`}
             height={'100%'}
             backgroundColor="blueTitleText"
             borderRadius="s"
@@ -51,7 +53,7 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
         </Box>
         <Box alignItems="flex-start">
           <Text variant="PersonalizationRegular" textAlign="left">
-            We will recommend diets and exercises {'\n'}that suit you
+            {Questions[currentQuestion]?.question}
           </Text>
         </Box>
         <Box flex={2} paddingTop="m">

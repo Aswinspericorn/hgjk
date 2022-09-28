@@ -43,7 +43,10 @@ const SetupPersonalizationOne = ({navigation}: Props) => {
       headerTransparent: true,
       headerTitleAlign: 'center',
       headerRight: () => (
-        <TouchableBox>
+        <TouchableBox
+          onPress={() =>
+            navigation.navigate('SetupPersonalizationTwo', selected)
+          }>
           <Text
             variant="interMedium"
             fontSize={18}
@@ -56,13 +59,15 @@ const SetupPersonalizationOne = ({navigation}: Props) => {
     });
   });
 
-  const checkItem = (data: object) => {
+  const checkItem = (data: any) => {
     if (data.name == 'None') {
       setSelected([]);
       return;
     }
     if (selected.includes(data)) {
-      setSelected(current => current.filter(item => item.name !== data.name));
+      setSelected(current =>
+        current.filter((item: any) => item.name !== data.name),
+      );
     } else {
       setSelected(prev => {
         return [...prev, data];
@@ -90,7 +95,9 @@ const SetupPersonalizationOne = ({navigation}: Props) => {
         </Box>
       </Box>
       <Box flex={4}>
-        <ScrollView alwaysBounceVertical={false}>
+        <ScrollView
+          alwaysBounceVertical={false}
+          showsVerticalScrollIndicator={false}>
           {PracticeArea.map((item, index) => (
             <TouchableBox
               key={index}
