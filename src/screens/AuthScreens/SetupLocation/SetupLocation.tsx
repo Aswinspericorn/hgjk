@@ -1,14 +1,14 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {Box, Text} from '../../theme/theme';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-import {API_KEY} from '../../constants/confiq';
-import Lens from '../../assets/icons/Svg/Vector.svg';
-import Marker from '../../assets/icons/Svg/Avatar.svg';
+import Lens from '../../../assets/icons/Svg/Vector.svg';
+import Marker from '../../../assets/icons/Svg/Avatar.svg';
 import database from '@react-native-firebase/database';
-import {changeAuthStatus} from '../../store/redux/AuthStatus';
 import auth from '@react-native-firebase/auth';
 import {Alert} from 'react-native';
+import {changeAuthStatus} from '../../../store/redux/AuthStatus';
+import {Box, Text} from '../../../theme/theme';
+import {API_KEY} from '../../../constants/confiq';
 
 interface Props {
   navigation: any;

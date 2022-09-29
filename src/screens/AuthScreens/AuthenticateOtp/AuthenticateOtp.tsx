@@ -2,16 +2,24 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {Alert, LogBox, StyleSheet} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
-import {Box, Text} from '../../theme/theme';
+import {Box, Text} from '../../../theme/theme';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {changeAuthStatus} from '../../store/redux/AuthStatus';
+import {changeAuthStatus} from '../../../store/redux/AuthStatus';
 import RNOtpVerify from 'react-native-otp-verify';
-import PrimaryButton from '../../components/PrimaryButton';
+import PrimaryButton from '../../../components/PrimaryButton';
 
+interface AuthProps {
+  data: {
+    confirm: (a: string) => any;
+  };
+  phno: string;
+}
 interface Props {
   navigation: any;
-  route: any;
+  route: {
+    params: AuthProps;
+  };
 }
 const AuthenticateOtp = ({navigation, route}: Props) => {
   const [code, setCode] = useState<string>('');

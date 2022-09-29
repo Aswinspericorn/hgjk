@@ -1,6 +1,6 @@
 import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
-import {Box, Text, TouchableBox} from '../../theme/theme';
+import {Box, Text, TouchableBox} from '../../../theme/theme';
 interface Props {
   navigation: any;
 }
@@ -26,7 +26,7 @@ export const GetStarted = ({navigation}: Props) => {
       </Box>
       <Box flex={3}>
         <ImageBackground
-          source={require('../../assets/images/getStarted.png')}
+          source={require('../../../assets/images/getStarted.png')}
           style={styles.background}>
           <TouchableBox
             justifyContent="center"

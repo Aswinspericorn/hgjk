@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import {Box, Text, TextInput, TouchableBox} from '../../theme/theme';
-import PrimaryButton from '../../components/PrimaryButton';
+import {Box, Text, TextInput, TouchableBox} from '../../../theme/theme';
+import PrimaryButton from '../../../components/PrimaryButton';
 import {Alert, Pressable, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-import Arrow from '../../assets/icons/Svg/downArrow.svg';
-import Flag from '../../assets/icons/Svg/indian.svg';
+import Arrow from '../../../assets/icons/Svg/downArrow.svg';
+import Flag from '../../../assets/icons/Svg/indian.svg';
 
 interface Props {
   navigation: any;

@@ -1,16 +1,15 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import GetStarted from '../screens/AuthScreens/GetStarted';
-import WalkThrough from '../screens/AuthScreens/WalkThrough';
-import LoginMobile from '../screens/AuthScreens/LoginMobile';
-import AuthenticateOtp from '../screens/AuthScreens/AuthenticateOtp';
+import GetStarted from '../screens/AuthScreens/GetStarted/GetStarted';
+import WalkThrough from '../screens/AuthScreens/WalkThrough/WalkThrough';
+import LoginMobile from '../screens/AuthScreens/LoginMobile/LoginMobile';
+import AuthenticateOtp from '../screens/AuthScreens/AuthenticateOtp/AuthenticateOtp';
 import EmailSignUp from '../screens/AuthScreens/EmailSignUp';
 import EmailSignIn from '../screens/AuthScreens/EmailSignIn';
-import SetupPersonalizationOne from '../screens/AuthScreens/SetupPersonalization1';
-import SetupPersonalizationTwo from '../screens/AuthScreens/SetupPersonalization2';
-import AddEmail from '../screens/AuthScreens/AddEmail';
-import SetupLocation from '../screens/AuthScreens/SetupLocation';
-// import LoginScreen from '../screens/LoginScreen';
+import SetupPersonalizationOne from '../screens/AuthScreens/SetupPersonalizaionOne/SetupPersonalization1';
+import SetupPersonalizationTwo from '../screens/AuthScreens/SetupPersonalizatioTwo/SetupPersonalization2';
+import AddEmail from '../screens/AuthScreens/AddEmailAndPhone/AddEmail';
+import SetupLocation from '../screens/AuthScreens/SetupLocation/SetupLocation';
 const Auth = createNativeStackNavigator();
 const AuthNavigation = () => {
   return (

@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {Alert, Image, Pressable, StyleSheet} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {Box, Text, TouchableBox} from '../../theme/theme';
-import Facebook from '../../assets/icons/Svg/facebook.svg';
+import {Box, Text, TouchableBox} from '../../../theme/theme';
+import Facebook from '../../../assets/icons/Svg/facebook.svg';
 import {LoginManager, AccessToken, Settings} from 'react-native-fbsdk-next';
-import Google from '../../assets/icons/Svg/google.svg';
+import Google from '../../../assets/icons/Svg/google.svg';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 
-import {changeAuthStatus} from '../../store/redux/AuthStatus';
+import {changeAuthStatus} from '../../../store/redux/AuthStatus';
 interface Props {
   navigation: any;
 }
@@ -109,7 +109,7 @@ const WalkThrough = ({navigation}: Props) => {
         paddingHorizontal="m"
         paddingVertical="s">
         <Image
-          source={require('../../assets/images/youlearn.png')}
+          source={require('../../../assets/images/youlearn.png')}
           style={styles.image}
         />
       </Box>

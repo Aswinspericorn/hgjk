@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {Questions} from '../../constants/QuestionsArray';
-import {Box, Text, TouchableBox} from '../../theme/theme';
+import {Questions} from '../../../constants/QuestionsArray';
+import {Box, Text, TouchableBox} from '../../../theme/theme';
 
 interface Props {
   navigation: any;
@@ -57,27 +57,29 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
           </Text>
         </Box>
         <Box flex={2} paddingTop="m">
-          {Questions[currentQuestion]?.options.map((opt, indx) => (
-            <TouchableBox
-              key={indx}
-              onPress={() =>
-                questionHandler(opt, Questions[currentQuestion].question)
-              }
-              borderRadius="xl"
-              height={48}
-              justifyContent="center"
-              backgroundColor={
-                opt === selected ? 'PracticAreaBg' : 'secondaryBackground'
-              }
-              marginVertical="xs">
-              <Text
-                variant="TextButtonTitle"
-                textAlign="center"
-                color="primaryTitleText">
-                {opt}
-              </Text>
-            </TouchableBox>
-          ))}
+          {Questions[currentQuestion]?.options.map(
+            (opt: string, indx: number) => (
+              <TouchableBox
+                key={indx}
+                onPress={() =>
+                  questionHandler(opt, Questions[currentQuestion].question)
+                }
+                borderRadius="xl"
+                height={48}
+                justifyContent="center"
+                backgroundColor={
+                  opt === selected ? 'PracticAreaBg' : 'secondaryBackground'
+                }
+                marginVertical="xs">
+                <Text
+                  variant="TextButtonTitle"
+                  textAlign="center"
+                  color="primaryTitleText">
+                  {opt}
+                </Text>
+              </TouchableBox>
+            ),
+          )}
         </Box>
       </Box>
       <Box justifyContent="flex-end" flex={2}>

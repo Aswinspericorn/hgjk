@@ -9,11 +9,15 @@ interface Props {
 }
 const HomeTile = ({image, title, describe}: Props) => {
   return (
-    <Box flex={1} flexDirection="row" marginVertical="xs">
+    <Box
+      flex={1}
+      flexDirection="row"
+      marginVertical="xs"
+      style={styles.container}>
       <Box width={'20%'}>
         <Image source={image} style={styles.Image} />
       </Box>
-      <Box paddingHorizontal="xs">
+      <Box paddingHorizontal="m" justifyContent="space-between">
         <Text
           variant="buttonTitle"
           fontSize={14}
@@ -30,6 +34,9 @@ const HomeTile = ({image, title, describe}: Props) => {
 };
 export default HomeTile;
 const styles = StyleSheet.create({
+  container: {
+    height: 65,
+  },
   Image: {
     width: '100%',
     height: '100%',

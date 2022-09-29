@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
-import PrimaryButton from '../../components/PrimaryButton';
-import {PracticeArea} from '../../constants/QuestionsArray';
-import {Box, Text, TouchableBox} from '../../theme/theme';
+import PrimaryButton from '../../../components/PrimaryButton';
+import {PracticeArea} from '../../../constants/QuestionsArray';
+import {Box, Text, TouchableBox} from '../../../theme/theme';
 
 interface Props {
   navigation: any;
@@ -98,7 +98,7 @@ const SetupPersonalizationOne = ({navigation}: Props) => {
         <ScrollView
           alwaysBounceVertical={false}
           showsVerticalScrollIndicator={false}>
-          {PracticeArea.map((item, index) => (
+          {PracticeArea.map((item: {name: string}, index: number) => (
             <TouchableBox
               key={index}
               onPress={() => {
