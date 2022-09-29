@@ -23,7 +23,6 @@ const SigninAccountHelper = ({
   isLoading,
   setSucces,
 }: Props) => {
-  console.log(email, password,"hjghghjgjh");
   const emailIsValid = EmailValidation(email);
   if (!emailIsValid) {
     emailError(true);

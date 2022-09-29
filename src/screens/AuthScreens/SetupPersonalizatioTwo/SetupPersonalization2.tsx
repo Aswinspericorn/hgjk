@@ -31,8 +31,6 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
     setSelectedAnswers(prev => [...prev, {[question]: opt}]);
     setSelected(opt);
   };
-  console.log(selectedAnswers)
-
   const desideField = () => {
     let x = Questions[currentQuestion].type;
     switch (x) {
