@@ -12,7 +12,7 @@ const HomeTile = ({image, title, describe}: Props) => {
     <Box
       flex={1}
       flexDirection="row"
-      marginVertical="xs"
+      marginVertical="xss"
       style={styles.container}>
       <Box width={'20%'}>
         <Image source={image} style={styles.Image} />

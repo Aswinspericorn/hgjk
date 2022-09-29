@@ -56,14 +56,6 @@ export const Questions = [
     options: ['Beginner', 'Trained', 'Professional'],
   },
   {
-    question: ' We will recommend diets and exercises that suit you',
-    options: [
-      'Lose weight and increase stamina',
-      'Maintain weight for health',
-      'Gain weight for building muscle',
-    ],
-  },
-  {
     question: 'Have you tried yoga? ',
     options: ['Yes', 'No'],
   },
@@ -76,15 +68,19 @@ export const Questions = [
     options: ['Beginner', 'Trained', 'Professional'],
   },
   {
-    question: ' We will recommend diets and exercises that suit you',
-    options: [
-      'Lose weight and increase stamina',
-      'Maintain weight for health',
-      'Gain weight for building muscle',
-    ],
+    question: 'what is your genter? ',
+    options: ['Male', 'Female', 'other'],
   },
   {
-    question: 'Do you have any physical problem ? ',
-    options: ['Yes', 'No'],
+    question: 'Enter your full name',
+    type: 'name',
+  },
+  {
+    question: 'Enter your Age',
+    type: 'age',
+  },
+  {
+    question: 'Upload your photo',
+    type: 'photo',
   },
 ];

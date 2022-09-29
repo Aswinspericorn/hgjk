@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeMain from '../screens/HomeScreens/HomeMain/HomeMain';
-import Person from '../assets/icons/Svg/person.svg';
-import Home from '../assets/icons/Svg/home.svg';
-import Bell from '../assets/icons/Svg/bell.svg';
-import Love from '../assets/icons/Svg/love.svg';
+import HomeMain from '../screens/HomeScreens/HomeMain/components/HomeMain';
+import {Bell, Home, Love, Person} from '../assets/icons/Svg/Icons';
 const Tab = createBottomTabNavigator();
 
 export const HomeBottomNaviation = () => {
@@ -13,7 +10,6 @@ export const HomeBottomNaviation = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarActiveBackgroundColor: '#E6B056',
       }}>
       <Tab.Screen
         name="Home2"
@@ -50,9 +46,7 @@ export const HomeBottomNaviation = () => {
         component={HomeMain}
         options={{
           headerShown: false,
-          tabBarIcon: ({color}) => (
-            <Person width={24} height={24} color={color} />
-          ),
+          tabBarIcon: ({color}) => <Person color={color} />,
         }}
       />
     </Tab.Navigator>

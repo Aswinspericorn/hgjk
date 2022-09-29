@@ -4,6 +4,10 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {Questions} from '../../../constants/QuestionsArray';
 import {Box, Text, TouchableBox} from '../../../theme/theme';
+import GradientBottom from './components/GradientBottom';
+import InputTextField from './components/InputTextField';
+import OptionalQuestion from './components/OptinalQuestions';
+import UserImagePicker from './components/UserImagePicker';
 
 interface Props {
   navigation: any;
@@ -24,16 +28,30 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
       });
       setCurrentQuestion(0);
     }
-    setSelectedAnswers(prev => [...prev, {question: question, answer: opt}]);
+    setSelectedAnswers(prev => [...prev, {[question]: opt}]);
     setSelected(opt);
   };
+  console.log(selectedAnswers)
+
+  const desideField = () => {
+    let x = Questions[currentQuestion].type;
+    switch (x) {
+      case 'name':
+        return <InputTextField type="name" onPress={questionHandler} />;
+      case 'age':
+        return <InputTextField type="age" onPress={questionHandler} />;
+      case 'photo':
+        return <UserImagePicker onPress={questionHandler} />;
+    }
+  };
+
   return (
     <Box
       flex={1}
       backgroundColor="secondaryBackground"
       justifyContent="space-between"
       paddingTop="xl">
-      <Box flex={2} paddingTop="xs" paddingHorizontal="m">
+      <Box flex={3} paddingTop="xs" paddingHorizontal="m">
         <Box
           width={'90%'}
           height={4}
@@ -56,46 +74,20 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
             {Questions[currentQuestion]?.question}
           </Text>
         </Box>
-        <Box flex={2} paddingTop="m">
-          {Questions[currentQuestion]?.options.map(
-            (opt: string, indx: number) => (
-              <TouchableBox
-                key={indx}
-                onPress={() =>
-                  questionHandler(opt, Questions[currentQuestion].question)
-                }
-                borderRadius="xl"
-                height={48}
-                justifyContent="center"
-                backgroundColor={
-                  opt === selected ? 'PracticAreaBg' : 'secondaryBackground'
-                }
-                marginVertical="xs">
-                <Text
-                  variant="TextButtonTitle"
-                  textAlign="center"
-                  color="primaryTitleText">
-                  {opt}
-                </Text>
-              </TouchableBox>
-            ),
+        <Box flex={4} paddingTop="m">
+          {Questions[currentQuestion].options ? (
+            <OptionalQuestion
+              selected={selected}
+              questionHandler={questionHandler}
+              currentQuestion={currentQuestion}
+            />
+          ) : (
+            <Box flex={1}>{desideField()}</Box>
           )}
         </Box>
       </Box>
-      <Box justifyContent="flex-end" flex={2}>
-        <LinearGradient
-          start={{x: 1, y: 1}}
-          end={{x: 0.6, y: 0}}
-          colors={['#99b8ee', '#d4d9f4', '#d6b9e3', '#fbf4fa', '#fff']}
-          style={styles.screen}
-        />
-      </Box>
+      <GradientBottom />
     </Box>
   );
 };
 export default SetupPersonalizationTwo;
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
-});
