@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DetailNews from '../screens/HomeScreens/DetailNews.tsx/components/DetailNews';
-import HomeMain from '../screens/HomeScreens/HomeMain/components/HomeMain';
+import {HomeBottomNaviation} from './HomeBottomNavigation';
 const Stack = createNativeStackNavigator();
 
 const HomeNativeStackNavigation = () => {
@@ -9,16 +9,17 @@ const HomeNativeStackNavigation = () => {
     <Stack.Navigator>
       <Stack.Screen
         name="Homemain"
-        component={HomeMain}
+        component={HomeBottomNaviation}
         options={{
           headerShown: false,
+          headerTransparent: true,
         }}
       />
       <Stack.Screen
         name="DetailNews"
         component={DetailNews}
         options={{
-          headerShown: false,
+          title: '',
         }}
       />
     </Stack.Navigator>

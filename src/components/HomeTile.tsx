@@ -8,15 +8,10 @@ interface Props {
   describe: string;
 }
 const HomeTile = ({image, title, describe}: Props) => {
-  console.log(image)
   return (
-    <Box
-      flex={1}
-      flexDirection="row"
-      marginVertical="xss"
-      style={styles.container}>
+    <Box flexDirection="row" marginVertical="xss" style={styles.container}>
       <Box width={'20%'}>
-        <Image source={{uri:image}} style={styles.Image} />
+        <Image source={{uri: image}} style={styles.Image} />
       </Box>
       <Box paddingHorizontal="m" justifyContent="space-between">
         <Text

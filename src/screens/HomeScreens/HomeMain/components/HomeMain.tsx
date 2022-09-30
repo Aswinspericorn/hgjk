@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box} from '../../../../theme/theme';
 import {ScrollView, StyleSheet} from 'react-native';
 import Banner from './Banner';
@@ -10,6 +10,7 @@ interface Props {
 }
 const HomeMain = ({}: Props) => {
   const [currentTopic, setCurrentTopic] = useState<number>(0);
+
   return (
     <Box flex={1} backgroundColor="secondaryBackground" paddingTop="xs">
       <ScrollView

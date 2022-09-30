@@ -1,6 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeBottomNaviation} from './HomeBottomNavigation';
+import HomeNativeStackNavigation from './HomeNativeStackNavigation';
 
 const Stack = createNativeStackNavigator();
 
@@ -8,8 +8,8 @@ const StackNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="HomeBottom"
-        component={HomeBottomNaviation}
+        name="Home"
+        component={HomeNativeStackNavigation}
         options={{
           headerShown: false,
         }}

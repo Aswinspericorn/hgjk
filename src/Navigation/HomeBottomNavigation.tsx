@@ -1,7 +1,8 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Bell, Home, Love, Person} from '../assets/icons/Svg/Icons';
-import HomeNativeStackNavigation from './HomeNativeStackNavigation';
+import HomeMain from '../screens/HomeScreens/HomeMain/components/HomeMain';
+import FavouriteNews from '../screens/HomeScreens/FavouriteNews/components/FavouriteNews';
 const Tab = createBottomTabNavigator();
 
 export const HomeBottomNaviation = () => {
@@ -12,15 +13,15 @@ export const HomeBottomNaviation = () => {
       }}>
       <Tab.Screen
         name="Home2"
-        component={HomeNativeStackNavigation}
+        component={HomeMain}
         options={{
           headerShown: false,
           tabBarIcon: ({color}) => <Home color={color} />,
         }}
       />
       <Tab.Screen
-        name="Home3"
-        component={HomeNativeStackNavigation}
+        name="favouriteMain"
+        component={FavouriteNews}
         options={{
           headerShown: false,
           tabBarIcon: ({color}) => <Love color={color} />,
@@ -28,15 +29,15 @@ export const HomeBottomNaviation = () => {
       />
       <Tab.Screen
         name="Home4"
-        component={HomeNativeStackNavigation}
+        component={HomeMain}
         options={{
           headerShown: false,
           tabBarIcon: ({color}) => <Bell color={color} />,
         }}
       />
       <Tab.Screen
-        name="Home"
-        component={HomeNativeStackNavigation}
+        name="Home1"
+        component={HomeMain}
         options={{
           headerShown: false,
           tabBarIcon: ({color}) => <Person color={color} />,

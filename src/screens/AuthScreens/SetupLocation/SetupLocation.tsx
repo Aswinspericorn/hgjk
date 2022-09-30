@@ -3,13 +3,12 @@ import {useDispatch} from 'react-redux';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Lens from '../../../assets/icons/Svg/Vector.svg';
 import Marker from '../../../assets/icons/Svg/Avatar.svg';
-import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import {Alert} from 'react-native';
 import {changeAuthStatus} from '../../../store/redux/AuthStatus';
 import {Box, Text} from '../../../theme/theme';
 import {API_KEY} from '../../../constants/confiq';
-import {HomePageDetailsArray} from '../../../constants/HomePageDetailsArray';
+import firestore from '@react-native-firebase/firestore';
 
 interface Props {
   navigation: any;
@@ -18,7 +17,7 @@ interface Props {
 const SetupLocation = ({route}: Props) => {
   const dispatch = useDispatch();
 
-  const SubmitHandler = (location: any) => {
+  const SubmitHandler = async (location: any) => {
     try {
       let key = auth().currentUser?.uid;
       let dataToSave = {
@@ -26,13 +25,16 @@ const SetupLocation = ({route}: Props) => {
         location: location,
         ...route.params,
       };
-      database()
-        .ref('user/' + key)
-        .update(dataToSave)
+      firestore()
+        .collection('user')
+        .doc(key)
+        .set(dataToSave)
         .then(() => {
           dispatch(changeAuthStatus(true));
         })
-        .catch(() => Alert.alert('Try again later'));
+        .catch(() => {
+          Alert.alert('Try again later');
+        });
     } catch (err) {
       console.log(err);
       return;

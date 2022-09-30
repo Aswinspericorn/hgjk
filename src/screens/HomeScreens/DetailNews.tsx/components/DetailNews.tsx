@@ -1,27 +1,49 @@
-import React from 'react';
-import {Image, ScrollView} from 'react-native';
-import {Box, Text} from '../../../../theme/theme';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {Image, ScrollView, StyleSheet} from 'react-native';
+import {Love} from '../../../../assets/icons/Svg/Icons';
+import {userFavouritesUpdate} from '../../../../helper/Firebase.helper';
+import {Box, Text, TouchableBox} from '../../../../theme/theme';
 
-const DetailNews = ({route}) => {
+interface Props {
+  route: any;
+}
+const DetailNews = ({route}: Props) => {
+  const [favourite, setFavourite] = useState<boolean>(false);
+  const nav = useNavigation();
   const data = route.params;
+
+  const favouriteHandler = () => {
+    setFavourite(prev => !prev);
+    userFavouritesUpdate(data);
+  };
+  useEffect(() => {
+    nav.setOptions({
+      headerRight: () => (
+        <TouchableBox onPress={favouriteHandler}>
+          <Love color="#E3E5E5" fill={favourite ? 'red' : 'none'} />
+        </TouchableBox>
+      ),
+    });
+  });
   return (
-    <Box
-      flex={1}
-      backgroundColor="secondaryBackground"
-      paddingTop="l"
-      paddingHorizontal="m">
-      <Box paddingTop="l">
-        <Text variant="TextButtonTitle">My item</Text>
+    <Box flex={1} backgroundColor="secondaryBackground" paddingHorizontal="m">
+      <Box paddingBottom="m">
+        <Text variant="body" fontSize={14} lineHeight={20}>
+          NY TIMES
+        </Text>
       </Box>
       <Box>
-        <ScrollView>
+        <ScrollView
+          alwaysBounceVertical={false}
+          showsVerticalScrollIndicator={false}>
           <Box>
-            <Box>
-              <Text variant="header" fontSize={25}>
+            <Box paddingBottom="m">
+              <Text variant="header" fontSize={26}>
                 {data.title}
               </Text>
             </Box>
-            <Box>
+            <Box paddingBottom="m">
               <Text
                 variant="PersonalizationRegular"
                 fontSize={14}
@@ -31,24 +53,12 @@ const DetailNews = ({route}) => {
             </Box>
           </Box>
           <Box>
-            <Box>
-              <Image
-                source={{uri: data.image}}
-                style={{height: 200, width: '100%'}}
-              />
+            <Box paddingBottom="m">
+              <Image source={{uri: data.image}} style={styles.image} />
             </Box>
             <Box>
-              <Text variant="TextButtonTitle">
-                A day after the Centers for Disease Control and Prevention urged
-                Americans to stay home for Thanksgiving, more than one million
-                people in the United States got on planes, marking the second
-                day that more than a million people have flown since March.
-                {'\n'}
-                {'\n'}
-                Nearly three million additional people have flown in the days
-                since. The high number of travelers speaks to a sense of
-                pandemic fatigue that many people are experiencing. For some,
-                the
+              <Text variant="TextButtonTitle" lineHeight={24}>
+                {data.detailed}
               </Text>
             </Box>
           </Box>
@@ -58,3 +68,6 @@ const DetailNews = ({route}) => {
   );
 };
 export default DetailNews;
+const styles = StyleSheet.create({
+  image: {height: 200, width: '100%'},
+});

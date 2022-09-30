@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {currentDate} from '../../../../utils/dates';
 import auth from '@react-native-firebase/auth';
-import database from '@react-native-firebase/database';
+import firestore from '@react-native-firebase/firestore';
 import {Image, StyleSheet} from 'react-native';
 import {weatherImagesObj} from '../../../../constants/weatherImagesObj';
 import {useNavigation} from '@react-navigation/native';
@@ -12,7 +12,7 @@ const Banner = () => {
     lat: '',
     lng: '',
   });
-  const [temaparature, setTemparature] = useState<{temp: string; icon: string}>(
+  const [temparature, setTemparature] = useState<{temp: string; icon: string}>(
     {temp: '24', icon: '01d'},
   );
 
@@ -20,10 +20,15 @@ const Banner = () => {
   const userId = auth().currentUser?.uid;
 
   useEffect(() => {
-    database()
-      .ref(`/user/${userId}`)
-      .once('value', snapshot => {
-        setLocation(snapshot.val()?.location.location);
+    function getLocation(documentSnapshot: any) {
+      return documentSnapshot.get('location.location');
+    }
+    firestore()
+      .collection('user')
+      .doc(userId)
+      .get().then((documentSnapshot: any) => getLocation(documentSnapshot))
+      .then((data: React.SetStateAction<{lat: string; lng: string}>) => {
+        setLocation(data);
       })
       .then(() => {
         if (location?.lat && location?.lng) {
@@ -37,7 +42,8 @@ const Banner = () => {
     )
       .then(res => res.json())
       .then(data => {
-        const temp = (data.main.temp - 273.15).toFixed(0);
+        const temp = (data?.main?.temp - 273.15).toFixed(0);
+        console.log(data.weather[0].icon)
         setTemparature({
           temp: temp,
           icon: weatherImagesObj[data?.weather[0]?.icon],
@@ -66,11 +72,11 @@ const Banner = () => {
       </Box>
       <Box flex={1} alignItems="flex-end" paddingTop="s">
         <Box>
-          <Image source={temaparature?.icon} style={styles.icon} />
+          <Image source={temparature?.icon} style={styles.icon} />
         </Box>
         <Box justifyContent="center" paddingTop="xs">
           <Text variant="buttonTitle" fontSize={14} lineHeight={14}>
-            {temaparature.temp}°C
+            {temparature.temp}°C
           </Text>
         </Box>
       </Box>
