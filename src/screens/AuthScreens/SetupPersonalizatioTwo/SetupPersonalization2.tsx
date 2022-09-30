@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-
 import {Questions} from '../../../constants/QuestionsArray';
-import {Box, Text, TouchableBox} from '../../../theme/theme';
+import {Box, Text} from '../../../theme/theme';
 import GradientBottom from './components/GradientBottom';
 import InputTextField from './components/InputTextField';
 import OptionalQuestion from './components/OptinalQuestions';
@@ -49,7 +46,7 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
       backgroundColor="secondaryBackground"
       justifyContent="space-between"
       paddingTop="xl">
-      <Box flex={3} paddingTop="xs" paddingHorizontal="m">
+      <Box flex={3.5} paddingTop="xs" paddingHorizontal="m">
         <Box
           width={'90%'}
           height={4}

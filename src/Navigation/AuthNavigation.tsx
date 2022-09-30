@@ -15,13 +15,6 @@ const AuthNavigation = () => {
   return (
     <Auth.Navigator>
       <Auth.Screen
-        name="SetupPersonalizationTwo"
-        component={SetupPersonalizationTwo}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Auth.Screen
         name="GetStarted"
         component={GetStarted}
         options={{
@@ -74,6 +67,13 @@ const AuthNavigation = () => {
       <Auth.Screen
         name="SetupPersonalizationOne"
         component={SetupPersonalizationOne}
+      />
+      <Auth.Screen
+        name="SetupPersonalizationTwo"
+        component={SetupPersonalizationTwo}
+        options={{
+          headerShown: false,
+        }}
       />
       <Auth.Screen
         name="AddEmail"

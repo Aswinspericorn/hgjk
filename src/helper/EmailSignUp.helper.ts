@@ -6,8 +6,7 @@ import {Dispatch, SetStateAction} from 'react';
 interface Props {
   email: string;
   password: string;
-  emailError: boolean;
-  setEmailError: Dispatch<SetStateAction<boolean>>;
+  emailError: Dispatch<SetStateAction<boolean>>;
   passwordError: Dispatch<SetStateAction<boolean>>;
   isLoading: Dispatch<SetStateAction<boolean>>;
   setSucces: Dispatch<SetStateAction<boolean>>;
@@ -23,17 +22,16 @@ const CreateAccountHelper = ({
   passwordError,
   isLoading,
   setSucces,
-  setEmailError,
 }: Props) => {
   const emailIsValid = EmailValidation(email);
 
   if (!emailIsValid) {
-    setEmailError(true);
+    emailError(true);
   }
   if (password.length < 6) {
     passwordError(true);
   }
-  if (emailError && password.length > 5) {
+  if (email && password.length > 5) {
     isLoading(true);
     auth()
       .createUserWithEmailAndPassword(email, password)

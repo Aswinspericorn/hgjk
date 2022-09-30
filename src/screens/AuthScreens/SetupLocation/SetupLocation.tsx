@@ -9,6 +9,7 @@ import {Alert} from 'react-native';
 import {changeAuthStatus} from '../../../store/redux/AuthStatus';
 import {Box, Text} from '../../../theme/theme';
 import {API_KEY} from '../../../constants/confiq';
+import {HomePageDetailsArray} from '../../../constants/HomePageDetailsArray';
 
 interface Props {
   navigation: any;
@@ -20,13 +21,6 @@ const SetupLocation = ({route}: Props) => {
   const SubmitHandler = (location: any) => {
     try {
       let key = auth().currentUser?.uid;
-      // if (id != null) {
-      //   console.log('g');
-      //   key = id;
-      // } else {
-      //   key = database().ref().push().key;
-      //   console.log(key);
-      // }
       let dataToSave = {
         id: key,
         location: location,
@@ -40,7 +34,7 @@ const SetupLocation = ({route}: Props) => {
         })
         .catch(() => Alert.alert('Try again later'));
     } catch (err) {
-      Alert.alert('Try again later');
+      console.log(err);
       return;
     }
   };

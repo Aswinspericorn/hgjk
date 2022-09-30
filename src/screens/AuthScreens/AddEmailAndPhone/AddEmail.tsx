@@ -52,7 +52,7 @@ const AddEmail = ({navigation, route}: Props) => {
       paddingTop="xl">
       <Box flex={2} paddingTop="xs" paddingHorizontal="m">
         <Box
-          width={'90%'}
+          width={'100%'}
           height={4}
           backgroundColor="pointerFill"
           borderRadius="s">

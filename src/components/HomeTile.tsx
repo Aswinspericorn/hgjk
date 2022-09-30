@@ -1,13 +1,14 @@
 import React from 'react';
-import {Image, ImageSourcePropType, StyleSheet} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import {Box, Text} from '../theme/theme';
 
 interface Props {
-  image: ImageSourcePropType;
+  image: string;
   title: string;
   describe: string;
 }
 const HomeTile = ({image, title, describe}: Props) => {
+  console.log(image)
   return (
     <Box
       flex={1}
@@ -15,7 +16,7 @@ const HomeTile = ({image, title, describe}: Props) => {
       marginVertical="xss"
       style={styles.container}>
       <Box width={'20%'}>
-        <Image source={image} style={styles.Image} />
+        <Image source={{uri:image}} style={styles.Image} />
       </Box>
       <Box paddingHorizontal="m" justifyContent="space-between">
         <Text

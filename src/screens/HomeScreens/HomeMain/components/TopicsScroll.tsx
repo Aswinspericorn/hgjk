@@ -1,13 +1,16 @@
 import React, {Dispatch, SetStateAction} from 'react';
-import {ScrollView} from 'react-native';
+import {NativeModules, ScrollView} from 'react-native';
 import {HomePageDetailsArray} from '../../../../constants/HomePageDetailsArray';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
+import {StatusBar} from 'react-native';
 
 interface Props {
   setCurrentTopic: Dispatch<SetStateAction<number>>;
   currentTopic: number;
 }
 const TopicScroll = ({setCurrentTopic, currentTopic}: Props) => {
+  StatusBar.setBackgroundColor('#fff');
+  const {StatusBarManager} = NativeModules;
   return (
     <Box
       justifyContent="center"
@@ -15,6 +18,7 @@ const TopicScroll = ({setCurrentTopic, currentTopic}: Props) => {
       paddingTop="m"
       borderTopColor="pointerFill"
       borderTopWidth={1}
+      style={{marginTop: StatusBarManager.HEIGHT - 8}}
       paddingBottom="xs">
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {HomePageDetailsArray.map((item: {topic: string}, index: number) => (

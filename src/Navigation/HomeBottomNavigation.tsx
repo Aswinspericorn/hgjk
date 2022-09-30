@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeMain from '../screens/HomeScreens/HomeMain/components/HomeMain';
 import {Bell, Home, Love, Person} from '../assets/icons/Svg/Icons';
+import HomeNativeStackNavigation from './HomeNativeStackNavigation';
 const Tab = createBottomTabNavigator();
 
 export const HomeBottomNaviation = () => {
@@ -13,37 +12,31 @@ export const HomeBottomNaviation = () => {
       }}>
       <Tab.Screen
         name="Home2"
-        component={HomeMain}
+        component={HomeNativeStackNavigation}
         options={{
           headerShown: false,
-          tabBarIcon: ({color}) => (
-            <Home width={24} height={24} color={color} />
-          ),
+          tabBarIcon: ({color}) => <Home color={color} />,
         }}
       />
       <Tab.Screen
         name="Home3"
-        component={HomeMain}
+        component={HomeNativeStackNavigation}
         options={{
           headerShown: false,
-          tabBarIcon: ({color}) => (
-            <Love width={24} height={24} color={color} />
-          ),
+          tabBarIcon: ({color}) => <Love color={color} />,
         }}
       />
       <Tab.Screen
         name="Home4"
-        component={HomeMain}
+        component={HomeNativeStackNavigation}
         options={{
           headerShown: false,
-          tabBarIcon: ({color}) => (
-            <Bell width={24} height={24} color={color} />
-          ),
+          tabBarIcon: ({color}) => <Bell color={color} />,
         }}
       />
       <Tab.Screen
         name="Home"
-        component={HomeMain}
+        component={HomeNativeStackNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({color}) => <Person color={color} />,

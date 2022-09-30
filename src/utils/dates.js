@@ -29,21 +29,30 @@ export const currentDate = () => {
     ),
     curMonth = months[objToday.getMonth()],
     curYear = objToday.getFullYear();
-  // curHour =
-  //   objToday.getHours() > 12
-  //     ? objToday.getHours() - 12
-  //     : objToday.getHours() < 10
-  //     ? '0' + objToday.getHours()
-  //     : objToday.getHours(),
-  // curMinute =
-  //   objToday.getMinutes() < 10
-  //     ? '0' + objToday.getMinutes()
-  //     : objToday.getMinutes(),
-  // curSeconds =
-  //   objToday.getSeconds() < 10
-  //     ? '0' + objToday.getSeconds()
-  //     : objToday.getSeconds(),
-  // curMeridiem = objToday.getHours() > 12 ? 'PM' : 'AM';
+  var curHour =
+    objToday.getHours() > 12
+      ? objToday.getHours() > 16
+        ? 'Good Evening'
+        : 'Good Afternoon'
+      : 'Good Morning';
   var today = dayOfWeek + ', ' + curMonth + ' ' + dayOfMonth + ', ' + curYear;
-  return today;
+
+  return {date: today, time: curHour};
 };
+
+function dobFormat(value) {
+  // if (value.type === "set") {
+  value = new Date(value.nativeEvent.timestamp);
+  var date = new Date(value).getDate() + 1;
+  var month = new Date(value).getMonth() + 1;
+  var year = new Date(value).getFullYear().toString().slice(-2);
+  value =
+    ('0' + date).slice(-2) +
+    ('0' + month).slice(-2) +
+    '/' +
+    ('0' + year).slice(-2);
+  // }
+
+  return value;
+}
+export default dobFormat;
