@@ -6,15 +6,15 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {Image, StyleSheet} from 'react-native';
 import {weatherImagesObj} from '../../../../constants/weatherImagesObj';
-import {useNavigation} from '@react-navigation/native';
 const Banner = () => {
   const [location, setLocation] = useState<{lat: string; lng: string}>({
     lat: '',
     lng: '',
   });
-  const [temparature, setTemparature] = useState<{temp: string; icon: string}>(
-    {temp: '24', icon: '01d'},
-  );
+  const [temparature, setTemparature] = useState<{temp: string; icon: any}>({
+    temp: '24',
+    icon: '01d',
+  });
 
   const API_KEY = 'efafc02782958cad4cd42337c2a8b0cd';
   const userId = auth().currentUser?.uid;
@@ -26,7 +26,8 @@ const Banner = () => {
     firestore()
       .collection('user')
       .doc(userId)
-      .get().then((documentSnapshot: any) => getLocation(documentSnapshot))
+      .get()
+      .then((documentSnapshot: any) => getLocation(documentSnapshot))
       .then((data: React.SetStateAction<{lat: string; lng: string}>) => {
         setLocation(data);
       })
@@ -35,7 +36,7 @@ const Banner = () => {
           fetchWeather();
         }
       });
-  }, []);
+  }, [location]);
   const fetchWeather = () => {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${location?.lat}&lon=${location?.lng}&appid=${API_KEY}`,
@@ -43,7 +44,6 @@ const Banner = () => {
       .then(res => res.json())
       .then(data => {
         const temp = (data?.main?.temp - 273.15).toFixed(0);
-        console.log(data.weather[0].icon)
         setTemparature({
           temp: temp,
           icon: weatherImagesObj[data?.weather[0]?.icon],

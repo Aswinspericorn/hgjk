@@ -4,10 +4,10 @@ import {Alert, LogBox, StyleSheet} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Box, Text} from '../../../theme/theme';
 import auth from '@react-native-firebase/auth';
-import database from '@react-native-firebase/database';
 import {changeAuthStatus} from '../../../store/redux/AuthStatus';
 import RNOtpVerify from 'react-native-otp-verify';
 import PrimaryButton from '../../../components/PrimaryButton';
+import {getSingleUserDetails} from '../../../helper/Firebase.helper';
 
 interface AuthProps {
   data: {
@@ -66,18 +66,13 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const checkIsNewUser = () => {
-    const userId = auth().currentUser?.uid;
-    const userRef = database()
-      .ref(`/user/${userId}`)
-      .once('value', snapshot => {
-        if (snapshot.val() === null) {
-          navigation.navigate('SetupPersonalizationOne');
-        } else {
-          dispatch(changeAuthStatus(true));
-        }
-      });
-    return userRef;
+  const checkIsNewUser = async () => {
+    const result = await getSingleUserDetails();
+    if (result === undefined) {
+      navigation.navigate('SetupPersonalizationOne');
+    } else {
+      dispatch(changeAuthStatus(true));
+    }
   };
   async function confirmCode() {
     setIsLoading(true);

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import HomeTile from '../../../../components/HomeTile';
-import {Box} from '../../../../theme/theme';
+import {Box, Text} from '../../../../theme/theme';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
@@ -17,7 +17,7 @@ const FavouriteNews = () => {
   ]);
 
   useEffect(() => {
-    const checkIsNewUser = () => {
+    const getFavouritesHandler = () => {
       let key = auth().currentUser?.uid;
       function getFavourites(documentSnapshot: any) {
         return documentSnapshot.get('favourites');
@@ -32,7 +32,7 @@ const FavouriteNews = () => {
         });
       return userRef;
     };
-    checkIsNewUser();
+    getFavouritesHandler();
   }, [news]);
   return (
     <Box
@@ -40,18 +40,24 @@ const FavouriteNews = () => {
       flex={1}
       paddingTop="l"
       backgroundColor="secondaryBackground">
-      {news.map(
-        (
-          item: {title: string; describe: string; image: string},
-          index: number,
-        ) => (
-          <HomeTile
-            key={index}
-            title={item?.title}
-            describe={item.describe}
-            image={item.image}
-          />
-        ),
+      {news ? (
+        news?.map(
+          (
+            item: {title: string; describe: string; image: string},
+            index: number,
+          ) => (
+            <HomeTile
+              key={index}
+              title={item?.title}
+              describe={item.describe}
+              image={item.image}
+            />
+          ),
+        )
+      ) : (
+        <Box flex={1} alignItems="center" justifyContent="center">
+          <Text variant="subHeader">No data</Text>
+        </Box>
       )}
     </Box>
   );

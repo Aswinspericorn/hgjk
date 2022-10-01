@@ -16,5 +16,4 @@ export const weatherImagesObj = {
   '11n': require('../assets/images/weather/11n.png'),
   '13n': require('../assets/images/weather/13n.png'),
   '50n': require('../assets/images/weather/50n.png'),
-
 };

@@ -20,3 +20,20 @@ export const userFavouritesUpdate = (dataToSave: object) => {
     return;
   }
 };
+
+export const getNews = async () => {
+  const newsData = await firestore()
+    .collection('news')
+    .doc('Zm1gMrC4QajdmYpz0hsj')
+    .get();
+  return newsData._data.data;
+};
+
+export const getSingleUserDetails = async () => {
+  let key = auth().currentUser?.uid;
+  const newsData = await firestore().collection('user').doc(key).get();
+  if (newsData?._data === undefined) {
+    return;
+  }
+  return newsData?._data;
+};
