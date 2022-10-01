@@ -39,8 +39,7 @@ const NewsList = ({currentTopic}: Props) => {
     <Box paddingHorizontal="m">
       <TouchableBox
         onPress={() => {
-          // navigation.navigate('DetailNews', news[currentTopic].content[0]);
-          navigation.navigate('Home', {
+          navigation.navigate('Homestack', {
             screen: 'DetailNews',
             params: news[currentTopic]?.content[0],
           });
@@ -71,8 +70,7 @@ const NewsList = ({currentTopic}: Props) => {
           <TouchableBox
             key={index}
             onPress={() => {
-              // navigation.navigate('DetailNews', news[currentTopic].content[0]);
-              navigation.navigate('Home', {
+              navigation.navigate('Homestack', {
                 screen: 'DetailNews',
                 params: news[currentTopic]?.content[index],
               });

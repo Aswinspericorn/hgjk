@@ -35,36 +35,30 @@ const EmailSignIn = () => {
     });
   };
   return (
-    <KeyboardAvoidingView style={styles.screen} behavior="height">
-      <Box
-        flex={1}
-        backgroundColor="secondaryBackground"
-        paddingHorizontal="m"
-        paddingTop="l">
-        <EmailAndPasswordInput
-          emailError={emailError}
-          passwordError={passwordError}
-          setEmailError={setEmailError}
-          setEmail={setEmail}
-          setPassword={setPassword}
-          setPasswordError={setPasswordError}
-        />
-        <Box>
-          <TouchableBox>
-            <Text variant="interMedium">Forgot password?</Text>
-          </TouchableBox>
-        </Box>
-        <ButtonContainer onPress={signInAccount} isLoading={isLoading} />
+    <Box
+      flex={1}
+      backgroundColor="secondaryBackground"
+      paddingHorizontal="m"
+      paddingTop="l">
+      <EmailAndPasswordInput
+        emailError={emailError}
+        passwordError={passwordError}
+        setEmailError={setEmailError}
+        setEmail={setEmail}
+        setPassword={setPassword}
+        setPasswordError={setPasswordError}
+      />
+      <Box flex={1}>
+        <TouchableBox>
+          <Text variant="interMedium">Forgot password?</Text>
+        </TouchableBox>
       </Box>
-    </KeyboardAvoidingView>
+      <ButtonContainer
+        title="Sign in"
+        onPress={signInAccount}
+        isLoading={isLoading}
+      />
+    </Box>
   );
 };
 export default EmailSignIn;
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
-  width: {
-    width: '100%',
-  },
-});

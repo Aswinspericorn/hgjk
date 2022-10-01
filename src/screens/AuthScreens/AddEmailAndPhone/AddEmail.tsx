@@ -117,6 +117,7 @@ const AddEmail = ({navigation, route}: Props) => {
             </Box>
             <Box flex={3}>
               <TextInput
+                value={phno}
                 keyboardType="phone-pad"
                 placeholderTextColor="#6C7072"
                 style={styles.width}

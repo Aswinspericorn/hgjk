@@ -86,7 +86,7 @@ export const HomePageDetailsArray = [
     ],
   },
   {
-    topic: 'U.S.',
+    topic: 'U.K.',
     content: [
       {
         favourites: [],

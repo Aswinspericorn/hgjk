@@ -1,8 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Image, ScrollView, StyleSheet} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {Love} from '../../../../assets/icons/Svg/Icons';
-import {userFavouritesUpdate} from '../../../../helper/Firebase.helper';
+import {
+  userFavouritesAdd,
+  userFavouritesRemove,
+} from '../../../../helper/Firebase.helper';
+import {changeIsDataChanged} from '../../../../store/redux/IsDataChanged';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 
 interface Props {
@@ -11,11 +16,28 @@ interface Props {
 const DetailNews = ({route}: Props) => {
   const [favourite, setFavourite] = useState<boolean>(false);
   const nav = useNavigation();
+  const news = useSelector((state: any) => state?.UserData.userData);
+  const favourites = news.favourites;
   const data = route.params;
+  const isExits = favourites?.find(
+    (element: {title: string}) => element?.title === data?.title,
+  );
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isExits) {
+      setFavourite(true);
+    }
+  }, [isExits]);
 
   const favouriteHandler = () => {
+    dispatch(changeIsDataChanged());
+    if (favourite) {
+      userFavouritesRemove(data);
+    } else {
+      userFavouritesAdd(data);
+    }
     setFavourite(prev => !prev);
-    userFavouritesUpdate(data);
   };
   useEffect(() => {
     nav.setOptions({

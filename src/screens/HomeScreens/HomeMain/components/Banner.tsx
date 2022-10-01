@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
-import {Box, Text, TouchableBox} from '../../../../theme/theme';
+import {Box, Text} from '../../../../theme/theme';
 import {currentDate} from '../../../../utils/dates';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -13,10 +13,10 @@ const Banner = () => {
   });
   const [temparature, setTemparature] = useState<{temp: string; icon: any}>({
     temp: '24',
-    icon: '01d',
+    icon: weatherImagesObj['01d'],
   });
 
-  const API_KEY = 'efafc02782958cad4cd42337c2a8b0cd';
+  const API_KEY = 'e0110331adf97afda6ab257d0534f64c';
   const userId = auth().currentUser?.uid;
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Banner = () => {
           fetchWeather();
         }
       });
-  }, [location]);
+  }, []);
   const fetchWeather = () => {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${location?.lat}&lon=${location?.lng}&appid=${API_KEY}`,

@@ -8,7 +8,7 @@ const StackNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="Homestack"
         component={HomeNativeStackNavigation}
         options={{
           headerShown: false,

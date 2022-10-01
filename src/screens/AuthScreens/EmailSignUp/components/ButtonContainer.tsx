@@ -6,8 +6,9 @@ import {Box, Text} from '../../../../theme/theme';
 interface Props {
   isLoading: boolean;
   onPress: () => void;
+  title: string;
 }
-const ButtonContainer = ({onPress, isLoading}: Props) => {
+const ButtonContainer = ({onPress, isLoading, title}: Props) => {
   return (
     <Box flex={3} justifyContent="flex-end">
       <Box paddingBottom="s">
@@ -40,7 +41,7 @@ const ButtonContainer = ({onPress, isLoading}: Props) => {
         </Box>
       </Box>
       <Box paddingBottom="m">
-        <PrimaryButton disabled={isLoading} title="Sign Up" onPress={onPress} />
+        <PrimaryButton disabled={isLoading} title={title} onPress={onPress} />
       </Box>
     </Box>
   );

@@ -12,7 +12,7 @@ export const HomeBottomNaviation = () => {
         tabBarShowLabel: false,
       }}>
       <Tab.Screen
-        name="Home2"
+        name="Home"
         component={HomeMain}
         options={{
           headerShown: false,

@@ -36,7 +36,6 @@ const SetupLocation = ({route}: Props) => {
           Alert.alert('Try again later');
         });
     } catch (err) {
-      console.log(err);
       return;
     }
   };

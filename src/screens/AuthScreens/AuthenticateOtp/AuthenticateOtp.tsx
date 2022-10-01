@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Alert, LogBox, StyleSheet} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Box, Text} from '../../../theme/theme';
@@ -8,6 +8,7 @@ import {changeAuthStatus} from '../../../store/redux/AuthStatus';
 import RNOtpVerify from 'react-native-otp-verify';
 import PrimaryButton from '../../../components/PrimaryButton';
 import {getSingleUserDetails} from '../../../helper/Firebase.helper';
+import { changeUserData } from '../../../store/redux/UserData';
 
 interface AuthProps {
   data: {
@@ -32,7 +33,7 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
   ]);
 
   useEffect(() => {
-    RNOtpVerify.getHash().then(console.log).catch(console.log);
+    RNOtpVerify.getHash().then().catch();
 
     RNOtpVerify.getOtp()
       .then(() => RNOtpVerify.addListener(otpHandler))
@@ -65,12 +66,12 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
     return subscriber; // unsubscribe on unmount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const checkIsNewUser = async () => {
     const result = await getSingleUserDetails();
     if (result === undefined) {
       navigation.navigate('SetupPersonalizationOne');
     } else {
+      dispatch(changeUserData(result));
       dispatch(changeAuthStatus(true));
     }
   };

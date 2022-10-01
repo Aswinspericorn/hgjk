@@ -1,8 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import HomeTile from '../../../../components/HomeTile';
-import {Box, Text} from '../../../../theme/theme';
+import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import NoData from '../../../../components/NoData';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {changeUserData} from '../../../../store/redux/UserData';
 
 const FavouriteNews = () => {
   const [news, setNews] = useState<
@@ -15,7 +19,11 @@ const FavouriteNews = () => {
       title: '',
     },
   ]);
-
+  const navigation = useNavigation();
+  const IsFavouriteChanged = useSelector(
+    (state: any) => state?.IsDataChanged.isChanged,
+  );
+  const dispatch = useDispatch();
   useEffect(() => {
     const getFavouritesHandler = () => {
       let key = auth().currentUser?.uid;
@@ -26,39 +34,61 @@ const FavouriteNews = () => {
         .collection('user')
         .doc(key)
         .get()
-        .then(documentSnapshot => getFavourites(documentSnapshot))
+        .then(documentSnapshot => {
+          const data = documentSnapshot.data();
+          dispatch(changeUserData(data));
+          return getFavourites(documentSnapshot);
+        })
         .then(data => {
           setNews(data);
         });
       return userRef;
     };
     getFavouritesHandler();
-  }, [news]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [IsFavouriteChanged]);
   return (
     <Box
       paddingHorizontal="m"
       flex={1}
       paddingTop="l"
       backgroundColor="secondaryBackground">
-      {news ? (
-        news?.map(
-          (
-            item: {title: string; describe: string; image: string},
-            index: number,
-          ) => (
-            <HomeTile
-              key={index}
-              title={item?.title}
-              describe={item.describe}
-              image={item.image}
-            />
-          ),
-        )
-      ) : (
-        <Box flex={1} alignItems="center" justifyContent="center">
-          <Text variant="subHeader">No data</Text>
-        </Box>
-      )}
+      <Box paddingTop="m">
+        <Text
+          variant="TextButtonTitle"
+          textAlign="center"
+          fontSize={18}
+          lineHeight={18}>
+          Saved Items
+        </Text>
+      </Box>
+      <Box paddingTop="m" flex={1}>
+        {news?.length > 0 ? (
+          news?.map(
+            (
+              item: {title: string; describe: string; image: string},
+              index: number,
+            ) => (
+              <TouchableBox
+                key={index}
+                onPress={() => {
+                  navigation.navigate('Homestack', {
+                    screen: 'DetailNews',
+                    params: item,
+                  });
+                }}>
+                <HomeTile
+                  title={item?.title}
+                  describe={item.describe}
+                  image={item.image}
+                />
+              </TouchableBox>
+            ),
+          )
+        ) : (
+          <NoData />
+        )}
+      </Box>
     </Box>
   );
 };

@@ -54,7 +54,11 @@ const EmailSignUp = ({navigation}: Props) => {
           setPassword={setPassword}
           setPasswordError={setPasswordError}
         />
-        <ButtonContainer onPress={createAccount} isLoading={isLoading} />
+        <ButtonContainer
+          title="Sign up"
+          onPress={createAccount}
+          isLoading={isLoading}
+        />
       </Box>
     </KeyboardAvoidingView>
   );
