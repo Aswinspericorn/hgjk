@@ -56,10 +56,11 @@ export const getSingleUserDetails = async () => {
     .get()
     .then(res => {
       const data = res.data();
-      return data?.data;
+      return data;
     });
+
   if (newsData === undefined) {
     return;
   }
-  return newsData?._data;
+  return newsData;
 };
