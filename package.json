@@ -11,13 +11,15 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-async-storage/async-storage": "^1.17.10",
     "@react-native-clipboard/clipboard": "^1.11.1",
     "@react-native-community/datetimepicker": "^6.4.1",
     "@react-native-community/masked-view": "^0.1.11",
-    "@react-native-firebase/app": "^15.6.0",
+    "@react-native-firebase/app": "^15.7.0",
     "@react-native-firebase/auth": "^15.6.0",
     "@react-native-firebase/database": "^15.6.0",
     "@react-native-firebase/firestore": "^15.6.0",
+    "@react-native-firebase/storage": "^15.7.0",
     "@react-native-google-signin/google-signin": "^8.0.0",
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.13",
@@ -37,7 +39,10 @@
     "react-native-sha256": "^1.4.8",
     "react-native-svg": "^13.2.0",
     "react-native-svg-transformer": "^1.0.0",
-    "react-redux": "^8.0.2"
+    "react-redux": "^8.0.2",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

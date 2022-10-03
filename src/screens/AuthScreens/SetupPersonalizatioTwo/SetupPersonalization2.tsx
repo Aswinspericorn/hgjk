@@ -13,7 +13,7 @@ interface Props {
 const SetupPersonalizationTwo = ({navigation, route}: Props) => {
   const [selected, setSelected] = useState<string>('');
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<Array<object>>([]);
+  const [selectedAnswers, setSelectedAnswers] = useState<object>({});
 
   const questionHandler = (opt: string, question: string) => {
     const tempData = currentQuestion + 1;
@@ -21,11 +21,17 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
     if (tempData > Questions.length - 1) {
       navigation.navigate('AddEmail', {
         PArea: route.params,
-        QA: selectedAnswers,
+        ...selectedAnswers,
       });
       setCurrentQuestion(0);
     }
-    setSelectedAnswers(prev => [...prev, {[question]: opt}]);
+
+    setSelectedAnswers(prev => {
+      return {
+        ...prev,
+        [question]: opt,
+      };
+    });
     setSelected(opt);
   };
   const desideField = () => {
@@ -36,7 +42,12 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
       case 'age':
         return <InputTextField type="age" onPress={questionHandler} />;
       case 'photo':
-        return <UserImagePicker onPress={questionHandler} />;
+        return (
+          <UserImagePicker
+            onPress={questionHandler}
+            name={selectedAnswers.name}
+          />
+        );
     }
   };
 
@@ -59,17 +70,12 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
             borderRadius="s"
           />
         </Box>
-        <Box paddingTop="l">
-          <Text variant="header" textAlign="left">
-            Tell us your goal
-          </Text>
-        </Box>
-        <Box alignItems="flex-start">
-          <Text variant="PersonalizationRegular" textAlign="left">
+        <Box alignItems="flex-start" paddingTop="l">
+          <Text variant="subHeader" textAlign="left">
             {Questions[currentQuestion]?.question}
           </Text>
         </Box>
-        <Box flex={4} paddingTop="m">
+        <Box flex={5}>
           {Questions[currentQuestion].options ? (
             <OptionalQuestion
               selected={selected}

@@ -2,22 +2,24 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DetailNews from '../screens/HomeScreens/DetailNews.tsx/components/DetailNews';
 import {HomeBottomNaviation} from './HomeBottomNavigation';
+import SearchUser from '../screens/HomeScreens/SearchUser/components/SeachUser';
+import UserDetails from '../screens/HomeScreens/UserDetails/components/UserDetails';
 const Stack = createNativeStackNavigator();
 
-const HomeNativeStackNavigation = () => {
+const SearchStackNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Homemain"
-        component={HomeBottomNaviation}
+        name="SeachHome"
+        component={SearchUser}
         options={{
           headerShown: false,
           headerTransparent: true,
         }}
       />
       <Stack.Screen
-        name="DetailNews"
-        component={DetailNews}
+        name="UserDetails"
+        component={UserDetails}
         options={{
           title: '',
           headerTransparent: true,
@@ -26,4 +28,4 @@ const HomeNativeStackNavigation = () => {
     </Stack.Navigator>
   );
 };
-export default HomeNativeStackNavigation;
+export default SearchStackNavigation;

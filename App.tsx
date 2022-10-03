@@ -10,12 +10,12 @@
 
 import {ThemeProvider} from '@shopify/restyle';
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, Text} from 'react-native';
 import Route from './src/Navigation/Route';
 import {Provider} from 'react-redux';
-
+import {PersistGate} from 'redux-persist/integration/react';
 import theme from './src/theme/theme';
-import {store} from './src/store/redux/store';
+import {persistor, store} from './src/store/redux/store';
 const App = () => {
   // const isDarkMode = useColorScheme() === 'dark';
 
@@ -31,9 +31,11 @@ const App = () => {
         translucent={true}
       />
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <Route />
-        </ThemeProvider>
+        <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <Route />
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </>
   );

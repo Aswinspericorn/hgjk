@@ -39,7 +39,7 @@ export const userFavouritesRemove = (dataToSave: object) => {
 export const getNews = async () => {
   const dataNews = await firestore()
     .collection('news')
-    .doc('Zm1gMrC4QajdmYpz0hsj')
+    .doc('F4ydoNptIf5uzsJlxRn8')
     .get()
     .then(res => {
       const data = res.data();
@@ -63,4 +63,19 @@ export const getSingleUserDetails = async () => {
     return;
   }
   return newsData;
+};
+
+export const getAllUsers = async (filter: string) => {
+  if (!filter) {
+    return;
+  }
+  const dataNews = await firestore()
+    .collection('user')
+    .where('name', '>=', filter)
+    .where('name', '<=', filter + '~')
+    .get()
+    .then(res => {
+      return res.docs;
+    });
+  return dataNews;
 };

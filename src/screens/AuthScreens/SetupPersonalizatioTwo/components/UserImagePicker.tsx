@@ -5,14 +5,30 @@ import {Box, TouchableBox} from '../../../../theme/theme';
 import Photo from '../../../../assets/icons/Svg/photo.svg';
 import Camera from '../../../../assets/icons/Svg/camera.svg';
 import PrimaryButton from '../../../../components/PrimaryButton';
-
+import {assets} from '../../../../../react-native.config';
+import storage from '@react-native-firebase/storage';
 interface Props {
   onPress: (type: string, name: string) => void;
+  name: string;
 }
-const UserImagePicker = ({onPress}: Props) => {
+const UserImagePicker = ({onPress, name}: Props) => {
   const [photo, setPhoto] = useState<string | undefined>(
     '../../../../assets/icons/Svg/photo.svg',
   );
+
+  const task = storage().ref().child('userimages').child(`${name}.jpeg`);
+
+  const UploadImage = async () => {
+    try {
+      await task
+        .putFile(photo)
+        .then(() => {})
+        .catch(() => {});
+      onPress(await task.getDownloadURL(), 'photo');
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const openCamera = () => {
     const options = {
       mediaType: 'photo',
@@ -20,7 +36,21 @@ const UserImagePicker = ({onPress}: Props) => {
       maxHeight: 300,
       quality: 1,
     };
+
     launchCamera(options, response => {
+      if (response.didCancel) {
+        return;
+      }
+      if (response.errorCode) {
+        console.log(response);
+        return;
+      }
+      if (response.errorMessage) {
+        return;
+      }
+      if (response.assets) {
+        console.log(assets);
+      }
       const source = response.assets[0].uri;
       setPhoto(source);
     });
@@ -34,7 +64,14 @@ const UserImagePicker = ({onPress}: Props) => {
       quality: 1,
     };
     launchImageLibrary(options, response => {
-      const source = response.assets[0].uri;
+      if (response.didCancel) {
+        return;
+      }
+      if (response.errorCode) {
+        console.log(response);
+        return;
+      }
+      const source = response?.assets[0]?.uri;
       setPhoto(source);
     });
   };
@@ -71,12 +108,7 @@ const UserImagePicker = ({onPress}: Props) => {
         </TouchableBox>
       </Box>
       <Box flex={1} justifyContent="flex-end">
-        <PrimaryButton
-          title="Continue"
-          onPress={() => {
-            onPress(photo, 'photo');
-          }}
-        />
+        <PrimaryButton title="Continue" onPress={UploadImage} />
       </Box>
     </Box>
   );

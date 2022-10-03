@@ -4,6 +4,8 @@ import HomeTile from '../../../../components/HomeTile';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
 import {getNews} from '../../../../helper/Firebase.helper';
+import {useDispatch} from 'react-redux';
+import {changeIsDataChanged} from '../../../../store/redux/IsDataChanged';
 
 interface Props {
   currentTopic: number;
@@ -27,16 +29,18 @@ const NewsList = ({currentTopic}: Props) => {
     ],
   });
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const readNews = async () => {
       const reslt = await getNews();
+      dispatch(changeIsDataChanged());
       setNews(reslt);
     };
     readNews();
-  }, []);
+  }, [dispatch]);
   return (
-    <Box paddingHorizontal="m">
+    <Box paddingHorizontal="s">
       <TouchableBox
         onPress={() => {
           navigation.navigate('Homestack', {

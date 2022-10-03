@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Box} from '../../../../theme/theme';
 import {ScrollView, StyleSheet} from 'react-native';
 import Banner from './Banner';

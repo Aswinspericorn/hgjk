@@ -1,8 +1,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Bell, Home, Love, Person} from '../assets/icons/Svg/Icons';
+import {Home, Love, Person, Search} from '../assets/icons/Svg/Icons';
 import HomeMain from '../screens/HomeScreens/HomeMain/components/HomeMain';
 import FavouriteNews from '../screens/HomeScreens/FavouriteNews/components/FavouriteNews';
+import SearchUser from '../screens/HomeScreens/SearchUser/components/SeachUser';
+import SearchStackNavigation from './SearchStackNavigation';
 const Tab = createBottomTabNavigator();
 
 export const HomeBottomNaviation = () => {
@@ -29,10 +31,10 @@ export const HomeBottomNaviation = () => {
       />
       <Tab.Screen
         name="Home4"
-        component={HomeMain}
+        component={SearchStackNavigation}
         options={{
           headerShown: false,
-          tabBarIcon: ({color}) => <Bell color={color} />,
+          tabBarIcon: ({color}) => <Search color={color} />,
         }}
       />
       <Tab.Screen

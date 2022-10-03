@@ -17,10 +17,10 @@ const DetailNews = ({route}: Props) => {
   const [favourite, setFavourite] = useState<boolean>(false);
   const nav = useNavigation();
   const news = useSelector((state: any) => state?.UserData.userData);
-  const favourites = news.favourites;
+  const favourites = news?.favourites;
   const data = route.params;
   const isExits = favourites?.find(
-    (element: {title: string}) => element?.title === data?.title,
+    (element: {id: number}) => element?.id === data?.id,
   );
 
   const dispatch = useDispatch();
@@ -49,8 +49,12 @@ const DetailNews = ({route}: Props) => {
     });
   });
   return (
-    <Box flex={1} backgroundColor="secondaryBackground" paddingHorizontal="m">
-      <Box paddingBottom="m">
+    <Box
+      flex={1}
+      backgroundColor="secondaryBackground"
+      paddingTop="l"
+      paddingHorizontal="s">
+      <Box paddingBottom="m" paddingTop="xl">
         <Text variant="body" fontSize={14} lineHeight={20}>
           NY TIMES
         </Text>
@@ -62,25 +66,38 @@ const DetailNews = ({route}: Props) => {
           <Box>
             <Box paddingBottom="m">
               <Text variant="header" fontSize={26}>
-                {data.title}
+                {data?.title}
               </Text>
             </Box>
-            <Box paddingBottom="m">
+            <Box paddingBottom="m" flexDirection="row">
               <Text
                 variant="PersonalizationRegular"
                 fontSize={14}
                 lineHeight={14}>
-                {data.describe}
+                by{' '}
+              </Text>
+              <Text variant="header" fontSize={14} lineHeight={14}>
+                {data?.subTitle[0]},
+              </Text>
+              <Text
+                variant="PersonalizationRegular"
+                fontSize={14}
+                lineHeight={14}>
+                {data?.subTitle[1]}
               </Text>
             </Box>
           </Box>
           <Box>
             <Box paddingBottom="m">
-              <Image source={{uri: data.image}} style={styles.image} />
+              <Image source={{uri: data?.image}} style={styles.image} />
             </Box>
             <Box>
               <Text variant="TextButtonTitle" lineHeight={24}>
-                {data.detailed}
+                {data?.detailed}
+              </Text>
+              <Text variant="PersonalizationRegular" />
+              <Text variant="TextButtonTitle" lineHeight={24}>
+                {data?.detailed}
               </Text>
             </Box>
           </Box>

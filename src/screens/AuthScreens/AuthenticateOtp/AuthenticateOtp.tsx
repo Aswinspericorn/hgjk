@@ -8,7 +8,7 @@ import {changeAuthStatus} from '../../../store/redux/AuthStatus';
 import RNOtpVerify from 'react-native-otp-verify';
 import PrimaryButton from '../../../components/PrimaryButton';
 import {getSingleUserDetails} from '../../../helper/Firebase.helper';
-import { changeUserData } from '../../../store/redux/UserData';
+import {changeUserData} from '../../../store/redux/UserData';
 
 interface AuthProps {
   data: {
@@ -49,7 +49,7 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
     let otp = '';
     if (message.length > 0) {
       // otp = /(d{6})/g.exec(message)[1];
-      otp = `${message}.match(/\d{6}/ || [false])[0]`;
+      otp = message.match(/\d{6}/ || [false])[0];
     }
     setCode(otp);
     RNOtpVerify.removeListener();
@@ -57,15 +57,18 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
 
   function onAuthStateChanged(userr: any) {
     if (userr) {
-      checkIsNewUser();
+      if (userr.phoneNumber === `+91${AuthData.phno}`) {
+        checkIsNewUser();
+      } else {
+        return;
+      }
     }
   }
 
-  useEffect(() => {
+  const checkCurrentUser = () => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    return subscriber;
+  };
   const checkIsNewUser = async () => {
     const result = await getSingleUserDetails();
     if (result === undefined) {
@@ -80,18 +83,20 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
     await AuthData.data
       .confirm(code)
       .then(() => {
+        checkCurrentUser();
         setIsLoading(false);
         checkIsNewUser();
         setIsLoading(false);
       })
       .catch((err: any) => {
         setIsLoading(false);
+
         if (err.code === 'auth/invalid-verification-code') {
           Alert.alert('Invalid otp');
           return;
         }
         if (err.code === 'auth/session-expired') {
-          Alert.alert('The sms code has expired');
+          checkCurrentUser();
           return;
         }
       });

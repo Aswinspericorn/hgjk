@@ -9,6 +9,8 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 
 import {changeAuthStatus} from '../../../store/redux/AuthStatus';
+import { getSingleUserDetails } from '../../../helper/Firebase.helper';
+import { changeUserData } from '../../../store/redux/UserData';
 interface Props {
   navigation: any;
 }
@@ -20,6 +22,16 @@ const WalkThrough = ({navigation}: Props) => {
     webClientId:
       '719758580576-1hgli2r1blk86hgd8n861tfs755e6sii.apps.googleusercontent.com',
   });
+
+  const checkIsNewUser = async () => {
+    const result = await getSingleUserDetails();
+    if (result === undefined) {
+      navigation.navigate('SetupPersonalizationOne');
+    } else {
+      dispatch(changeUserData(result));
+      dispatch(changeAuthStatus(true));
+    }
+  };
   async function onGoogleButtonPress() {
     // Get the users ID token
     try {
@@ -30,7 +42,7 @@ const WalkThrough = ({navigation}: Props) => {
       await auth()
         .signInWithCredential(googleCredential)
         .then(() => {
-          dispatch(changeAuthStatus(true));
+          checkIsNewUser();
           return;
         })
         .catch(() => {
@@ -73,7 +85,7 @@ const WalkThrough = ({navigation}: Props) => {
       await auth()
         .signInWithCredential(facebookCredential)
         .then(() => {
-          dispatch(changeAuthStatus(true));
+          checkIsNewUser();
           setIsLoading(false);
         })
         .catch(() => {

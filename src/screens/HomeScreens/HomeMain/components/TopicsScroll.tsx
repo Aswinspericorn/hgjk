@@ -24,8 +24,11 @@ const TopicScroll = ({setCurrentTopic, currentTopic}: Props) => {
         {HomePageDetailsArray.map((item: {topic: string}, index: number) => (
           <TouchableBox key={index} onPress={() => setCurrentTopic(index)}>
             <Box
+              marginLeft={index === 0 ? 's' : 'xxs'}
+              marginRight={
+                index === HomePageDetailsArray.length - 1 ? 's' : 'xxs'
+              }
               backgroundColor="SelectedPracticeAreaBg"
-              marginHorizontal="xxs"
               borderRadius="l"
               paddingHorizontal="m"
               paddingVertical="xss">

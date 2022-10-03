@@ -6,16 +6,19 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {Image, StyleSheet} from 'react-native';
 import {weatherImagesObj} from '../../../../constants/weatherImagesObj';
+import {useSelector} from 'react-redux';
 const Banner = () => {
   const [location, setLocation] = useState<{lat: string; lng: string}>({
     lat: '',
     lng: '',
   });
-  const [temparature, setTemparature] = useState<{temp: string; icon: any}>({
+  const [temparature, setTemparature] = useState<{temp: string; icon: {}}>({
     temp: '24',
     icon: weatherImagesObj['01d'],
   });
-
+  const IsFavouriteChanged = useSelector(
+    (state: any) => state?.IsDataChanged.isChanged,
+  );
   const API_KEY = 'e0110331adf97afda6ab257d0534f64c';
   const userId = auth().currentUser?.uid;
 
@@ -36,7 +39,7 @@ const Banner = () => {
           fetchWeather();
         }
       });
-  }, []);
+  }, [IsFavouriteChanged]);
   const fetchWeather = () => {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${location?.lat}&lon=${location?.lng}&appid=${API_KEY}`,
@@ -57,12 +60,12 @@ const Banner = () => {
     <Box
       paddingHorizontal="m"
       paddingTop="l"
-      marginBottom="m"
+      marginBottom="xs"
       backgroundColor="secondaryBackground"
       justifyContent="space-between"
       alignItems="center"
       flexDirection="row">
-      <Box flex={3}>
+      <Box>
         <Box justifyContent="center">
           <Text variant="header">{currentDate().time}</Text>
         </Box>
