@@ -6,8 +6,9 @@ import {Box, TextInput} from '../../../../theme/theme';
 interface Props {
   onPress: (type: string, name: string) => void;
   type: string;
+  label: string;
 }
-const InputTextField = ({onPress, type}: Props) => {
+const InputTextField = ({onPress, type, label}: Props) => {
   const [input, setInput] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   return (
@@ -28,7 +29,7 @@ const InputTextField = ({onPress, type}: Props) => {
             style={styles.width}
             paddingHorizontal="s"
             variant="TextButtonTitle"
-            placeholder={`Enter your ${type}`}
+            placeholder={`Enter your ${label}`}
             onChangeText={(value: string) => {
               setError(false);
               setInput(value);

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     borderRadius: 200,
   },
   text: {
-    width: '60%',
+    width: '100%',
     paddingBottom: 10,
   },
 });

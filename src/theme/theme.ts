@@ -17,7 +17,8 @@ export const palette = {
   buttonGrey: '#979C9E',
   PracticeBlue: '#F2F4F5',
   selectedBlue: '#E7E7FF',
-  inputBgBlue: 'F2F4F5',
+  inputBgBlue: '#F2F4F5',
+  myDetailsTopic: '#F7F9FA',
 };
 
 const theme = createTheme({
@@ -47,6 +48,7 @@ const theme = createTheme({
     PracticAreaBg: palette.PracticeBlue,
     SelectedPracticeAreaBg: palette.selectedBlue,
     inputBgBlue: palette.inputBgBlue,
+    myDetailsTopic: palette.myDetailsTopic,
   },
   breakpoints: {
     phone: 0,

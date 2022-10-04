@@ -22,7 +22,7 @@ const SearchUser = () => {
   return (
     <Box
       flex={1}
-      paddingTop="l"
+      paddingTop="xl"
       backgroundColor="secondaryBackground"
       paddingHorizontal="m">
       <Box

@@ -43,8 +43,12 @@ export const PracticeArea = [
 
 export const Questions = [
   {
-    question: 'Enter your full name',
-    type: 'name',
+    question: 'Enter your First name',
+    type: 'fname',
+  },
+  {
+    question: 'Enter your First name',
+    type: 'lname',
   },
   {
     question: 'Enter your Age',

@@ -79,3 +79,16 @@ export const getAllUsers = async (filter: string) => {
     });
   return dataNews;
 };
+export const userDetailsUpdate = (dataToSave: object) => {
+  try {
+    let key = auth().currentUser?.uid;
+    firestore()
+      .collection('user')
+      .doc(key)
+      .update(dataToSave)
+      .then(() => {})
+      .catch(() => Alert.alert('Try again later'));
+  } catch (err) {
+    return;
+  }
+};

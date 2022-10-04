@@ -16,8 +16,8 @@ interface Props {
 const DetailNews = ({route}: Props) => {
   const [favourite, setFavourite] = useState<boolean>(false);
   const nav = useNavigation();
-  const news = useSelector((state: any) => state?.UserData.userData);
-  const favourites = news?.favourites;
+  const user = useSelector((state: any) => state?.UserData.userData);
+  const favourites = user?.favourites;
   const data = route.params;
   const isExits = favourites?.find(
     (element: {id: number}) => element?.id === data?.id,

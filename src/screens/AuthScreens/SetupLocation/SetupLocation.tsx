@@ -17,12 +17,15 @@ interface Props {
 const SetupLocation = ({route}: Props) => {
   const dispatch = useDispatch();
 
-  const SubmitHandler = async (location: any) => {
+  const SubmitHandler = async (location: any, name: string|undefined) => {
     try {
       let key = auth().currentUser?.uid;
       let dataToSave = {
         id: key,
-        location: location,
+        location: {
+          ...location,
+          shortName: name,
+        },
         ...route.params,
       };
       firestore()
@@ -65,7 +68,12 @@ const SetupLocation = ({route}: Props) => {
               <Lens width={24} height={24} fill="none" />
             </Box>
           )}
-          onPress={(data, details = null) => SubmitHandler(details?.geometry)}
+          onPress={(data, details = null) =>
+            SubmitHandler(
+              details?.geometry,
+              details?.address_components[0]?.long_name,
+            )
+          }
           renderRow={(rowData: any) => {
             const title = rowData.structured_formatting.main_text;
             const address = rowData.structured_formatting.secondary_text;

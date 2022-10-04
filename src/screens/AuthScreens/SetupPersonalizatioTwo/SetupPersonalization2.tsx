@@ -13,39 +13,62 @@ interface Props {
 const SetupPersonalizationTwo = ({navigation, route}: Props) => {
   const [selected, setSelected] = useState<string>('');
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<object>({});
+  const [selectedAnswers, setSelectedAnswers] = useState<{
+    fname: string;
+    lname: string;
+  }>({
+    fname: '',
+    lname: '',
+  });
 
   const questionHandler = (opt: string, question: string) => {
     const tempData = currentQuestion + 1;
     setCurrentQuestion(tempData);
-    if (tempData > Questions.length - 1) {
-      navigation.navigate('AddEmail', {
-        PArea: route.params,
-        ...selectedAnswers,
-      });
-      setCurrentQuestion(0);
-    }
-
     setSelectedAnswers(prev => {
       return {
         ...prev,
         [question]: opt,
       };
     });
+    if (tempData > Questions.length - 1) {
+      navigation.navigate('AddEmail', {
+        PArea: route.params,
+        ...selectedAnswers,
+        language: opt,
+        name: selectedAnswers?.fname + ' ' + selectedAnswers?.lname,
+      });
+      setCurrentQuestion(0);
+    }
     setSelected(opt);
   };
   const desideField = () => {
     let x = Questions[currentQuestion].type;
     switch (x) {
-      case 'name':
-        return <InputTextField type="name" onPress={questionHandler} />;
+      case 'fname':
+        return (
+          <InputTextField
+            type="fname"
+            label="first name"
+            onPress={questionHandler}
+          />
+        );
+      case 'lname':
+        return (
+          <InputTextField
+            type="lname"
+            label="last name"
+            onPress={questionHandler}
+          />
+        );
       case 'age':
-        return <InputTextField type="age" onPress={questionHandler} />;
+        return (
+          <InputTextField type="age" label="age" onPress={questionHandler} />
+        );
       case 'photo':
         return (
           <UserImagePicker
             onPress={questionHandler}
-            name={selectedAnswers.name}
+            name={selectedAnswers?.fname}
           />
         );
     }
