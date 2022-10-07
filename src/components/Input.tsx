@@ -5,8 +5,8 @@ interface Props {
   label: string;
   value: string;
   name: string;
-  isEditable: boolean;
-  onChangeHandler: (name: string, value: string) => void;
+  isEditable?: boolean;
+  onChangeHandler?: (value: string | object, name: string) => void;
 }
 const Input = ({label, value, isEditable, onChangeHandler, name}: Props) => {
   return (
@@ -35,7 +35,7 @@ const Input = ({label, value, isEditable, onChangeHandler, name}: Props) => {
             variant="TextButtonTitle"
             placeholder={`Enter ${label}`}
             onChangeText={val => {
-              onChangeHandler(name, val);
+              onChangeHandler(val, name);
             }}
           />
         </Box>

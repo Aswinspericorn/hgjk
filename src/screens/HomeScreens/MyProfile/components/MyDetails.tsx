@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Input from '../../../../components/Input';
@@ -7,11 +7,36 @@ import {changeIsDataChanged} from '../../../../store/redux/IsDataChanged';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import Arrow from '../../../../assets/icons/Svg/rightArrow.svg';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-const MyDetails = () => {
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {API_KEY} from '../../../../constants/confiq';
+import Marker from '../../../../assets/icons/Svg/Avatar.svg';
+import UserImagePicker from '../../../AuthScreens/SetupPersonalizatioTwo/components/UserImagePicker';
+import Modal from 'react-native-modal';
+
+interface Props {
+  fname: string;
+  lname: string;
+  location: {shortName: string};
+  email: string;
+  language: string;
+  photo: string;
+}
+const MyDetails = ({navigation}) => {
   const [isEditable, setIsEditable] = useState<boolean>(false);
+  const [modalShow, setMdalShow] = useState<boolean>(false);
   const userData = useSelector((state: any) => state?.UserData.userData);
-  const [input, setInput] = useState<{}>(userData ? userData : {});
+  const [input, setInput] = useState<Props>(
+    userData
+      ? userData
+      : {
+          fname: '',
+        },
+  );
   const dispatch = useDispatch();
+  const ref = useRef();
+  useEffect(() => {
+    ref.current?.setAddressText(input?.location?.shortName);
+  }, [input?.location?.shortName, isEditable]);
 
   const updateHandler = () => {
     if (isEditable) {
@@ -22,24 +47,39 @@ const MyDetails = () => {
       setIsEditable(true);
     }
   };
-  const onChangeHandler = (key: string, value: string) => {
+  const onChangeHandler = (value: string | object, key: string) => {
+    setMdalShow(false);
     setInput(prev => {
       return {...prev, [key]: value};
     });
   };
+  const onImagePicker = () => {
+    if (isEditable) {
+      setMdalShow(true);
+    }
+  };
 
   return (
-    <KeyboardAwareScrollView style={styles.screen}>
-      <Box flex={1} backgroundColor="secondaryBackground">
+    <Box flex={1} backgroundColor="secondaryBackground">
+      <KeyboardAwareScrollView
+        style={styles.screen}
+        keyboardShouldPersistTaps={'handled'}>
         <Box
           flex={1}
           height={200}
           paddingTop="xs"
           justifyContent="center"
           alignItems="center">
-          <Box width={'20%'} height={'50%'} paddingBottom="m">
+          <TouchableBox
+            width={'20%'}
+            height={'55%'}
+            paddingBottom="m"
+            onPress={onImagePicker}>
             <Image source={{uri: input?.photo}} style={styles.Image} />
-          </Box>
+          </TouchableBox>
+          <Modal style={{flex: 1}} isVisible={modalShow}>
+            <UserImagePicker onPress={onChangeHandler} name={input?.fname} />
+          </Modal>
           <Box justifyContent="center">
             <TouchableBox onPress={updateHandler} width={'35%'}>
               <Box
@@ -71,13 +111,84 @@ const MyDetails = () => {
             isEditable={isEditable}
             onChangeHandler={onChangeHandler}
           />
-          <Input
-            name="location"
-            label="Location"
-            value={input?.location?.shortName}
-            onChangeHandler={onChangeHandler}
-            isEditable={isEditable}
-          />
+          {!isEditable ? (
+            <TouchableBox
+              onPress={() => navigation.navigate('Map', input.location)}>
+              <Input
+                name="location"
+                label="Location"
+                value={input?.location?.shortName}
+                isEditable={isEditable}
+              />
+            </TouchableBox>
+          ) : (
+            <GooglePlacesAutocomplete
+              keyboardShouldPersistTaps="handled"
+              placeholder="Enter your place"
+              ref={ref}
+              query={{
+                key: API_KEY,
+                language: 'en',
+                type: '(cities)',
+              }}
+              renderLeftButton={() => (
+                <Box paddingLeft="s">
+                  <Text variant="PersonalizationRegular">Location</Text>
+                </Box>
+              )}
+              onPress={(data, details = null) => {
+                onChangeHandler(
+                  {
+                    ...details?.geometry,
+                    shortName: details?.address_components[0]?.long_name,
+                  },
+                  'location',
+                );
+              }}
+              renderRow={(rowData: any) => {
+                const title = rowData.structured_formatting.main_text;
+                const address = rowData.structured_formatting.secondary_text;
+                return (
+                  <Box flexDirection="row" justifyContent="flex-start">
+                    <Marker width={24} height={24} fill="none" />
+                    <Box paddingLeft="s">
+                      <Text variant="TextButtonTitle" lineHeight={20}>
+                        {title}
+                      </Text>
+                      <Text
+                        variant="TextButtonTitle"
+                        fontSize={14}
+                        lineHeight={16}
+                        color="secondaryTitleText">
+                        {address}
+                      </Text>
+                    </Box>
+                  </Box>
+                );
+              }}
+              fetchDetails={true}
+              styles={{
+                textInputContainer: {
+                  paddingTop: 26,
+                  marginBottom: 16,
+                  height: 48,
+                  borderRadius: 8,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                },
+                textInput: {
+                  paddingHorizontal: 24,
+                  textAlign: 'right',
+                  marginBottom: 0,
+                  marginTop: 5,
+                  color: 'black',
+                  fontSize: 16,
+                  lineHeight: 16,
+                  fontFamily: 'Inter-Regular',
+                },
+              }}
+            />
+          )}
           <Box
             backgroundColor="myDetailsTopic"
             paddingTop="m"
@@ -138,8 +249,8 @@ const MyDetails = () => {
             </Box>
           </Box>
         </Box>
-      </Box>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </Box>
   );
 };
 export default MyDetails;

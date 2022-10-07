@@ -32,17 +32,13 @@ const Banner = () => {
       .get()
       .then((documentSnapshot: any) => getLocation(documentSnapshot))
       .then((data: React.SetStateAction<{lat: string; lng: string}>) => {
+        fetchWeather(data?.lat, data.lng);
         setLocation(data);
       })
-      .then(() => {
-        if (location?.lat && location?.lng) {
-          fetchWeather();
-        }
-      });
   }, [IsFavouriteChanged]);
-  const fetchWeather = () => {
+  const fetchWeather = (lat: string, lng: string) => {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${location?.lat}&lon=${location?.lng}&appid=${API_KEY}`,
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}`,
     )
       .then(res => res.json())
       .then(data => {

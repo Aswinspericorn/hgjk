@@ -5,6 +5,7 @@ import HomeMain from '../screens/HomeScreens/HomeMain';
 import FavouriteNews from '../screens/HomeScreens/FavouriteNews';
 import SearchStackNavigation from './SearchStackNavigation';
 import MyDetails from '../screens/HomeScreens/MyProfile';
+import PersonalDetailsStackNavigation from './PersonalDetailsStackNavigation';
 const Tab = createBottomTabNavigator();
 
 export const HomeBottomNaviation = () => {
@@ -38,12 +39,10 @@ export const HomeBottomNaviation = () => {
         }}
       />
       <Tab.Screen
-        name="MyDetails"
-        component={MyDetails}
+        name="PersonalDetails"
+        component={PersonalDetailsStackNavigation}
         options={{
-          headerTitle: 'My Details',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {fontFamily: 'inter-Regular', fontSize: 18},
+          headerShown: false,
           tabBarIcon: ({color}) => <Person color={color} />,
         }}
       />
