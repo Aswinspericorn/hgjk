@@ -8,10 +8,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {changeUserData} from '../../../../store/redux/UserData';
-interface Props {
-  navigation: any;
-}
-const HomeMain = ({}: Props) => {
+
+const HomeMain = () => {
   const [currentTopic, setCurrentTopic] = useState<number>(0);
   const dispatch = useDispatch();
   const IsFavouriteChanged = useSelector(

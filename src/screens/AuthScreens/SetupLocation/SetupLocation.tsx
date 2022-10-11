@@ -17,7 +17,7 @@ interface Props {
 const SetupLocation = ({route}: Props) => {
   const dispatch = useDispatch();
 
-  const SubmitHandler = async (location: any, name: string|undefined) => {
+  const SubmitHandler = async (location: any, name: string | undefined) => {
     try {
       let key = auth().currentUser?.uid;
       let dataToSave = {

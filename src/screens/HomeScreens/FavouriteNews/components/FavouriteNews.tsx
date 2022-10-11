@@ -5,11 +5,12 @@ import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import NoData from '../../../../components/NoData';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import {HomeNaviationParamList} from '../../../../Types/Navigation';
 
 const FavouriteNews = () => {
   const user = useSelector((state: any) => state?.UserData.userData);
   const favourites = user?.favourites;
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeNaviationParamList>();
 
   return (
     <Box

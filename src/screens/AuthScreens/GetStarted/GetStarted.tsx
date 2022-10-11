@@ -1,10 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import {Box, Text, TouchableBox} from '../../../theme/theme';
+import auth from '@react-native-firebase/auth';
+import {useDispatch} from 'react-redux';
+import {changeAuthStatus} from '../../../store/redux/AuthStatus';
+
 interface Props {
   navigation: any;
 }
 export const GetStarted = ({navigation}: Props) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (auth().currentUser?.uid) {
+      dispatch(changeAuthStatus(true));
+    }
+  });
+
   return (
     <Box flex={1}>
       <Box

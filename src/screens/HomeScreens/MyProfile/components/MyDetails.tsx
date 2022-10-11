@@ -113,7 +113,12 @@ const MyDetails = ({navigation}) => {
           />
           {!isEditable ? (
             <TouchableBox
-              onPress={() => navigation.navigate('Map', input.location)}>
+              onPress={() =>
+                navigation.navigate('Map', {
+                  location: {...input.location},
+                  image: input.photo,
+                })
+              }>
               <Input
                 name="location"
                 label="Location"

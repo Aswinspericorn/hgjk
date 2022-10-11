@@ -4,9 +4,9 @@ import {Home, Love, Person, Search} from '../assets/icons/Svg/Icons';
 import HomeMain from '../screens/HomeScreens/HomeMain';
 import FavouriteNews from '../screens/HomeScreens/FavouriteNews';
 import SearchStackNavigation from './SearchStackNavigation';
-import MyDetails from '../screens/HomeScreens/MyProfile';
 import PersonalDetailsStackNavigation from './PersonalDetailsStackNavigation';
-const Tab = createBottomTabNavigator();
+import {HomeBottomNaviationParamList} from '../Types/Navigation';
+const Tab = createBottomTabNavigator<HomeBottomNaviationParamList>();
 
 export const HomeBottomNaviation = () => {
   return (
@@ -23,7 +23,7 @@ export const HomeBottomNaviation = () => {
         }}
       />
       <Tab.Screen
-        name="favouriteMain"
+        name="FavouriteMain"
         component={FavouriteNews}
         options={{
           headerShown: false,
@@ -31,7 +31,7 @@ export const HomeBottomNaviation = () => {
         }}
       />
       <Tab.Screen
-        name="Home4"
+        name="Search"
         component={SearchStackNavigation}
         options={{
           headerShown: false,

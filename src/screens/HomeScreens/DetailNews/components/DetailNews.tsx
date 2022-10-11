@@ -10,10 +10,7 @@ import {
 import {changeIsDataChanged} from '../../../../store/redux/IsDataChanged';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 
-interface Props {
-  route: any;
-}
-const DetailNews = ({route}: Props) => {
+const DetailNews = ({route}) => {
   const [favourite, setFavourite] = useState<boolean>(false);
   const nav = useNavigation();
   const user = useSelector((state: any) => state?.UserData.userData);

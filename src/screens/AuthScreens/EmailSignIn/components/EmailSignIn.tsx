@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {KeyboardAvoidingView, StyleSheet} from 'react-native';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import EmailAndPasswordInput from '../../EmailSignUp/components/EmailAndPasswordInput';
 import ButtonContainer from '../../EmailSignUp/components/ButtonContainer';
 import SigninAccountHelper from '../../../../helper/EmailSignIn.helper';
 import {useDispatch} from 'react-redux';
 import {changeAuthStatus} from '../../../../store/redux/AuthStatus';
+import {getSingleUserDetails} from '../../../../helper/Firebase.helper';
+import {changeUserData} from '../../../../store/redux/UserData';
 
-const EmailSignIn = () => {
+const EmailSignIn = ({navigation}) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
@@ -19,7 +20,16 @@ const EmailSignIn = () => {
 
   useEffect(() => {
     if (success) {
-      dispatch(changeAuthStatus(true));
+      const checkIsNewUser = async () => {
+        const result = await getSingleUserDetails();
+        if (result === undefined) {
+          navigation.navigate('SetupPersonalizationOne');
+        } else {
+          dispatch(changeUserData(result));
+          dispatch(changeAuthStatus(true));
+        }
+      };
+      checkIsNewUser();
       setSucces(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

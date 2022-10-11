@@ -42,14 +42,12 @@ const UserImagePicker = ({onPress, name}: Props) => {
         return;
       }
       if (response.errorCode) {
-        console.log(response);
         return;
       }
       if (response.errorMessage) {
         return;
       }
       if (response.assets) {
-        console.log(assets);
       }
       const source = response.assets[0].uri;
       setPhoto(source);
@@ -68,7 +66,6 @@ const UserImagePicker = ({onPress, name}: Props) => {
         return;
       }
       if (response.errorCode) {
-        console.log(response);
         return;
       }
       const source = response?.assets[0]?.uri;

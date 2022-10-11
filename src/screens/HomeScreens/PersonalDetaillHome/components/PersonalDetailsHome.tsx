@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
@@ -56,7 +56,12 @@ const PersonalDetailsHome = ({navigation}) => {
           <TouchableBox
             flexDirection="row"
             paddingBottom="l"
-            onPress={() => navigation.navigate('Map', userData.location)}>
+            onPress={() =>
+              navigation.navigate('Map', {
+                location: {...userData.location},
+                image: userData.photo,
+              })
+            }>
             <Box paddingRight="xss" justifyContent="center" alignItems="center">
               <Location width={18} height={22} fill="none" />
             </Box>
@@ -100,8 +105,11 @@ const PersonalDetailsHome = ({navigation}) => {
             paddingBottom="m"
             paddingLeft="xs"
             onPress={() => {
-              auth().signOut();
-              dispatch(changeAuthStatus(false));
+              auth()
+                .signOut()
+                .then(() => {
+                  dispatch(changeAuthStatus(false));
+                });
             }}>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               Log out

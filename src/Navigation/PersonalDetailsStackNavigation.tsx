@@ -25,13 +25,6 @@ const PersonalDetailsStackNavigation = () => {
           headerTitleStyle: {fontFamily: 'inter-Regular', fontSize: 18},
         }}
       />
-      <Stack.Screen
-        name="Map"
-        component={Map}
-        options={{
-          headerShown: false,
-        }}
-      />
     </Stack.Navigator>
   );
 };

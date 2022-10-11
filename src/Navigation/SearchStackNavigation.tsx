@@ -15,14 +15,6 @@ const SearchStackNavigation = () => {
           headerTransparent: true,
         }}
       />
-      <Stack.Screen
-        name="UserDetails"
-        component={UserDetails}
-        options={{
-          title: '',
-          headerTransparent: true,
-        }}
-      />
     </Stack.Navigator>
   );
 };

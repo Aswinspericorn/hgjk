@@ -14,9 +14,9 @@ const ListOfUsers = ({list, search}: Props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const onPressHandler = () => {
+  const onPressHandler = (data: object) => {
     dispatch(changeRecentSearch(search));
-    navigation.navigate('UserDetails');
+    navigation.navigate('UserDetails', data);
   };
   return (
     <Box paddingTop="m">
@@ -24,7 +24,11 @@ const ListOfUsers = ({list, search}: Props) => {
         {list?.length > 0 ? (
           list?.map(
             (item: {_data: {name: string; photo: string}}, index: number) => (
-              <Pressable key={index} onPress={onPressHandler}>
+              <Pressable
+                key={index}
+                onPress={() => {
+                  onPressHandler(item?._data);
+                }}>
                 <UserTile
                   title={item?._data?.name}
                   describe="senior developer"
