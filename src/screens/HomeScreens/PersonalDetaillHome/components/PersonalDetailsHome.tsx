@@ -56,12 +56,7 @@ const PersonalDetailsHome = ({navigation}) => {
           <TouchableBox
             flexDirection="row"
             paddingBottom="l"
-            onPress={() =>
-              navigation.navigate('Map', {
-                location: {...userData.location},
-                image: userData.photo,
-              })
-            }>
+            onPress={() => navigation.navigate('Map')}>
             <Box paddingRight="xss" justifyContent="center" alignItems="center">
               <Location width={18} height={22} fill="none" />
             </Box>

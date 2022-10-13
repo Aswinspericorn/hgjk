@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Image, ScrollView, StyleSheet} from 'react-native';
@@ -44,7 +45,7 @@ const DetailNews = ({route}) => {
         </TouchableBox>
       ),
     });
-  });
+  }, [favourite]);
   return (
     <Box
       flex={1}
@@ -71,7 +72,7 @@ const DetailNews = ({route}) => {
                 variant="PersonalizationRegular"
                 fontSize={14}
                 lineHeight={14}>
-                by{' '}
+                by
               </Text>
               <Text variant="header" fontSize={14} lineHeight={14}>
                 {data?.subTitle[0]},

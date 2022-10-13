@@ -42,11 +42,7 @@ const UserDetails = ({navigation, route}) => {
         />
         <TouchableBox
           onPress={() => {
-            navigation.navigate('Map', {
-              location: {...input?.location},
-              image: input?.photo,
-              fname: input?.fname,
-            });
+            navigation.navigate('Map', input);
           }}>
           <Input
             name="location"

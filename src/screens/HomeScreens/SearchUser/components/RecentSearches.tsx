@@ -3,7 +3,7 @@ import {Pressable, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import {Box, Text} from '../../../../theme/theme';
 
-const RecentSearchesList = ({setSearch}) => {
+const RecentSearchesList = ({setSearch = () => {}}) => {
   const list = useSelector((state: any) => state?.RecentSearches.searchData);
   return (
     <Box>

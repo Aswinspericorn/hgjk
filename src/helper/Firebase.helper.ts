@@ -79,6 +79,17 @@ export const getAllUsers = async (filter: string) => {
     });
   return dataNews;
 };
+
+export const getAllUsersWithoutFilter = async () => {
+  const dataNews = await firestore()
+    .collection('user')
+    .where('id', '!=', auth().currentUser?.uid)
+    .get()
+    .then(res => {
+      return res.docs;
+    });
+  return dataNews;
+};
 export const userDetailsUpdate = (dataToSave: object) => {
   try {
     let key = auth().currentUser?.uid;
