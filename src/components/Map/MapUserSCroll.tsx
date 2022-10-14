@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {Box} from '../../theme/theme';
 import MapUSerTile from '../MapUSerTile';
-const MapUserScroll = ({users, scrollToIndex}) => {
+const MapUserScroll = ({users, scrollToIndex, setScrollToIndex ,setRegion}) => {
   const ref = useRef();
   useEffect(() => {
     ref?.current?.scrollToIndex({
@@ -14,10 +14,20 @@ const MapUserScroll = ({users, scrollToIndex}) => {
     });
   }, [scrollToIndex]);
   const renderItem = ({item, index}) => (
-    <Box key={index} paddingRight="m" paddingLeft={index === 0 ? 'l' : 'xs'}>
-      <MapUSerTile
-       item={item}
-      />
+    <Box
+      key={index}
+      paddingRight="m"
+      paddingLeft={index === 0 ? 'l' : 'xs'}
+      onTouchStart={() => {
+        setRegion({
+          latitude: item?._data.location.location.lat,
+          longitude: item?._data.location.location.lng,
+          latitudeDelta: 50,
+          longitudeDelta: 50,
+        });
+        setScrollToIndex(index)
+      }}>
+      <MapUSerTile item={item} />
     </Box>
   );
 

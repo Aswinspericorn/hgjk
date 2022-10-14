@@ -9,8 +9,8 @@ const MarkersOfAllUsers = ({
   setMarkerLoaded,
   setScrollToIndex,
   scrollToIndex,
+  setRegion,
 }) => {
-  console.log(scrollToIndex);
   const [users, setUsers] = useState<Array<object>>([]);
   const [selected, setSelected] = useState(0);
 
@@ -19,11 +19,11 @@ const MarkersOfAllUsers = ({
       const usersList = await getAllUsersWithoutFilter();
 
       setUsers(usersList);
-
+      setSelected(scrollToIndex);
       setMarkerLoaded(usersList);
     };
     getUsers();
-  }, []);
+  }, [scrollToIndex, setMarkerLoaded]);
   return (
     <Box>
       {users?.length > 0 &&
@@ -37,6 +37,12 @@ const MarkersOfAllUsers = ({
             <Marker
               onSelect={() => {}}
               onPress={() => {
+                setRegion({
+                  latitude: item?._data.location.location.lat,
+                  longitude: item?._data.location.location.lng,
+                  latitudeDelta: 50,
+                  longitudeDelta: 50,
+                });
                 setSelected(index);
                 setScrollToIndex(index);
               }}

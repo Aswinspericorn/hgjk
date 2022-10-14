@@ -8,9 +8,12 @@ import {API_KEY} from '../../constants/confiq';
 import {useSelector} from 'react-redux';
 import DetailCard from './DetailCard';
 import timeConvert from '../../helper/TimeMinuteConvert';
-import {requestPermission} from '../../helper/Map.helper';
+import {
+  getCurrentLoc,
+  getHeader,
+  requestPermission,
+} from '../../helper/Map.helper';
 import Navigate from '../../assets/icons/Svg/compass.svg';
-import Geolocation from 'react-native-geolocation-service';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import MarkersOfAllUsers from './MarkersOfUsers';
 import MapUserScroll from './MapUserSCroll';
@@ -28,6 +31,12 @@ const Map = ({route}: any) => {
   const [duration, setDuration] = useState<number[]>([0, 0]);
   const userData = useSelector((state: any) => state?.UserData.userData);
   const [scrollToIndex, setScrollToIndex] = useState(0);
+  const [region, setRegion] = useState<object>({
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
 
   const [curLoc, setCurLoc] = useState<{}>({
     latitude: userData.location.location.lat,
@@ -58,45 +67,6 @@ const Map = ({route}: any) => {
     );
   };
 
-  //get current location
-  const getCurrentLoc = async () => {
-    if (permission) {
-      Geolocation.getCurrentPosition(
-        position => {
-          const cords = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          };
-          setCurLoc(cords);
-          animate(cords.latitude, cords.longitude);
-        },
-        error => {
-          return error.message;
-        },
-        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-      );
-    }
-  };
-
-  //get current heading
-  const getHeader = async () => {
-    if (permission) {
-      Geolocation.getCurrentPosition(
-        position => {
-          const cords = {
-            heading: position.coords.heading,
-          };
-
-          setHeading(cords.heading);
-        },
-        error => {
-          return error.message;
-        },
-        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-      );
-    }
-  };
-
   //TO GET CAMERA HEADING
   function updateCameraHeading() {
     const map = mapRef.current;
@@ -111,7 +81,7 @@ const Map = ({route}: any) => {
       const perm = await requestPermission();
       if (perm) {
         setPermission(perm);
-        getCurrentLoc();
+        getCurrentLoc(perm, setCurLoc, animate);
       }
     };
     request();
@@ -134,7 +104,7 @@ const Map = ({route}: any) => {
   useEffect(() => {
     if (start) {
       const interval = setInterval(async () => {
-        getHeader();
+        getHeader(permission, setHeading);
       }, 500);
       return () => clearInterval(interval);
     }
@@ -144,7 +114,7 @@ const Map = ({route}: any) => {
   useEffect(() => {
     if (start) {
       const interval = setInterval(async () => {
-        getCurrentLoc();
+        getCurrentLoc(permission, setCurLoc, animate);
       }, 1000);
       return () => clearInterval(interval);
     }
@@ -163,6 +133,7 @@ const Map = ({route}: any) => {
       <Box flex={1}>
         <MapView
           mapType="standard"
+          region={region}
           ref={mapRef}
           zoomControlEnabled={true}
           rotateEnabled={true}
@@ -219,6 +190,7 @@ const Map = ({route}: any) => {
           ) : (
             !route.params && (
               <MarkersOfAllUsers
+                setRegion={setRegion}
                 setMarkerLoaded={setUsers}
                 scrollToIndex={scrollToIndex}
                 setScrollToIndex={setScrollToIndex}
@@ -295,7 +267,12 @@ const Map = ({route}: any) => {
           />
         ) : (
           <Box position="absolute" bottom={10} flex={1}>
-            <MapUserScroll scrollToIndex={scrollToIndex} users={users} />
+            <MapUserScroll
+              setRegion={setRegion}
+              scrollToIndex={scrollToIndex}
+              users={users}
+              setScrollToIndex={setScrollToIndex}
+            />
           </Box>
         )}
       </Box>
