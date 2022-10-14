@@ -5,6 +5,7 @@ import {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {getAllUsers} from '../../../../helper/Firebase.helper';
 import ListOfUsers from './ListOfUsers';
+import auth from '@react-native-firebase/auth';
 
 import RecentSearchesList from './RecentSearches';
 
@@ -15,7 +16,10 @@ const SearchUser = () => {
   useEffect(() => {
     const searchHandler = async () => {
       const userList = await getAllUsers(search);
-      setUsers(userList);
+      const flteredList = userList?.filter(
+        element => element.data().id != auth().currentUser?.uid,
+      );
+      setUsers(flteredList);
     };
     searchHandler();
   }, [search]);

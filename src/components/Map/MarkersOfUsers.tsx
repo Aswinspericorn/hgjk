@@ -37,13 +37,13 @@ const MarkersOfAllUsers = ({
             <Marker
               onSelect={() => {}}
               onPress={() => {
+                setSelected(index);
                 setRegion({
                   latitude: item?._data.location.location.lat,
                   longitude: item?._data.location.location.lng,
                   latitudeDelta: 50,
                   longitudeDelta: 50,
                 });
-                setSelected(index);
                 setScrollToIndex(index);
               }}
               coordinate={{

@@ -32,8 +32,8 @@ const Map = ({route}: any) => {
   const userData = useSelector((state: any) => state?.UserData.userData);
   const [scrollToIndex, setScrollToIndex] = useState(0);
   const [region, setRegion] = useState<object>({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: userData.location.location.lat,
+    longitude: userData.location.location.lng,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });

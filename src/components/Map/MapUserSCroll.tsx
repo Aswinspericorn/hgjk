@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {Box} from '../../theme/theme';
 import MapUSerTile from '../MapUSerTile';
-const MapUserScroll = ({users, scrollToIndex, setScrollToIndex ,setRegion}) => {
+const MapUserScroll = ({users, scrollToIndex, setScrollToIndex, setRegion}) => {
   const ref = useRef();
   useEffect(() => {
     ref?.current?.scrollToIndex({
@@ -25,7 +25,7 @@ const MapUserScroll = ({users, scrollToIndex, setScrollToIndex ,setRegion}) => {
           latitudeDelta: 50,
           longitudeDelta: 50,
         });
-        setScrollToIndex(index)
+        setScrollToIndex(index);
       }}>
       <MapUSerTile item={item} />
     </Box>

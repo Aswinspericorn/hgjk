@@ -1,22 +1,36 @@
-import React, {useState} from 'react';
-import {Alert, Image, Pressable, StyleSheet} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Dimensions, Pressable, StyleSheet} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {Box, Text, TouchableBox} from '../../../theme/theme';
 import Facebook from '../../../assets/icons/Svg/facebook.svg';
-import {LoginManager, AccessToken, Settings} from 'react-native-fbsdk-next';
 import Google from '../../../assets/icons/Svg/google.svg';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 
 import {changeAuthStatus} from '../../../store/redux/AuthStatus';
-import { getSingleUserDetails } from '../../../helper/Firebase.helper';
-import { changeUserData } from '../../../store/redux/UserData';
+import {getSingleUserDetails} from '../../../helper/Firebase.helper';
+import {changeUserData} from '../../../store/redux/UserData';
+import Animated, {
+  useAnimatedScrollHandler,
+  useSharedValue,
+} from 'react-native-reanimated';
+import {
+  WalkPonitsArray,
+  WalkThroughArray,
+} from '../../../constants/WalkThroughArray';
+import ImageTopicScroll from './components/ImageTopicScroll';
+import {
+  onFacebookButtonPress,
+  onGoogleButtonPress,
+} from '../../../helper/WalkThrough.helper';
 interface Props {
   navigation: any;
 }
+const {width} = Dimensions.get('window');
+
 const WalkThrough = ({navigation}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const scrollViewRef = useRef<any>();
   const dispatch = useDispatch();
   GoogleSignin.configure({
     webClientId:
@@ -32,80 +46,48 @@ const WalkThrough = ({navigation}: Props) => {
       dispatch(changeAuthStatus(true));
     }
   };
-  async function onGoogleButtonPress() {
-    // Get the users ID token
-    try {
-      const {idToken} = await GoogleSignin.signIn();
-      // await GoogleSignin.signOut();
-      // Create a Google credential with the token
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      await auth()
-        .signInWithCredential(googleCredential)
-        .then(() => {
-          checkIsNewUser();
-          return;
-        })
-        .catch(() => {
-          Alert.alert('Something went wrong,try again later');
-          return;
-        });
-    } catch (err) {
+
+  const translateX = useSharedValue(0);
+
+  const onScrollHandler = useAnimatedScrollHandler(event => {
+    translateX.value = event.contentOffset.x;
+  });
+  const array = [
+    WalkThroughArray[WalkThroughArray.length - 1],
+    ...WalkThroughArray,
+    WalkThroughArray[0],
+  ];
+  useEffect(() => {
+    goToPage(1);
+  }, []);
+
+  function goToPage(page: number) {
+    const to = page * width;
+    scrollViewRef.current.scrollTo({x: to, y: 0, animated: false});
+  }
+  function onScrollEnd(e) {
+    const {contentOffset} = e.nativeEvent;
+
+    // Divide the horizontal offset by the width of the view to see which page is visible
+    let pageNum = Math.floor(contentOffset.x / width);
+    console.log(pageNum, 'pagenum');
+    if (currentPage >= WalkThroughArray.length) {
+      console.log('insde', currentPage);
+      setCurrentPage(0);
+      goToPage(1);
       return;
     }
+    setCurrentPage(pageNum);
   }
 
-  async function onFacebookButtonPress() {
-    Settings.initializeSDK();
-    // Attempt login with permissions
-    setIsLoading(true);
-    try {
-      const result = await LoginManager.logInWithPermissions([
-        'public_profile',
-        'email',
-      ]);
-
-      if (result.isCancelled) {
-        Alert.alert('Something went wrong');
-      }
-      // Once signed in, get the users AccesToken
-      const data = await AccessToken.getCurrentAccessToken();
-
-      if (!data) {
-        // Alert.alert('Something went wrong obtaining access token');
-        setIsLoading(false);
-        return;
-      }
-
-      // Create a Firebase credential with the AccessToken
-      const facebookCredential = auth.FacebookAuthProvider.credential(
-        data?.accessToken,
-      );
-
-      // Sign-in the user with the credential
-      await auth()
-        .signInWithCredential(facebookCredential)
-        .then(() => {
-          checkIsNewUser();
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setIsLoading(false);
-          return;
-        });
-    } catch (err) {
-      setIsLoading(false);
-      Alert.alert('Something went wrong,check your internet connection');
-      return;
-    }
-  }
   return (
-    <Box flex={1} backgroundColor="secondaryBackground" paddingHorizontal="m">
+    <Box flex={1} backgroundColor="secondaryBackground">
       <Box
+        paddingHorizontal="m"
         flex={1}
         flexDirection="row"
         alignItems="center"
         paddingTop="xl"
-        paddingBottom="l"
         justifyContent="center">
         <Text variant="body" color="primaryTitleText">
           You
@@ -114,63 +96,52 @@ const WalkThrough = ({navigation}: Props) => {
           Learn
         </Text>
       </Box>
-      <Box
-        flex={4}
-        justifyContent="center"
-        alignItems="center"
-        paddingHorizontal="m"
-        paddingVertical="s">
-        <Image
-          source={require('../../../assets/images/youlearn.png')}
-          style={styles.image}
-        />
-      </Box>
-      <Box flex={2} justifyContent="flex-end">
-        <Text
-          variant="body"
-          lineHeight={32}
-          color="primaryTitleText"
-          textAlign="center"
-          paddingBottom="xs">
-          Create brilliant learning {'\n'} pathways
-        </Text>
+      <Box flex={3} justifyContent="center" alignItems="center">
+        <Animated.ScrollView
+          pagingEnabled
+          ref={scrollViewRef}
+          onMomentumScrollEnd={onScrollEnd}
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={width}
+          horizontal
+          style={styles.screen}
+          scrollEventThrottle={16}
+          onScroll={onScrollHandler}>
+          {array.map((item, index) => (
+            <ImageTopicScroll
+              item={item}
+              index={index}
+              key={index}
+              translateX={translateX}
+            />
+          ))}
+        </Animated.ScrollView>
       </Box>
       <Box
         flex={0.9}
+        paddingHorizontal="m"
         flexDirection="row"
         paddingVertical="xs"
         justifyContent="center"
         alignItems="center">
-        <Box
-          marginRight="xs"
-          width={7}
-          height={7}
-          borderRadius="xxl"
-          backgroundColor="pointerFill"
-        />
-        <Box
-          marginRight="xs"
-          width={7}
-          height={7}
-          borderRadius="xxl"
-          backgroundColor="pointerFill"
-        />
-        <Box
-          marginRight="xs"
-          width={7}
-          height={7}
-          borderRadius="xxl"
-          backgroundColor="pointerFill"
-        />
-        <Box
-          marginRight="xs"
-          width={7}
-          height={7}
-          borderRadius="xxl"
-          backgroundColor="blueTitleText"
-        />
+        {WalkPonitsArray.map(index => (
+          <Box
+            key={index}
+            marginRight="xs"
+            width={7}
+            height={7}
+            borderRadius="xxl"
+            backgroundColor={
+              index === currentPage ? 'blueTitleText' : 'pointerFill'
+            }
+          />
+        ))}
       </Box>
-      <Box justifyContent="center" alignItems="center">
+      <Box
+        justifyContent="center"
+        alignItems="center"
+        flex={1}
+        paddingHorizontal="m">
         <TouchableBox
           disabled={isLoading}
           justifyContent="center"
@@ -189,6 +160,7 @@ const WalkThrough = ({navigation}: Props) => {
         </TouchableBox>
       </Box>
       <Box
+        flex={0.4}
         justifyContent="center"
         marginTop="s"
         alignItems="center"
@@ -226,7 +198,9 @@ const WalkThrough = ({navigation}: Props) => {
             borderWidth={2}
             borderColor="pointerFill">
             <Pressable
-              onPress={onFacebookButtonPress}
+              onPress={() =>
+                onFacebookButtonPress(setIsLoading, checkIsNewUser)
+              }
               disabled={isLoading}
               style={({pressed}) => (pressed ? styles.pressed : {})}>
               <Box paddingHorizontal="m" paddingVertical="xs">
@@ -241,7 +215,7 @@ const WalkThrough = ({navigation}: Props) => {
             borderWidth={2}
             borderColor="pointerFill">
             <Pressable
-              onPress={onGoogleButtonPress}
+              onPress={() => onGoogleButtonPress(checkIsNewUser)}
               disabled={isLoading}
               style={({pressed}) => (pressed ? styles.pressed : {})}>
               <Box paddingHorizontal="m" paddingVertical="xs">
@@ -252,6 +226,7 @@ const WalkThrough = ({navigation}: Props) => {
         </Box>
       </Box>
       <Box
+        flex={0.4}
         flexDirection="row"
         justifyContent="center"
         alignItems="center"
@@ -273,9 +248,8 @@ const WalkThrough = ({navigation}: Props) => {
 };
 export default WalkThrough;
 const styles = StyleSheet.create({
-  image: {
-    height: '100%',
-    width: '100%',
+  screen: {
+    flex: 3,
   },
   pressed: {
     opacity: 0.3,
