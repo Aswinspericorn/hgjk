@@ -4,6 +4,9 @@ import {Box, Text, TouchableBox} from '../../../theme/theme';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {changeAuthStatus} from '../../../store/redux/AuthStatus';
+import requestUserPermission, {
+  NotificationLIsterner,
+} from '../../../helper/PushNotification.helper';
 
 interface Props {
   navigation: any;
@@ -15,6 +18,11 @@ export const GetStarted = ({navigation}: Props) => {
       dispatch(changeAuthStatus(true));
     }
   });
+
+  useEffect(() => {
+    requestUserPermission();
+    NotificationLIsterner(navigation);
+  }, []);
 
   return (
     <Box flex={1}>

@@ -17,7 +17,7 @@ const SearchUser = () => {
     const searchHandler = async () => {
       const userList = await getAllUsers(search);
       const flteredList = userList?.filter(
-        element => element.data().id != auth().currentUser?.uid,
+        element => element.data().id !== auth().currentUser?.uid,
       );
       setUsers(flteredList);
     };

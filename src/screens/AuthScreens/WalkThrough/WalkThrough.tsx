@@ -29,7 +29,7 @@ const {width} = Dimensions.get('window');
 
 const WalkThrough = ({navigation}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const scrollViewRef = useRef<any>();
   const dispatch = useDispatch();
   GoogleSignin.configure({
@@ -37,7 +37,7 @@ const WalkThrough = ({navigation}: Props) => {
       '719758580576-1hgli2r1blk86hgd8n861tfs755e6sii.apps.googleusercontent.com',
   });
 
-  const checkIsNewUser = async () => {
+  async function checkIsNewUser() {
     const result = await getSingleUserDetails();
     if (result === undefined) {
       navigation.navigate('SetupPersonalizationOne');
@@ -45,7 +45,7 @@ const WalkThrough = ({navigation}: Props) => {
       dispatch(changeUserData(result));
       dispatch(changeAuthStatus(true));
     }
-  };
+  }
 
   const translateX = useSharedValue(0);
 
@@ -53,28 +53,39 @@ const WalkThrough = ({navigation}: Props) => {
     translateX.value = event.contentOffset.x;
   });
   const array = [
+    WalkThroughArray[WalkThroughArray.length - 2],
     WalkThroughArray[WalkThroughArray.length - 1],
     ...WalkThroughArray,
     WalkThroughArray[0],
+    WalkThroughArray[1],
   ];
   useEffect(() => {
-    goToPage(1);
+    goToPage(2);
   }, []);
 
   function goToPage(page: number) {
     const to = page * width;
     scrollViewRef.current.scrollTo({x: to, y: 0, animated: false});
   }
-  function onScrollEnd(e) {
+  function onScrollEnd(e: {nativeEvent: {contentOffset: any}}) {
     const {contentOffset} = e.nativeEvent;
 
-    // Divide the horizontal offset by the width of the view to see which page is visible
     let pageNum = Math.floor(contentOffset.x / width);
-    console.log(pageNum, 'pagenum');
-    if (currentPage >= WalkThroughArray.length) {
-      console.log('insde', currentPage);
-      setCurrentPage(0);
+
+    if (pageNum > WalkPonitsArray.length) {
+      setCurrentPage(1);
+      goToPage(2);
+      return;
+    }
+
+    if (currentPage > WalkThroughArray.length) {
+      setCurrentPage(1);
       goToPage(1);
+      return;
+    }
+    if (pageNum < 1) {
+      setCurrentPage(4);
+      goToPage(5);
       return;
     }
     setCurrentPage(pageNum);
@@ -98,6 +109,7 @@ const WalkThrough = ({navigation}: Props) => {
       </Box>
       <Box flex={3} justifyContent="center" alignItems="center">
         <Animated.ScrollView
+          decelerationRate={0.5}
           pagingEnabled
           ref={scrollViewRef}
           onMomentumScrollEnd={onScrollEnd}
@@ -132,7 +144,7 @@ const WalkThrough = ({navigation}: Props) => {
             height={7}
             borderRadius="xxl"
             backgroundColor={
-              index === currentPage ? 'blueTitleText' : 'pointerFill'
+              index + 1 === currentPage ? 'blueTitleText' : 'pointerFill'
             }
           />
         ))}

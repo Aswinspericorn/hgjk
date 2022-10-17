@@ -103,3 +103,14 @@ export const userDetailsUpdate = (dataToSave: object) => {
     return;
   }
 };
+
+export const getUser = async (id: string) => {
+  const dataNews = await firestore()
+    .collection('user')
+    .where('id', '==', id)
+    .get()
+    .then(res => {
+      return res.docs[0].data();
+    });
+  return dataNews;
+};
