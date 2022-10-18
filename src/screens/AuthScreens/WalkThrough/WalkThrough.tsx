@@ -29,7 +29,7 @@ const {width} = Dimensions.get('window');
 
 const WalkThrough = ({navigation}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const scrollViewRef = useRef<any>();
   const dispatch = useDispatch();
   GoogleSignin.configure({
@@ -52,42 +52,13 @@ const WalkThrough = ({navigation}: Props) => {
   const onScrollHandler = useAnimatedScrollHandler(event => {
     translateX.value = event.contentOffset.x;
   });
-  const array = [
-    WalkThroughArray[WalkThroughArray.length - 2],
-    WalkThroughArray[WalkThroughArray.length - 1],
-    ...WalkThroughArray,
-    WalkThroughArray[0],
-    WalkThroughArray[1],
-  ];
-  useEffect(() => {
-    goToPage(2);
-  }, []);
 
-  function goToPage(page: number) {
-    const to = page * width;
-    scrollViewRef.current.scrollTo({x: to, y: 0, animated: false});
-  }
   function onScrollEnd(e: {nativeEvent: {contentOffset: any}}) {
+    // const viewSize = e.nativeEvent.layoutMeasurement;
     const {contentOffset} = e.nativeEvent;
-
-    let pageNum = Math.floor(contentOffset.x / width);
-
-    if (pageNum > WalkPonitsArray.length) {
-      setCurrentPage(1);
-      goToPage(2);
-      return;
-    }
-
-    if (currentPage > WalkThroughArray.length) {
-      setCurrentPage(1);
-      goToPage(1);
-      return;
-    }
-    if (pageNum < 1) {
-      setCurrentPage(4);
-      goToPage(5);
-      return;
-    }
+    let pageNum = Math.floor(
+      (contentOffset.x + 1).toFixed(0) / width.toFixed(0),
+    );
     setCurrentPage(pageNum);
   }
 
@@ -119,7 +90,7 @@ const WalkThrough = ({navigation}: Props) => {
           style={styles.screen}
           scrollEventThrottle={16}
           onScroll={onScrollHandler}>
-          {array.map((item, index) => (
+          {WalkThroughArray.map((item, index) => (
             <ImageTopicScroll
               item={item}
               index={index}
@@ -144,7 +115,7 @@ const WalkThrough = ({navigation}: Props) => {
             height={7}
             borderRadius="xxl"
             backgroundColor={
-              index + 1 === currentPage ? 'blueTitleText' : 'pointerFill'
+              index === currentPage ? 'blueTitleText' : 'pointerFill'
             }
           />
         ))}

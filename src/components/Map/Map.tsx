@@ -226,27 +226,7 @@ const Map = ({route}: any) => {
                 onReady={result => {
                   setDistance(result?.distance);
                   setDuration(timeConvert(result?.duration));
-                  !start &&
-                    mapRef.current.fitToCoordinates(
-                      [
-                        {
-                          latitude: userData.location.location.lat,
-                          longitude: userData.location.location.lng,
-                        },
-                        {
-                          latitude: location.location.lat,
-                          longitude: location.location.lng,
-                        },
-                      ],
-                      {
-                        edgePadding: {
-                          right: width / 5,
-                          bottom: height / 5,
-                          left: width / 5,
-                          top: height / 5,
-                        },
-                      },
-                    );
+                  !start && mapRef?.current.fitToElements(true);
                 }}
               />
             </>

@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 import messaging from '@react-native-firebase/messaging';
+import {Linking} from 'react-native';
 import {getUser} from './Firebase.helper';
 
 async function requestUserPermission() {
@@ -30,17 +31,12 @@ async function GetFCMToken() {
     }
   }
 }
-export const NotificationLIsterner = (navigation: {
-  navigate: (
-    arg0: string,
-    arg1: {screen: string; params: FirebaseFirestoreTypes.DocumentData},
-  ) => void;
-}) => {
-  messaging().onNotificationOpenedApp(remoteMessage => {
-    console.log(
-      'Notification caused app to open from background state:',
-      remoteMessage.notification,
-    );
+export const NotificationLIsterner = () => {
+  messaging().onNotificationOpenedApp(async remoteMessage => {
+    // console.log(
+    //   'Notification caused app to open from background state:',
+    //   remoteMessage.notification,
+    // );
   });
 
   // Check whether an initial notification is available
@@ -48,17 +44,19 @@ export const NotificationLIsterner = (navigation: {
     .getInitialNotification()
     .then(async remoteMessage => {
       if (remoteMessage) {
-        if (remoteMessage?.data?.type === 'friend') {
-          const data = await getUser(remoteMessage.data.id);
-          //   navigation.navigate('UserDetails', data);
-          navigation.navigate('Homestack', {
-            screen: 'UserDetails',
-            params: data,
-          });
+        if (remoteMessage?.data?.id) {
+          console.log(remoteMessage?.data?.id);
+          Linking.openURL(
+            `demo://app/${remoteMessage?.data?.type}/${remoteMessage?.data?.id}`,
+          );
+        } else {
+          console.log('===========================');
+
+          Linking.openURL(`demo://app/${remoteMessage?.data?.type}`);
         }
       }
     });
   messaging().onMessage(async message => {
-    console.log('notifghgh', message);
+    console.log('notification', message);
   });
 };

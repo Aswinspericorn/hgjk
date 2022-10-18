@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet} from 'react-native';
 import Input from '../../../../components/Input';
 
 import Arrow from '../../../../assets/icons/Svg/rightArrow.svg';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
+import {getUser} from '../../../../helper/Firebase.helper';
 
 // interface Props {
 //   fname: string;
@@ -14,7 +15,18 @@ import {Box, Text, TouchableBox} from '../../../../theme/theme';
 //   photo: string;
 // }
 const UserDetails = ({navigation, route}) => {
-  const input = route.params;
+  let data = route?.params;
+  const [input, setInput] = useState(data);
+  useEffect(() => {
+    if (route?.params?.id) {
+      const getData = async () => {
+        const res = await getUser(route?.params?.id);
+        setInput(res);
+      };
+      getData();
+    }
+  }, [route?.params?.id]);
+  console.log(input, '----------------');
   return (
     <Box flex={1} backgroundColor="secondaryBackground">
       <Box
