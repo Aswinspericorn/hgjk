@@ -12,7 +12,8 @@ import {API_KEY} from '../../../../constants/confiq';
 import Marker from '../../../../assets/icons/Svg/Avatar.svg';
 import UserImagePicker from '../../../AuthScreens/SetupPersonalizatioTwo/components/UserImagePicker';
 import Modal from 'react-native-modal';
-
+import {useTranslation} from 'react-i18next';
+import SelectDropdown from 'react-native-select-dropdown';
 interface Props {
   fname: string;
   lname: string;
@@ -32,8 +33,12 @@ const MyDetails = ({navigation}) => {
           fname: '',
         },
   );
+
+  const {t} = useTranslation();
+  const countries = ['English', 'Malayalam'];
+
   const dispatch = useDispatch();
-  const ref = useRef();
+  const dropRef = useRef();
   useEffect(() => {
     ref.current?.setAddressText(input?.location?.shortName);
   }, [input?.location?.shortName, isEditable]);
@@ -58,7 +63,7 @@ const MyDetails = ({navigation}) => {
       setMdalShow(true);
     }
   };
-
+  const ref = useRef();
   return (
     <Box flex={1} backgroundColor="secondaryBackground">
       <KeyboardAwareScrollView
@@ -77,11 +82,11 @@ const MyDetails = ({navigation}) => {
             onPress={onImagePicker}>
             <Image source={{uri: input?.photo}} style={styles.Image} />
           </TouchableBox>
-          <Modal style={{flex: 1}} isVisible={modalShow}>
+          <Modal style={styles.screen} isVisible={modalShow}>
             <UserImagePicker onPress={onChangeHandler} name={input?.fname} />
           </Modal>
           <Box justifyContent="center">
-            <TouchableBox onPress={updateHandler} width={'35%'}>
+            <TouchableBox onPress={updateHandler} width={'100%'}>
               <Box
                 marginLeft="xxs"
                 marginRight="xxs"
@@ -89,8 +94,11 @@ const MyDetails = ({navigation}) => {
                 borderRadius="l"
                 paddingHorizontal="m"
                 paddingVertical="xss">
-                <Text variant="TextButtonTitle" color="blueTitleText">
-                  {isEditable ? 'Confirm' : 'Change'}
+                <Text
+                  variant="TextButtonTitle"
+                  color="blueTitleText"
+                  lineHeight={20}>
+                  {isEditable ? t('MyDetails.Confirm') : t('MyDetails.Change')}
                 </Text>
               </Box>
             </TouchableBox>
@@ -98,7 +106,7 @@ const MyDetails = ({navigation}) => {
         </Box>
         <Box flex={3}>
           <Input
-            label="First name"
+            label={t('MyDetails.FirstName')}
             name="fname"
             value={input?.fname}
             isEditable={isEditable}
@@ -106,7 +114,7 @@ const MyDetails = ({navigation}) => {
           />
           <Input
             name="lname"
-            label="Last name"
+            label={t('MyDetails.LastName')}
             value={input?.lname}
             isEditable={isEditable}
             onChangeHandler={onChangeHandler}
@@ -115,7 +123,7 @@ const MyDetails = ({navigation}) => {
             <TouchableBox onPress={() => navigation.navigate('Map')}>
               <Input
                 name="location"
-                label="Location"
+                label={t('MyDetails.Location')}
                 value={input?.location?.shortName}
                 isEditable={isEditable}
               />
@@ -123,7 +131,7 @@ const MyDetails = ({navigation}) => {
           ) : (
             <GooglePlacesAutocomplete
               keyboardShouldPersistTaps="handled"
-              placeholder="Enter your place"
+              label={t('MyDetails.EnterYourPlace')}
               ref={ref}
               query={{
                 key: API_KEY,
@@ -132,7 +140,9 @@ const MyDetails = ({navigation}) => {
               }}
               renderLeftButton={() => (
                 <Box paddingLeft="s">
-                  <Text variant="PersonalizationRegular">Location</Text>
+                  <Text variant="PersonalizationRegular">
+                    {t('MyDetails.Location')}
+                  </Text>
                 </Box>
               )}
               onPress={(data, details = null) => {
@@ -195,15 +205,15 @@ const MyDetails = ({navigation}) => {
             <Text
               variant="TextButtonTitle"
               color="smallTextLogin"
-              lineHeight={12}
+              lineHeight={15}
               fontSize={12}
               paddingHorizontal="s">
-              ACCOUNT INFORMATION
+              {t('MyDetails.AccountPref')}
             </Text>
           </Box>
           <Input
             name="email"
-            label="Email"
+            label={t('MyDetails.Email')}
             value={input?.email}
             isEditable={isEditable}
             onChangeHandler={onChangeHandler}
@@ -214,14 +224,18 @@ const MyDetails = ({navigation}) => {
             paddingBottom="s">
             <Text
               variant="TextButtonTitle"
-              lineHeight={12}
+              lineHeight={15}
               fontSize={12}
               color="smallTextLogin"
               paddingHorizontal="s">
-              INTERNATIONAL PREFERENCES
+              {t('MyDetails.InterPref')}
             </Text>
           </Box>
-          <Box paddingTop="s" paddingHorizontal="s">
+          <TouchableBox
+            paddingTop="s"
+            disabled={!isEditable}
+            paddingHorizontal="s"
+            onPress={() => dropRef?.current?.openDropdown()}>
             <Box
               flexDirection="row"
               justifyContent="space-between"
@@ -231,7 +245,7 @@ const MyDetails = ({navigation}) => {
               <Box alignItems="center">
                 <Box>
                   <Text variant="TextButtonTitle" textAlign="left">
-                    Language
+                    {t('MyDetails.Language')}
                   </Text>
                   <Text
                     variant="TextButtonTitle"
@@ -246,7 +260,31 @@ const MyDetails = ({navigation}) => {
                 <Arrow width={10} height={15} fill="none" />
               </Box>
             </Box>
-          </Box>
+          </TouchableBox>
+          <SelectDropdown
+            ref={dropRef}
+            buttonStyle={styles.buttonStyle}
+            buttonTextStyle={styles.buttonTextStyle}
+            dropdownStyle={styles.dropdownStyle}
+            selectedRowStyle={styles.selected}
+            disabled
+            defaultButtonText="hello"
+            defaultValue={input?.language}
+            data={countries}
+            onSelect={selectedItem => {
+              onChangeHandler(selectedItem, 'language');
+            }}
+            buttonTextAfterSelection={selectedItem => {
+              // text represented after item is selected
+              // if data array is an array of objects then return selectedItem.property to render after item is selected
+              return selectedItem;
+            }}
+            rowTextForSelection={item => {
+              // text represented for each item in dropdown
+              // if data array is an array of objects then return item.property to represent item in dropdown
+              return item;
+            }}
+          />
         </Box>
       </KeyboardAwareScrollView>
     </Box>
@@ -262,4 +300,13 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 200,
   },
+  buttonStyle: {
+    backgroundColor: 'white',
+    width: '50%',
+    alignSelf: 'flex-end',
+    marginHorizontal: 10,
+  },
+  buttonTextStyle: {color: 'white'},
+  dropdownStyle: {borderRadius: 10},
+  selected: {backgroundColor: '#E7E7FF'},
 });

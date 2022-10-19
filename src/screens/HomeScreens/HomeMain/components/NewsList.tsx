@@ -4,7 +4,7 @@ import HomeTile from '../../../../components/HomeTile';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
 import {getNews} from '../../../../helper/Firebase.helper';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {changeIsDataChanged} from '../../../../store/redux/IsDataChanged';
 
 interface Props {
@@ -28,17 +28,24 @@ const NewsList = ({currentTopic}: Props) => {
       },
     ],
   });
+  const userData = useSelector((state: any) => state?.UserData.userData);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const readNews = async () => {
-      const reslt = await getNews();
+      let reslt = [];
+      if (userData.language === 'Malayalam') {
+        reslt = await getNews('RwPRINrn00h9EhbQiMLV');
+      }
+      if (userData.language === 'English') {
+        reslt = await getNews('F4ydoNptIf5uzsJlxRn8');
+      }
       dispatch(changeIsDataChanged());
       setNews(reslt);
     };
     readNews();
-  }, [dispatch]);
+  }, [dispatch, userData]);
   return (
     <Box paddingHorizontal="s">
       <TouchableBox

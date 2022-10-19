@@ -123,7 +123,7 @@ const Map = ({route}: any) => {
   useEffect(() => {
     if (distance === 0) {
       setTimeout(function () {
-        mapRef?.current.fitToElements(true);
+        mapRef?.current?.fitToElements(true);
       }, 2000);
     }
   }, []);

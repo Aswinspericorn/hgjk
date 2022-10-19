@@ -1,0 +1,33 @@
+{
+  "translation":{
+    "Personaliz": {
+      "ViewProfile": "വ്യക്തിവിവരങ്ങൾ",
+      "Address": "വിലാസം",
+      "PaymentMethod": "പണമടയ്ക്കൽ രീതി",
+      "Help": "സഹായം",
+      "Settings": "ക്രമീകരണങ്ങൾ",
+      "About": "എബൌട്ട്",
+      "Logout": "ലോഗൗട്ട്"
+    },
+    "MyDetails": {
+      "MyDetails": "എന്റെ വിശദാംശങ്ങൾ",
+      "FirstName": "പേരിന്റെ ആദ്യഭാഗം ",
+      "LastName": "പേരിന്റെ അവസാന ഭാഗം",
+      "Location": "സ്ഥലം",
+      "Email": "ഇമെയിൽ",
+      "AccountPref": "അക്കൗണ്ട് മുൻഗണനകൾ",
+      "InterPref": "അന്താരാഷ്ട്ര മുൻഗണനകൾ",
+      "Language": "ഭാഷ",
+      "Confirm": "സ്ഥിരീകരിക്കുക",
+      "Change": "മാറ്റുക",
+      "EnterYourPlace": "നിങ്ങളുടെ സ്ഥലം നൽകുക"
+    },
+    "Favourites": {
+      "SavedItems": "സംരക്ഷിച്ച ഇനങ്ങൾ"
+    },
+    "Search": {
+      "Search": "തിരയുക",
+      "RecentSearch": "സമീപകാല തിരയൽ"
+    }
+  }
+}

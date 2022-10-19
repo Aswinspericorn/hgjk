@@ -36,10 +36,10 @@ export const userFavouritesRemove = (dataToSave: object) => {
   }
 };
 
-export const getNews = async () => {
+export const getNews = async (value: string | undefined) => {
   const dataNews = await firestore()
     .collection('news')
-    .doc('F4ydoNptIf5uzsJlxRn8')
+    .doc(value)
     .get()
     .then(res => {
       const data = res.data();

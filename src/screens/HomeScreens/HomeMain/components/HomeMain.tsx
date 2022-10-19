@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Box} from '../../../../theme/theme';
-import {ScrollView, StyleSheet} from 'react-native';
+import {NativeModules, ScrollView, StyleSheet} from 'react-native';
 import Banner from './Banner';
 import TopicScroll from './TopicsScroll';
 import NewsList from './NewsList';
@@ -8,6 +8,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {changeUserData} from '../../../../store/redux/UserData';
+import {useTranslation} from 'react-i18next';
+// import I18n from 'react-native-i18n';
 
 const HomeMain = () => {
   const [currentTopic, setCurrentTopic] = useState<number>(0);
@@ -15,6 +17,23 @@ const HomeMain = () => {
   const IsFavouriteChanged = useSelector(
     (state: any) => state?.IsDataChanged.isChanged,
   );
+  const RNI18n = NativeModules.I18nManager.localeIdentifier;
+  const userData = useSelector((state: any) => state?.UserData.userData);
+
+  const {i18n} = useTranslation();
+  useEffect(() => {
+    const changeLanguage = () => {
+      if (userData.language === 'English') {
+        i18n.changeLanguage('en');
+      } else if (userData.language === 'Malayalam') {
+        i18n.changeLanguage('mal');
+      } else {
+        i18n.changeLanguage(RNI18n.split('_')[0]);
+      }
+    };
+    changeLanguage();
+  }, [RNI18n, i18n, userData]);
+
   useEffect(() => {
     const getFavouritesHandler = () => {
       let key = auth().currentUser?.uid;

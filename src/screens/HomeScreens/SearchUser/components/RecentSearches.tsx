@@ -2,14 +2,19 @@ import React from 'react';
 import {Pressable, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import {Box, Text} from '../../../../theme/theme';
+import {useTranslation} from 'react-i18next';
 
-const RecentSearchesList = ({setSearch = () => {}}) => {
+interface Props {
+  setSearch: (a: string) => void;
+}
+const RecentSearchesList = ({setSearch}: Props) => {
   const list = useSelector((state: any) => state?.RecentSearches.searchData);
+  const {t} = useTranslation();
   return (
     <Box>
       <Box paddingVertical="s">
         <Text variant="buttonTitle" lineHeight={20}>
-          Recent searches
+          {t('Search.RecentSearch')}
         </Text>
       </Box>
       <ScrollView showsVerticalScrollIndicator={false}>

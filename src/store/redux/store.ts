@@ -1,15 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 import AuthStatusReducer from './AuthStatus';
 import IsDataChanged from './IsDataChanged';
-import {
-  persistStore,
-  persistReducer,
-
-} from 'redux-persist';
+import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserData from './UserData';
 import RecentSearchesReducer from './RecentSearchesReducer';
-import thunk from 'redux-thunk';
+// import thunk from 'redux-thunk';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -21,7 +17,7 @@ export const store = configureStore({
     UserData: UserData,
     IsDataChanged: IsDataChanged,
     RecentSearches: persistedReducer,
-    middleware: [thunk],
+    // middleware: [thunk],
   },
 });
 

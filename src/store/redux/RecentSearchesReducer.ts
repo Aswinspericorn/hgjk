@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const RecentSearcheSlice = createSlice({
   name: 'recendSearch',
   initialState: {
-    searchData: [''],
+    searchData: [],
   },
   reducers: {
     changeRecentSearch: (state, action) => {

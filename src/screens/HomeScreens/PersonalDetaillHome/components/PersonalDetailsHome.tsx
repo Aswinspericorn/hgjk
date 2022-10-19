@@ -9,9 +9,11 @@ import Help from '../../../../assets/icons/Svg/help.svg';
 import Settings from '../../../../assets/icons/Svg/settings.svg';
 import {changeAuthStatus} from '../../../../store/redux/AuthStatus';
 
+import {useTranslation} from 'react-i18next';
 const PersonalDetailsHome = ({navigation}) => {
   const userData = useSelector((state: any) => state?.UserData.userData);
   const dispatch = useDispatch();
+  const {t} = useTranslation();
   return (
     <Box
       flex={1}
@@ -42,10 +44,11 @@ const PersonalDetailsHome = ({navigation}) => {
               paddingHorizontal="m"
               paddingVertical="xss">
               <Text
+                lineHeight={20}
                 variant="TextButtonTitle"
                 color="blueTitleText"
                 textAlign="center">
-                View Profile
+                {t('Personaliz.ViewProfile')}
               </Text>
             </Box>
           </TouchableBox>
@@ -61,7 +64,7 @@ const PersonalDetailsHome = ({navigation}) => {
               <Location width={18} height={22} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
-              Address
+              {t('Personaliz.Address')}
             </Text>
           </TouchableBox>
           <TouchableBox flexDirection="row" paddingBottom="l">
@@ -69,7 +72,7 @@ const PersonalDetailsHome = ({navigation}) => {
               <Wallet width={22} height={16} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
-              Payment method
+              {t('Personaliz.PaymentMethod')}
             </Text>
           </TouchableBox>
           <TouchableBox flexDirection="row" paddingBottom="l">
@@ -77,7 +80,7 @@ const PersonalDetailsHome = ({navigation}) => {
               <Help width={20} height={20} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
-              Help
+              {t('Personaliz.Help')}
             </Text>
           </TouchableBox>
           <TouchableBox flexDirection="row" paddingBottom="l">
@@ -85,14 +88,14 @@ const PersonalDetailsHome = ({navigation}) => {
               <Settings width={22} height={22} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
-              Settings
+              {t('Personaliz.Settings')}
             </Text>
           </TouchableBox>
         </Box>
         <Box paddingTop="m">
           <TouchableBox flexDirection="row" paddingBottom="l" paddingLeft="xs">
             <Text variant="PersonalizationRegular" lineHeight={20}>
-              About
+              {t('Personaliz.About')}
             </Text>
           </TouchableBox>
           <TouchableBox
@@ -107,7 +110,7 @@ const PersonalDetailsHome = ({navigation}) => {
                 });
             }}>
             <Text variant="PersonalizationRegular" lineHeight={20}>
-              Log out
+              {t('Personaliz.Logout')}
             </Text>
           </TouchableBox>
         </Box>

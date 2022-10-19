@@ -33,10 +33,10 @@ async function GetFCMToken() {
 }
 export const NotificationLIsterner = () => {
   messaging().onNotificationOpenedApp(async remoteMessage => {
-    // console.log(
-    //   'Notification caused app to open from background state:',
-    //   remoteMessage.notification,
-    // );
+    console.log(
+      'Notification caused app to open from background state:',
+      remoteMessage.notification,
+    );
   });
 
   // Check whether an initial notification is available

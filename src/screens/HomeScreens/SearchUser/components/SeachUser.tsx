@@ -8,18 +8,24 @@ import ListOfUsers from './ListOfUsers';
 import auth from '@react-native-firebase/auth';
 
 import RecentSearchesList from './RecentSearches';
+import {useTranslation} from 'react-i18next';
+import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 
 const SearchUser = () => {
   const [search, setSearch] = useState<string>('');
-  const [users, setUsers] = useState<Array<object>>([{}]);
-
+  const [users, setUsers] = useState<
+    | FirebaseFirestoreTypes.QueryDocumentSnapshot<FirebaseFirestoreTypes.DocumentData>[]
+  >([]);
+  const {t} = useTranslation();
   useEffect(() => {
     const searchHandler = async () => {
       const userList = await getAllUsers(search);
       const flteredList = userList?.filter(
         element => element.data().id !== auth().currentUser?.uid,
       );
-      setUsers(flteredList);
+      if (flteredList) {
+        setUsers(flteredList);
+      }
     };
     searchHandler();
   }, [search]);
@@ -48,7 +54,7 @@ const SearchUser = () => {
             placeholderTextColor="#6C7072"
             style={styles.width}
             variant="TextButtonTitle"
-            placeholder="Search"
+            placeholder={t('Search.Search')}
             onChangeText={value => {
               setSearch(value);
             }}

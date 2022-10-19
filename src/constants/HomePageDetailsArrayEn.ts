@@ -1,4 +1,4 @@
-export const HomePageDetailsArray = [
+export const HomePageDetailsArrayEn = [
   {
     topic: 'World',
     content: [

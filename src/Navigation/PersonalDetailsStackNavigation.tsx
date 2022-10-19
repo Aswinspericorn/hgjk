@@ -2,10 +2,13 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import PersonalDetailsHome from '../screens/HomeScreens/PersonalDetaillHome/components/PersonalDetailsHome';
 import MyDetails from '../screens/HomeScreens/MyProfile';
-import Map from '../components/Map/Map';
+import {useTranslation} from 'react-i18next';
+
 const Stack = createNativeStackNavigator();
 
 const PersonalDetailsStackNavigation = () => {
+  const {t} = useTranslation();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -20,7 +23,7 @@ const PersonalDetailsStackNavigation = () => {
         name="MyDetails"
         component={MyDetails}
         options={{
-          headerTitle: 'My Details',
+          headerTitle: t('MyDetails.MyDetails'),
           headerTitleAlign: 'center',
           headerTitleStyle: {fontFamily: 'inter-Regular', fontSize: 18},
         }}

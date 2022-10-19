@@ -1,0 +1,40 @@
+{
+  "translation":{
+    "Personaliz": {
+      "ViewProfile": "View Profile",
+      "Address": "Address",
+      "PaymentMethod": " Payment method",
+      "Help": "Help",
+      "Settings": "Settings",
+      "About": "About",
+      "Logout": "Log out"
+    },
+    "MyDetails": {
+      "MyDetails": "My Details",
+      "FirstName": "First name",
+      "LastName": "Last name",
+      "Location": "Location",
+      "Email": "Email",
+      "AccountPref": "ACCOUNT PREFERENCES",
+      "InterPref": "INTERNATIONAL PREFERENCES",
+      "Language": "Language",
+      "Confirm": "Confirm",
+      "Change": "Change",
+      "EnterYourPlace": "Enter your place"
+    },
+    "Favourites": {
+      "SavedItems": "Saved items"
+    },
+    "Search": {
+      "Search": "Search",
+      "RecentSearch": "Recent searches"
+    },
+    "AddEmail": {
+      "WhatsYouremail": "What’s your email address?",
+      "WhatsYourPhone":"What’s your Phone?",
+      "Email": "Email",
+      "MobileNumber": "Mobile number",
+      "Continue": "Continue"
+    }
+  }
+}

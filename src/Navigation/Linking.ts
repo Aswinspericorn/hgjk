@@ -17,6 +17,7 @@ const config = {
         },
       },
     },
+    GetStarted: '*',
   },
 };
 const linking = {

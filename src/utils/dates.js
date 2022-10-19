@@ -1,7 +1,17 @@
 /* eslint-disable radix */
 /* eslint-disable no-array-constructor */
-export const currentDate = () => {
-  var objToday = new Date(),
+export const currentDate = lan => {
+  if (lan === 'Malayalam') {
+    weekday = new Array(
+      'ഞായറാഴ്ച',
+      'തിങ്കളാഴ്ച',
+      'ചൊവ്വാഴ്ച',
+      'ബുധനാഴ്ച',
+      'വ്യാഴാഴ്ച',
+      'വെള്ളിയാഴ്ച',
+      'ശനിയാഴ്ച',
+    );
+  } else {
     weekday = new Array(
       'Sunday',
       'Monday',
@@ -10,7 +20,11 @@ export const currentDate = () => {
       'Thursday',
       'Friday',
       'Saturday',
-    ),
+    );
+  }
+
+  var objToday = new Date(),
+    weekday,
     dayOfWeek = weekday[objToday.getDay()],
     dayOfMonth = objToday.getDate(),
     months = new Array(
@@ -29,12 +43,23 @@ export const currentDate = () => {
     ),
     curMonth = months[objToday.getMonth()],
     curYear = objToday.getFullYear();
+
   var curHour =
     objToday.getHours() > 12
       ? objToday.getHours() > 16
         ? 'Good Evening'
         : 'Good Afternoon'
       : 'Good Morning';
+
+  if (lan === 'Malayalam') {
+    curHour =
+      objToday.getHours() > 12
+        ? objToday.getHours() > 16
+          ? 'ഗുഡ് ഈവനിംഗ്'
+          : 'ഗുഡ് ആഫ്റ്റർനൂൺ'
+        : 'സുപ്രഭാതം';
+  }
+
   var today = dayOfWeek + ', ' + curMonth + ' ' + dayOfMonth + ', ' + curYear;
 
   return {date: today, time: curHour};

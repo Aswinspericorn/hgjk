@@ -5,18 +5,13 @@ import Input from '../../../../components/Input';
 import Arrow from '../../../../assets/icons/Svg/rightArrow.svg';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {getUser} from '../../../../helper/Firebase.helper';
+import {useTranslation} from 'react-i18next';
 
-// interface Props {
-//   fname: string;
-//   lname: string;
-//   location: {shortName: string};
-//   email: string;
-//   language: string;
-//   photo: string;
-// }
 const UserDetails = ({navigation, route}) => {
   let data = route?.params;
   const [input, setInput] = useState(data);
+
+  const {t} = useTranslation();
   useEffect(() => {
     if (route?.params?.id) {
       const getData = async () => {
@@ -26,7 +21,6 @@ const UserDetails = ({navigation, route}) => {
       getData();
     }
   }, [route?.params?.id]);
-  console.log(input, '----------------');
   return (
     <Box flex={1} backgroundColor="secondaryBackground">
       <Box
@@ -41,14 +35,14 @@ const UserDetails = ({navigation, route}) => {
       </Box>
       <Box flex={3}>
         <Input
-          label="First name"
+          label={t('MyDetails.FirstName')}
           name="fname"
           value={input?.fname}
           isEditable={false}
         />
         <Input
           name="lname"
-          label="Last name"
+          label={t('MyDetails.LastName')}
           value={input?.lname}
           isEditable={false}
         />
@@ -58,7 +52,7 @@ const UserDetails = ({navigation, route}) => {
           }}>
           <Input
             name="location"
-            label="Location"
+            label={t('MyDetails.Location')}
             value={input?.location?.shortName}
             isEditable={false}
           />
@@ -70,12 +64,12 @@ const UserDetails = ({navigation, route}) => {
             lineHeight={12}
             fontSize={12}
             paddingHorizontal="s">
-            ACCOUNT INFORMATION
+            {t('MyDetails.AccountPref')}
           </Text>
         </Box>
         <Input
           name="email"
-          label="Email"
+          label={t('MyDetails.Email')}
           value={input?.email}
           isEditable={false}
         />
@@ -86,7 +80,7 @@ const UserDetails = ({navigation, route}) => {
             fontSize={12}
             color="smallTextLogin"
             paddingHorizontal="s">
-            INTERNATIONAL PREFERENCES
+            {t('MyDetails.InterPref')}
           </Text>
         </Box>
         <Box paddingTop="s" paddingHorizontal="s">
@@ -99,7 +93,7 @@ const UserDetails = ({navigation, route}) => {
             <Box alignItems="center">
               <Box>
                 <Text variant="TextButtonTitle" textAlign="left">
-                  Language
+                  {t('MyDetails.Language')}
                 </Text>
                 <Text
                   variant="TextButtonTitle"

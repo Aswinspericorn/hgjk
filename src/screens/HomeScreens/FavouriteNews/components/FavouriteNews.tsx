@@ -7,11 +7,13 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {HomeNaviationParamList} from '../../../../Types/Navigation';
 import {ScrollView, StyleSheet} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 const FavouriteNews = () => {
   const user = useSelector((state: any) => state?.UserData.userData);
   const favourites = user?.favourites;
   const navigation = useNavigation<HomeNaviationParamList>();
+  const {t} = useTranslation();
 
   return (
     <Box
@@ -24,8 +26,8 @@ const FavouriteNews = () => {
           variant="TextButtonTitle"
           textAlign="center"
           fontSize={18}
-          lineHeight={18}>
-          Saved Items
+          lineHeight={22}>
+          {t('Favourites.SavedItems')}
         </Text>
       </Box>
       <ScrollView

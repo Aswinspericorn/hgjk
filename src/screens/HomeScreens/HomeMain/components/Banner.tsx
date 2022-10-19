@@ -8,10 +8,6 @@ import {Image, StyleSheet} from 'react-native';
 import {weatherImagesObj} from '../../../../constants/weatherImagesObj';
 import {useSelector} from 'react-redux';
 const Banner = () => {
-  const [location, setLocation] = useState<{lat: string; lng: string}>({
-    lat: '',
-    lng: '',
-  });
   const [temparature, setTemparature] = useState<{temp: string; icon: {}}>({
     temp: '24',
     icon: weatherImagesObj['01d'],
@@ -19,6 +15,8 @@ const Banner = () => {
   const IsFavouriteChanged = useSelector(
     (state: any) => state?.IsDataChanged.isChanged,
   );
+  const userData = useSelector((state: any) => state?.UserData.userData);
+
   const API_KEY = 'e0110331adf97afda6ab257d0534f64c';
   const userId = auth().currentUser?.uid;
 
@@ -33,8 +31,7 @@ const Banner = () => {
       .then((documentSnapshot: any) => getLocation(documentSnapshot))
       .then((data: React.SetStateAction<{lat: string; lng: string}>) => {
         fetchWeather(data?.lat, data.lng);
-        setLocation(data);
-      })
+      });
   }, [IsFavouriteChanged]);
   const fetchWeather = (lat: string, lng: string) => {
     fetch(
@@ -63,10 +60,14 @@ const Banner = () => {
       flexDirection="row">
       <Box>
         <Box justifyContent="center">
-          <Text variant="header">{currentDate().time}</Text>
+          <Text lineHeight={40} variant="header">
+            {currentDate(userData?.language).time}
+          </Text>
         </Box>
         <Box paddingTop="s">
-          <Text variant="TextButtonTitle">{currentDate().date}</Text>
+          <Text variant="TextButtonTitle" lineHeight={20}>
+            {currentDate(userData?.language).date}
+          </Text>
         </Box>
       </Box>
       <Box flex={1} alignItems="flex-end" paddingTop="s">

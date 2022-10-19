@@ -6,6 +6,7 @@ import {EmailValidation} from '../../../utils/regex';
 import auth from '@react-native-firebase/auth';
 import Arrow from '../../../assets/icons/Svg/downArrow.svg';
 import Flag from '../../../assets/icons/Svg/indian.svg';
+import {useTranslation} from 'react-i18next';
 interface Props {
   navigation: any;
   route: any;
@@ -16,6 +17,8 @@ const AddEmail = ({navigation, route}: Props) => {
   const [error, setError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPhone, setIsPhone] = useState<boolean>(false); //for display phno input
+
+  const {t} = useTranslation();
   useEffect(() => {
     const tempEmail = auth().currentUser?.email;
     setEmail(tempEmail ? tempEmail : '');
@@ -65,7 +68,9 @@ const AddEmail = ({navigation, route}: Props) => {
         </Box>
         <Box paddingTop="l" paddingBottom="s">
           <Text variant="header" fontSize={18} lineHeight={18} textAlign="left">
-            {!isPhone ? 'What’s your email address?' : 'What’s your Phone?'}
+            {!isPhone
+              ? t('AddEmail.WhatsYouremail')
+              : t('AddEmail.WhatsYourPhone')}
           </Text>
         </Box>
         {!isPhone ? (
@@ -84,7 +89,7 @@ const AddEmail = ({navigation, route}: Props) => {
               style={styles.width}
               paddingHorizontal="s"
               variant="TextButtonTitle"
-              placeholder="Email"
+              placeholder={t('AddEmail.Email')}
               onChangeText={value => {
                 setError(false);
                 setEmail(value);
@@ -122,7 +127,7 @@ const AddEmail = ({navigation, route}: Props) => {
                 placeholderTextColor="#6C7072"
                 style={styles.width}
                 variant="TextButtonTitle"
-                placeholder="Mobile number"
+                placeholder={t('AddEmail.MobileNumber')}
                 onChangeText={value => {
                   setError(false);
                   setPhno(value);
@@ -135,7 +140,7 @@ const AddEmail = ({navigation, route}: Props) => {
       <Box paddingBottom="m">
         <PrimaryButton
           disabled={isLoading}
-          title="Continue"
+          title={t('AddEmail.Continue')}
           onPress={() => AddHandler()}
         />
       </Box>

@@ -16,17 +16,23 @@ const UserImagePicker = ({onPress, name}: Props) => {
     '../../../../assets/icons/Svg/photo.svg',
   );
 
-  const task = storage().ref().child('userimages').child(`${name}.jpeg`);
+  let imageName = (Math.random() + 1).toString(36).substring(7);
+  const task = storage()
+    .ref()
+    .child('userimages')
+    .child(`${name + imageName}.jpeg`);
 
   const UploadImage = async () => {
-    try {
-      await task
-        .putFile(photo)
-        .then(() => {})
-        .catch(() => {});
-      onPress(await task.getDownloadURL(), 'photo');
-    } catch (e) {
-      console.error(e);
+    if (photo) {
+      try {
+        await task
+          .putFile(photo)
+          .then(() => {})
+          .catch(() => {});
+        onPress(await task.getDownloadURL(), 'photo');
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
   const openCamera = () => {

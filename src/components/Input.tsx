@@ -19,13 +19,14 @@ const Input = ({label, value, isEditable, onChangeHandler, name}: Props) => {
         alignItems="center">
         <Box alignItems="center">
           <Box>
-            <Text variant="TextButtonTitle" textAlign="left">
+            <Text variant="TextButtonTitle" textAlign="left" lineHeight={20}>
               {label}
             </Text>
           </Box>
         </Box>
         <Box flex={3}>
           <TextInput
+            lineHeight={20}
             paddingHorizontal="xs"
             editable={isEditable}
             value={value}
