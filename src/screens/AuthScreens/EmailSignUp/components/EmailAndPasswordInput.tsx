@@ -1,6 +1,7 @@
 import React, {Dispatch, SetStateAction} from 'react';
 import {StyleSheet} from 'react-native';
 import {Box, TextInput} from '../../../../theme/theme';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   setEmailError: Dispatch<SetStateAction<boolean>>;
@@ -18,6 +19,8 @@ const EmailAndPasswordInput = ({
   setPasswordError,
   setPassword,
 }: Props) => {
+  const {t} = useTranslation();
+
   return (
     <Box height={200} justifyContent="center" paddingTop="m">
       <Box
@@ -34,7 +37,7 @@ const EmailAndPasswordInput = ({
           style={styles.width}
           paddingHorizontal="s"
           variant="TextButtonTitle"
-          placeholder="Email"
+          placeholder={t('EmailAndPassword.Email')}
           onChangeText={(value: string) => {
             setEmailError(false);
             setEmail(value);
@@ -54,7 +57,7 @@ const EmailAndPasswordInput = ({
           style={styles.width}
           paddingLeft="s"
           variant="TextButtonTitle"
-          placeholder="Password"
+          placeholder={t('EmailAndPassword.Password')}
           textContentType="password"
           onChangeText={value => {
             setPasswordError(false);

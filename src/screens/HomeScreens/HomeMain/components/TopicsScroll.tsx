@@ -14,7 +14,7 @@ interface Props {
 const TopicScroll = ({setCurrentTopic, currentTopic}: Props) => {
   const userData = useSelector((state: any) => state?.UserData.userData);
   let array = HomePageDetailsArrayEn;
-  if (userData.language === 'Malayalam') {
+  if (userData?.language === 'Malayalam') {
     array = HomePageDetailsArrayMal;
   }
 

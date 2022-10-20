@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {KeyboardAvoidingView, StyleSheet} from 'react-native';
 import PrimaryButton from '../../../../components/PrimaryButton';
 import {Box, TextInput} from '../../../../theme/theme';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   onPress: (type: string, name: string) => void;
@@ -11,6 +12,9 @@ interface Props {
 const InputTextField = ({onPress, type, label}: Props) => {
   const [input, setInput] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
+
+  const {t} = useTranslation();
+
   return (
     <KeyboardAvoidingView style={styles.screen} behavior="padding">
       <Box flex={1} height={200} paddingTop="m">
@@ -29,7 +33,7 @@ const InputTextField = ({onPress, type, label}: Props) => {
             style={styles.width}
             paddingHorizontal="s"
             variant="TextButtonTitle"
-            placeholder={`Enter your ${label}`}
+            placeholder={label}
             onChangeText={(value: string) => {
               setError(false);
               setInput(value);
@@ -38,7 +42,7 @@ const InputTextField = ({onPress, type, label}: Props) => {
         </Box>
         <Box>
           <PrimaryButton
-            title="Continue"
+            title={t('SetupPersonalizTwo.Continue')}
             onPress={() => {
               if (!input) {
                 setError(true);

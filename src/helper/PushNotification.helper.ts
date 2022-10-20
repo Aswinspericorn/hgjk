@@ -19,7 +19,6 @@ export default requestUserPermission;
 
 async function GetFCMToken() {
   let fcmToken = await AsyncStorage.getItem('fcmToken');
-  console.log(fcmToken, 'old');
   if (!fcmToken) {
     try {
       const Token = await messaging().getToken();
@@ -50,7 +49,6 @@ export const NotificationLIsterner = () => {
             `demo://app/${remoteMessage?.data?.type}/${remoteMessage?.data?.id}`,
           );
         } else {
-          console.log('===========================');
 
           Linking.openURL(`demo://app/${remoteMessage?.data?.type}`);
         }

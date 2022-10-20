@@ -1,5 +1,55 @@
 {
   "translation":{
+    "GetStarted": {
+      "PracticeYoga": " യോഗ പരിശീലിക്കുക",
+      "wheneverYouWant": "നിങ്ങൾക്ക് ആവശ്യമുള്ളപ്പോഴെല്ലാം.",
+      "GetStarted": "തുടങ്ങാം"
+    },
+    "WalkThrough": {
+      "CreateAccount": "അക്കൗണ്ട് സൃഷ്ടിക്കുക",
+      "OrContinueWith": "അല്ലെങ്കിൽ തുടരുക",
+      "HaveAnAccount": "ഒരു അക്കൗണ്ട് ഉണ്ടോ?",
+      "Login": "ലോഗിൻ."
+    },
+    "LoginMobile": {
+      "WelcomeBack": "തിരികെ സ്വാഗതം.",
+      "LogInToYourAccount": "നിങ്ങളുടെ അക്കൗണ്ടിൽ ലോഗിൻ ചെയ്യുക",
+      "YouWillReceive": "സന്ദേശവും ഡാറ്റയും ബാധകമായേക്കാവുന്ന ഒരു SMS പരിശോധന നിങ്ങൾക്ക് ലഭിക്കും നിരക്കുകൾ.",
+      "UseEmailInstead": "പകരം ഇമെയിൽ ഉപയോഗിക്കുക",
+      "MobileNumber" :"മൊബൈൽ നമ്പർ"
+    },
+    "SetupLocation": {
+      "FindNearbyShop": "അടുത്തുള്ള കട കണ്ടെത്തുക.",
+      "EnterYourLocation": "അവരെ കണ്ടെത്താൻ നിങ്ങളുടെ സ്ഥാനം നൽകുക.",
+      "TypeAPlace": "ഒരു സ്ഥലം ടൈപ്പ് ചെയ്യുക"
+    },
+    "SetupPersonalizOne":{
+      "PracticeArea": "പ്രാക്ടീസ് ഏരിയ",
+      "SoWeCanRecommendExercises": "അതിനാൽ നമുക്ക് വ്യായാമങ്ങൾ ശുപാർശ ചെയ്യാം",
+      "Select": "തിരഞ്ഞെടുക്കുക"
+    },
+    "SetupPersonalizTwo":{
+      "FirstName": "നിങ്ങളുടെ ആദ്യ പേര് നൽകുക ",
+      "LastName": "നിങ്ങളുടെ അവസാന നാമം നൽകുക",
+      "Age": "നിങ്ങളുടെ പ്രായം നൽകുക",
+      "Continue": "തുടരുക"
+    },
+    "EmailAndPassword": {
+      "Email": "ഇമെയിൽ",
+      "Password": "പാസ്വേഡ്",
+      "ForgotPassword": "പാസ്വേഡ് മറന്നോ?",
+      "ByContinuing": "തുടരുന്നതിലൂടെ, നിങ്ങൾ ഞങ്ങളോട് യോജിക്കുന്നു",
+      "TermsofService": "സേവന നിബന്ധനകൾ",
+      "and": "ഒപ്പം",
+      "PrivacyPolicy": "സ്വകാര്യതാനയം."
+    },
+    "AddEmail": {
+      "WhatsYouremail": "നിങ്ങളുടെ ഇമെയിൽ വിലാസം എന്താണ്?",
+      "WhatsYourPhone":"നിങ്ങളുടെ ഫോൺ എന്താണ്?",
+      "Email": "ഇമെയിൽ",
+      "MobileNumber": "മൊബൈൽ നമ്പർ",
+      "Continue": "തുടരുക"
+    },
     "Personaliz": {
       "ViewProfile": "വ്യക്തിവിവരങ്ങൾ",
       "Address": "വിലാസം",
@@ -28,6 +78,11 @@
     "Search": {
       "Search": "തിരയുക",
       "RecentSearch": "സമീപകാല തിരയൽ"
+    },
+    "NoData": {
+      "Nosaveditems": "സംരക്ഷിച്ച ഇനങ്ങളൊന്നുമില്ല",
+      "Tapheart": "ഏതെങ്കിലും ഉൽപ്പന്നത്തിന് സമീപമുള്ള ഹൃദയ ഐക്കണിൽ ടാപ്പ് ചെയ്യുക, ഞങ്ങൾ അത് നിങ്ങൾക്കായി ഇവിടെ സംരക്ഷിക്കും.",
+      "Discover": "കണ്ടെത്തുക"
     }
   }
 }

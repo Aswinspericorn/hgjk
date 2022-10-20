@@ -41,13 +41,13 @@ export const PracticeArea = [
   },
 ];
 
-export const Questions = [
+export const QuestionsEn = [
   {
     question: 'Enter your First name',
     type: 'fname',
   },
   {
-    question: 'Enter your First name',
+    question: 'Enter your Last name',
     type: 'lname',
   },
   {
@@ -64,6 +64,33 @@ export const Questions = [
   },
   {
     question: 'Select your Language ',
+    options: ['English', 'Malayalam', 'Hindi'],
+  },
+];
+
+export const QuestionsMal = [
+  {
+    question: 'നിങ്ങളുടെ ആദ്യ നാമം നൽകുക',
+    type: 'fname',
+  },
+  {
+    question: 'നിങ്ങളുടെ അവസാന നാമം നൽകുക',
+    type: 'lname',
+  },
+  {
+    question: 'നിങ്ങളുടെ പ്രായം നൽകുക',
+    type: 'age',
+  },
+  {
+    question: 'നിങ്ങളുടെ ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക',
+    type: 'photo',
+  },
+  {
+    question: 'നിങ്ങളുടെ ജെന്റർ എന്താണ്? ',
+    options: ['Male', 'Female', 'other'],
+  },
+  {
+    question: 'നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക',
     options: ['English', 'Malayalam', 'Hindi'],
   },
 ];

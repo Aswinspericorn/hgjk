@@ -1,9 +1,52 @@
 {
   "translation":{
+    "GetStarted": {
+      "PracticeYoga": "Practice yoga",
+      "wheneverYouWant": "whenever you want.",
+      "GetStarted": "Get Started"
+    },
+    "WalkThrough": {
+      "CreateAccount": "Create account",
+      "OrContinueWith": "or continue with",
+      "HaveAnAccount": "Have an account?",
+      "Login": " Log in."
+    },
+    "LoginMobile": {
+      "WelcomeBack": "Welcome back.",
+      "LogInToYourAccount": "Log in to your account",
+      "YouWillReceive": "You will receive an SMS verification that may apply message and data rates.",
+      "UseEmailInstead": "Use Email, instead",
+      "MobileNumber": "Mobile number"
+    },
+    "SetupLocation": {
+      "FindNearbyShop": "Find nearby shop.",
+      "EnterYourLocation": "Enter your location to find them.",
+      "TypeAPlace": "Type a place"
+    },
+    "SetupPersonalizOne": {
+      "PracticeArea": "Practice Area",
+      "SoWeCanRecommendExercises": "So we can recommend exercises",
+      "Select": "Select"
+    },
+     "SetupPersonalizTwo": {
+      "FirstName": "Enter your First name",
+      "LastName": "Enter your Last name",
+      "Age": "Enter your Age",
+      "Continue": "Continue"
+    },
+    "EmailAndPassword": {
+      "Email": "Email",
+      "Password": "PassWord",
+      "ForgotPassword": "Forgot password?",
+      "ByContinuing": "By continuing, you agree to our",
+      "TermsofService": "Terms of Service",
+      "and": "and",
+      "PrivacyPolicy": "Privacy Policy."
+    },
     "Personaliz": {
       "ViewProfile": "View Profile",
       "Address": "Address",
-      "PaymentMethod": " Payment method",
+      "PaymentMethod": "Payment method",
       "Help": "Help",
       "Settings": "Settings",
       "About": "About",
@@ -35,6 +78,11 @@
       "Email": "Email",
       "MobileNumber": "Mobile number",
       "Continue": "Continue"
+    },
+    "NoData": {
+      "Nosaveditems": "No saved items",
+      "Tapheart": "Tap the heart icon near any product and we’ll save it here for you.",
+      "Discover": "Discover"
     }
   }
 }

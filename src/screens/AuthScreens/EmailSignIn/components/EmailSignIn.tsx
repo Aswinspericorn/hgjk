@@ -7,6 +7,7 @@ import {useDispatch} from 'react-redux';
 import {changeAuthStatus} from '../../../../store/redux/AuthStatus';
 import {getSingleUserDetails} from '../../../../helper/Firebase.helper';
 import {changeUserData} from '../../../../store/redux/UserData';
+import {useTranslation} from 'react-i18next';
 
 const EmailSignIn = ({navigation}) => {
   const [email, setEmail] = useState<string>('');
@@ -17,6 +18,7 @@ const EmailSignIn = ({navigation}) => {
   const [success, setSucces] = useState<boolean>(false);
 
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   useEffect(() => {
     if (success) {
@@ -60,7 +62,9 @@ const EmailSignIn = ({navigation}) => {
       />
       <Box flex={1}>
         <TouchableBox>
-          <Text variant="interMedium">Forgot password?</Text>
+          <Text variant="interMedium" lineHeight={18}>
+            {t('EmailAndPassword.ForgotPassword')}
+          </Text>
         </TouchableBox>
       </Box>
       <ButtonContainer

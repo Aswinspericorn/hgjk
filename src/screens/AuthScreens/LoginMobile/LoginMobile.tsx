@@ -6,7 +6,7 @@ import auth from '@react-native-firebase/auth';
 
 import Arrow from '../../../assets/icons/Svg/downArrow.svg';
 import Flag from '../../../assets/icons/Svg/indian.svg';
-
+import {useTranslation} from 'react-i18next';
 interface Props {
   navigation: any;
 }
@@ -16,6 +16,7 @@ const LoginMobile = ({navigation}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
+  const {t} = useTranslation();
   async function signInWithPhoneNumber() {
     try {
       if (phno.length !== 10) {
@@ -55,10 +56,12 @@ const LoginMobile = ({navigation}: Props) => {
     <Box flex={1} backgroundColor="secondaryBackground" paddingHorizontal="m">
       <Box height={150} justifyContent="flex-end" paddingTop="xs">
         <Box justifyContent="center">
-          <Text variant="header">Welcome back.</Text>
+          <Text variant="header">{t('LoginMobile.WelcomeBack')}</Text>
         </Box>
         <Box paddingTop="xs">
-          <Text variant="TextButtonTitle">Log in to your account</Text>
+          <Text variant="TextButtonTitle">
+            {t('LoginMobile.LogInToYourAccount')}
+          </Text>
         </Box>
       </Box>
       <Box flex={3} paddingTop="m">
@@ -90,7 +93,7 @@ const LoginMobile = ({navigation}: Props) => {
               placeholderTextColor="#6C7072"
               style={styles.width}
               variant="TextButtonTitle"
-              placeholder="Mobile number"
+              placeholder={t('LoginMobile.MobileNumber')}
               onChangeText={value => {
                 setError(false);
                 setPhno(value);
@@ -100,8 +103,7 @@ const LoginMobile = ({navigation}: Props) => {
         </Box>
         <Box paddingVertical="s">
           <Text variant="TextButtonTitle" fontSize={12} color="smallTextLogin">
-            You will receive an SMS verification that may apply{'\n'} message
-            and data rates.
+            {t('LoginMobile.YouWillReceive')}
           </Text>
         </Box>
       </Box>
@@ -118,7 +120,9 @@ const LoginMobile = ({navigation}: Props) => {
             onPress={() => {
               navigation.navigate('EmailSignin');
             }}>
-            <Text variant="interMedium">Use Email, instead</Text>
+            <Text variant="interMedium">
+              {t('LoginMobile.UseEmailInstead')}
+            </Text>
           </Pressable>
         </Box>
       </Box>

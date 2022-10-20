@@ -1,15 +1,16 @@
 import React from 'react';
-import {Questions} from '../../../../constants/QuestionsArray';
 import {Text, TouchableBox} from '../../../../theme/theme';
 
 interface Props {
   currentQuestion: number;
   questionHandler: (a: string, b: string) => void;
   selected: string;
+  Questions:Array<object>;
 }
 const OptionalQuestion = ({
   currentQuestion,
   questionHandler,
+  Questions,
   selected,
 }: Props) => {
   return (

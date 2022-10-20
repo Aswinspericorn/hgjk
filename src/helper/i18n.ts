@@ -8,7 +8,7 @@ i18next.use(initReactI18next).init({
   fallbackLng: 'en',
   resources: {
     en: English,
-    mal: Malayalam,
+    ml: Malayalam,
   },
   interpolation: {
     escapeValue: false, // react already safes from xss

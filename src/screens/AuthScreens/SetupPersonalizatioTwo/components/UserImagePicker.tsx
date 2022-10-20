@@ -5,16 +5,15 @@ import {Box, TouchableBox} from '../../../../theme/theme';
 import Photo from '../../../../assets/icons/Svg/photo.svg';
 import Camera from '../../../../assets/icons/Svg/camera.svg';
 import PrimaryButton from '../../../../components/PrimaryButton';
-import {assets} from '../../../../../react-native.config';
 import storage from '@react-native-firebase/storage';
+import {useTranslation} from 'react-i18next';
 interface Props {
   onPress: (type: string, name: string) => void;
   name: string;
 }
 const UserImagePicker = ({onPress, name}: Props) => {
-  const [photo, setPhoto] = useState<string | undefined>(
-    '../../../../assets/icons/Svg/photo.svg',
-  );
+  const [photo, setPhoto] = useState<string | undefined>();
+  const {t} = useTranslation();
 
   let imageName = (Math.random() + 1).toString(36).substring(7);
   const task = storage()
@@ -24,6 +23,7 @@ const UserImagePicker = ({onPress, name}: Props) => {
 
   const UploadImage = async () => {
     if (photo) {
+      console.log(photo);
       try {
         await task
           .putFile(photo)
@@ -111,7 +111,10 @@ const UserImagePicker = ({onPress, name}: Props) => {
         </TouchableBox>
       </Box>
       <Box flex={1} justifyContent="flex-end">
-        <PrimaryButton title="Continue" onPress={UploadImage} />
+        <PrimaryButton
+          title={t('SetupPersonalizTwo.Continue')}
+          onPress={UploadImage}
+        />
       </Box>
     </Box>
   );

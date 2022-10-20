@@ -9,6 +9,7 @@ import {changeAuthStatus} from '../../../store/redux/AuthStatus';
 import {Box, Text} from '../../../theme/theme';
 import {API_KEY} from '../../../constants/confiq';
 import firestore from '@react-native-firebase/firestore';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   navigation: any;
@@ -16,7 +17,7 @@ interface Props {
 }
 const SetupLocation = ({route}: Props) => {
   const dispatch = useDispatch();
-
+  const {t} = useTranslation();
   const SubmitHandler = async (location: any, name: string | undefined) => {
     try {
       let key = auth().currentUser?.uid;
@@ -47,17 +48,17 @@ const SetupLocation = ({route}: Props) => {
     <Box flex={1} backgroundColor="secondaryBackground" paddingHorizontal="m">
       <Box height={150} justifyContent="flex-end" paddingTop="xs">
         <Box justifyContent="center">
-          <Text variant="header">Find nearby shop.</Text>
+          <Text variant="header"> {t('SetupLocation.FindNearbyShop')}</Text>
         </Box>
         <Box paddingTop="xs">
           <Text variant="TextButtonTitle">
-            Enter your location to find them.
+            {t('SetupLocation.EnterYourLocation')}
           </Text>
         </Box>
       </Box>
       <Box flex={3}>
         <GooglePlacesAutocomplete
-          placeholder="Type a place"
+          placeholder={t('SetupLocation.TypeAPlace')}
           query={{
             key: API_KEY,
             language: 'en',

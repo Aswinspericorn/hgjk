@@ -23,10 +23,10 @@ const HomeMain = () => {
   const {i18n} = useTranslation();
   useEffect(() => {
     const changeLanguage = () => {
-      if (userData.language === 'English') {
+      if (userData?.language === 'English') {
         i18n.changeLanguage('en');
-      } else if (userData.language === 'Malayalam') {
-        i18n.changeLanguage('mal');
+      } else if (userData?.language === 'Malayalam') {
+        i18n.changeLanguage('ml');
       } else {
         i18n.changeLanguage(RNI18n.split('_')[0]);
       }

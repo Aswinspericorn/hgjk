@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
-import {Questions} from '../../../constants/QuestionsArray';
+import React, {useEffect, useState} from 'react';
+import {QuestionsEn, QuestionsMal} from '../../../constants/QuestionsArray';
 import {Box, Text} from '../../../theme/theme';
 import GradientBottom from './components/GradientBottom';
 import InputTextField from './components/InputTextField';
 import OptionalQuestion from './components/OptinalQuestions';
 import UserImagePicker from './components/UserImagePicker';
+import {useTranslation} from 'react-i18next';
+import {NativeModules} from 'react-native';
 
 interface Props {
   navigation: any;
@@ -13,6 +15,7 @@ interface Props {
 const SetupPersonalizationTwo = ({navigation, route}: Props) => {
   const [selected, setSelected] = useState<string>('');
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+  const [Questions, setQuestions] = useState<Array<object>>(QuestionsEn);
   const [selectedAnswers, setSelectedAnswers] = useState<{
     fname: string;
     lname: string;
@@ -20,9 +23,20 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
     fname: '',
     lname: '',
   });
+  const {t} = useTranslation();
 
+  const RNI18n = NativeModules.I18nManager.localeIdentifier;
+
+  useEffect(() => {
+    if (RNI18n.split('_')[0] === 'ml') {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setQuestions(QuestionsMal);
+    }
+  }, [RNI18n]);
   const questionHandler = (opt: string, question: string) => {
+    console.log(currentQuestion + 1, '==');
     const tempData = currentQuestion + 1;
+    console.log(tempData);
     setCurrentQuestion(tempData);
     setSelectedAnswers(prev => {
       return {
@@ -48,7 +62,7 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
         return (
           <InputTextField
             type="fname"
-            label="first name"
+            label={t('SetupPersonalizTwo.FirstName')}
             onPress={questionHandler}
           />
         );
@@ -56,13 +70,17 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
         return (
           <InputTextField
             type="lname"
-            label="last name"
+            label={t('SetupPersonalizTwo.LastName')}
             onPress={questionHandler}
           />
         );
       case 'age':
         return (
-          <InputTextField type="age" label="age" onPress={questionHandler} />
+          <InputTextField
+            type="age"
+            label={t('SetupPersonalizTwo.Age')}
+            onPress={questionHandler}
+          />
         );
       case 'photo':
         return (
@@ -101,6 +119,7 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
         <Box flex={5}>
           {Questions[currentQuestion].options ? (
             <OptionalQuestion
+              Questions={Questions}
               selected={selected}
               questionHandler={questionHandler}
               currentQuestion={currentQuestion}

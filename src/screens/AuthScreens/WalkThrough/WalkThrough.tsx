@@ -15,9 +15,12 @@ import Animated, {
 } from 'react-native-reanimated';
 import {
   WalkPonitsArray,
-  WalkThroughArray,
+  WalkThroughArrayEn,
+  WalkThroughArrayMal,
 } from '../../../constants/WalkThroughArray';
 import ImageTopicScroll from './components/ImageTopicScroll';
+import {useTranslation} from 'react-i18next';
+import {NativeModules} from 'react-native';
 import {
   onFacebookButtonPress,
   onGoogleButtonPress,
@@ -30,13 +33,22 @@ const {width} = Dimensions.get('window');
 const WalkThrough = ({navigation}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const [walkThroughArray, setWalkThroughArray] = useState<Array<object>>(WalkThroughArrayEn);
   const scrollViewRef = useRef<any>();
   const dispatch = useDispatch();
   GoogleSignin.configure({
     webClientId:
       '719758580576-1hgli2r1blk86hgd8n861tfs755e6sii.apps.googleusercontent.com',
   });
+  const RNI18n = NativeModules.I18nManager.localeIdentifier;
 
+
+ useEffect(() => {
+    if (RNI18n.split('_')[0] === 'ml') {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setWalkThroughArray(WalkThroughArrayMal);
+    }
+  }, [RNI18n]);
   async function checkIsNewUser() {
     const result = await getSingleUserDetails();
     if (result === undefined) {
@@ -57,10 +69,11 @@ const WalkThrough = ({navigation}: Props) => {
     // const viewSize = e.nativeEvent.layoutMeasurement;
     const {contentOffset} = e.nativeEvent;
     let pageNum = Math.floor(
-      (contentOffset.x + 1).toFixed(0) / width.toFixed(0),
+      (contentOffset.x + 1).toFixed(0) / width?.toFixed(0),
     );
     setCurrentPage(pageNum);
   }
+  const {t} = useTranslation();
 
   return (
     <Box flex={1} backgroundColor="secondaryBackground">
@@ -90,7 +103,7 @@ const WalkThrough = ({navigation}: Props) => {
           style={styles.screen}
           scrollEventThrottle={16}
           onScroll={onScrollHandler}>
-          {WalkThroughArray.map((item, index) => (
+          {walkThroughArray.map((item, index) => (
             <ImageTopicScroll
               item={item}
               index={index}
@@ -135,10 +148,11 @@ const WalkThrough = ({navigation}: Props) => {
           width="60%"
           onPress={() => navigation.navigate('EmailSignup')}>
           <Text
+            lineHeight={18}
             variant="buttonTitle"
             textAlign="center"
             color="secondaryBackground">
-            Create account
+            {t('WalkThrough.CreateAccount')}
           </Text>
         </TouchableBox>
       </Box>
@@ -159,12 +173,13 @@ const WalkThrough = ({navigation}: Props) => {
             borderBottomWidth={1}
             width="100%"
           />
-          <Box flex={1} alignItems="center">
+          <Box flex={1.5} alignItems="center">
             <Text
+              lineHeight={18}
               variant="TextButtonTitle"
               color="smallTextLogin"
               textAlign="center">
-              or continue with{' '}
+              {t('WalkThrough.OrContinueWith')}
             </Text>
           </Box>
           <Box
@@ -216,13 +231,13 @@ const WalkThrough = ({navigation}: Props) => {
         marginBottom="s"
         paddingBottom="l">
         <Text variant="TextButtonTitle" lineHeight={24}>
-          Have an account?
+          {t('WalkThrough.HaveAnAccount')}
         </Text>
         <TouchableBox
           onPress={() => navigation.navigate('LoginMobile')}
           disabled={isLoading}>
           <Text variant="TextButtonTitle" lineHeight={24} color="blueTitleText">
-            Log in.
+            {t('WalkThrough.Login')}
           </Text>
         </TouchableBox>
       </Box>

@@ -67,7 +67,7 @@ const AddEmail = ({navigation, route}: Props) => {
           />
         </Box>
         <Box paddingTop="l" paddingBottom="s">
-          <Text variant="header" fontSize={18} lineHeight={18} textAlign="left">
+          <Text variant="header" fontSize={18} lineHeight={24} textAlign="left">
             {!isPhone
               ? t('AddEmail.WhatsYouremail')
               : t('AddEmail.WhatsYourPhone')}

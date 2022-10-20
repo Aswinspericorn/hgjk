@@ -3,11 +3,13 @@ import {ScrollView} from 'react-native';
 import PrimaryButton from '../../../components/PrimaryButton';
 import {PracticeArea} from '../../../constants/QuestionsArray';
 import {Box, Text, TouchableBox} from '../../../theme/theme';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   navigation: any;
 }
 const SetupPersonalizationOne = ({navigation}: Props) => {
+  const {t} = useTranslation();
   const [selected, setSelected] = useState<Array<object>>([]);
   useEffect(() => {
     navigation.setOptions({
@@ -74,6 +76,7 @@ const SetupPersonalizationOne = ({navigation}: Props) => {
       });
     }
   };
+
   return (
     <Box
       flex={1}
@@ -83,14 +86,15 @@ const SetupPersonalizationOne = ({navigation}: Props) => {
       paddingTop="xl">
       <Box flex={1} alignItems="center">
         <Box justifyContent="center" paddingTop="l" paddingHorizontal="xs">
-          <Text variant="header">Practice Area</Text>
+          <Text lineHeight={40} variant="header">{t('SetupPersonalizOne.PracticeArea')}</Text>
         </Box>
         <Box alignItems="flex-start">
           <Text
+            lineHeight={20}
             variant="PersonalizationRegular"
             textAlign="center"
             color="buttonSetupGrey">
-            So we can recommend exercises
+            {t('SetupPersonalizOne.SoWeCanRecommendExercises')}
           </Text>
         </Box>
       </Box>
@@ -127,7 +131,7 @@ const SetupPersonalizationOne = ({navigation}: Props) => {
       </Box>
       <Box justifyContent="flex-end" flex={1}>
         <PrimaryButton
-          title="Select"
+          title= {t('SetupPersonalizOne.Select')}
           onPress={() => {
             navigation.navigate('SetupPersonalizationTwo', selected);
           }}
