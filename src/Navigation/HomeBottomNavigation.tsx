@@ -6,12 +6,17 @@ import FavouriteNews from '../screens/HomeScreens/FavouriteNews';
 import SearchStackNavigation from './SearchStackNavigation';
 import PersonalDetailsStackNavigation from './PersonalDetailsStackNavigation';
 import {HomeBottomNaviationParamList} from '../Types/Navigation';
+import {useSelector} from 'react-redux';
 const Tab = createBottomTabNavigator<HomeBottomNaviationParamList>();
 
 export const HomeBottomNaviation = () => {
+  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
   return (
     <Tab.Navigator
       screenOptions={{
+        tabBarStyle: {
+          backgroundColor: darkMode ? '#262626' : 'white',
+        },
         tabBarShowLabel: false,
       }}>
       <Tab.Screen

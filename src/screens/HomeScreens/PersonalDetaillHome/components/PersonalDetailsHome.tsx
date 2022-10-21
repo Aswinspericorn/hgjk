@@ -3,15 +3,19 @@ import {Image, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
-import Location from '../../../../assets/icons/Svg/Avatar.svg';
-import Wallet from '../../../../assets/icons/Svg/wallet.svg';
-import Help from '../../../../assets/icons/Svg/help.svg';
-import Settings from '../../../../assets/icons/Svg/settings.svg';
 import {changeAuthStatus} from '../../../../store/redux/AuthStatus';
 
 import {useTranslation} from 'react-i18next';
+import {
+  Help,
+  Location,
+  Settings,
+  Wallet,
+} from '../../../../assets/icons/Svg/Icons';
 const PersonalDetailsHome = ({navigation}) => {
   const userData = useSelector((state: any) => state?.UserData.userData);
+  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
+
   const dispatch = useDispatch();
   const {t} = useTranslation();
   return (
@@ -61,7 +65,7 @@ const PersonalDetailsHome = ({navigation}) => {
             paddingBottom="l"
             onPress={() => navigation.navigate('Map')}>
             <Box paddingRight="xss" justifyContent="center" alignItems="center">
-              <Location width={18} height={22} fill="none" />
+              <Location color={darkMode ? 'white' : 'black'} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Personaliz.Address')}
@@ -69,7 +73,7 @@ const PersonalDetailsHome = ({navigation}) => {
           </TouchableBox>
           <TouchableBox flexDirection="row" paddingBottom="l">
             <Box paddingRight="xs">
-              <Wallet width={22} height={16} fill="none" />
+              <Wallet color={darkMode ? 'white' : 'black'} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Personaliz.PaymentMethod')}
@@ -77,15 +81,20 @@ const PersonalDetailsHome = ({navigation}) => {
           </TouchableBox>
           <TouchableBox flexDirection="row" paddingBottom="l">
             <Box paddingRight="xss" justifyContent="center" alignItems="center">
-              <Help width={20} height={20} fill="none" />
+              <Help color={darkMode ? 'white' : 'black'} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Personaliz.Help')}
             </Text>
           </TouchableBox>
-          <TouchableBox flexDirection="row" paddingBottom="l">
+          <TouchableBox
+            flexDirection="row"
+            paddingBottom="l"
+            onPress={() => {
+              navigation.navigate('Settings');
+            }}>
             <Box paddingRight="xs" justifyContent="center" alignItems="center">
-              <Settings width={22} height={22} fill="none" />
+              <Settings color={darkMode ? 'white' : 'black'} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Personaliz.Settings')}

@@ -7,6 +7,7 @@ import {
 import {createBox, createText, createTheme} from '@shopify/restyle';
 export const palette = {
   primary: '#6B4EFF',
+  dark: '#262626',
   white: '#FFF',
   black: '#090A0A',
   darkGray: '#DAE2EB',
@@ -38,9 +39,11 @@ const theme = createTheme({
   colors: {
     mainBackground: palette.darkGray,
     secondaryBackground: palette.white,
-    mainForeground: palette.black,
+    mainForeground: palette.white,
     primaryCardBackground: palette.primary,
     primaryTitleText: palette.black,
+    scrollTextBlack: palette.black,
+    buttonWhite: palette.white,
     secondaryTitleText: palette.lightGray,
     blueTitleText: palette.primary,
     pointerFill: palette.pointerGrey,
@@ -114,19 +117,18 @@ const theme = createTheme({
   },
 });
 
-// const darkTheme: Theme = {
-//   ...theme,
-//   colors: {
-//     ...theme.colors,
-//     mainBackground: palette.black,
-//     mainForeground: palette.white,
-
-//     secondaryCardBackground: palette.darkGray,
-//     secondaryCardText: palette.white,
-//   },
-// };
-
 type Theme = typeof theme;
+export const darkTheme: Theme = {
+  ...theme,
+  colors: {
+    ...theme.colors,
+    secondaryBackground: palette.dark,
+    mainBackground: palette.dark,
+    primaryTitleText: palette.white,
+    myDetailsTopic: palette.dark,
+  },
+};
+
 export const Box = createBox<Theme>();
 export const Text = createText<Theme>();
 export const TextInput = createText<Theme, TextInputProps>(RNTextInput);

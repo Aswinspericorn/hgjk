@@ -24,10 +24,7 @@ const PrimaryButton = ({
       width={width}
       opacity={disabled ? 0.5 : 1}
       onPress={onPress}>
-      <Text
-        variant="buttonTitle"
-        textAlign="center"
-        color="secondaryBackground">
+      <Text variant="buttonTitle" textAlign="center" color="buttonWhite">
         {title}
       </Text>
     </TouchableBox>

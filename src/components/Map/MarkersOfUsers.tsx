@@ -15,6 +15,10 @@ const MarkersOfAllUsers = ({
   const [selected, setSelected] = useState(0);
 
   useEffect(() => {
+    setSelected(scrollToIndex);
+  }, [scrollToIndex]);
+
+  useEffect(() => {
     const getUsers = async () => {
       const usersList = await getAllUsersWithoutFilter();
 
@@ -23,7 +27,8 @@ const MarkersOfAllUsers = ({
       setMarkerLoaded(usersList);
     };
     getUsers();
-  }, [scrollToIndex, setMarkerLoaded]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Box>
       {users?.length > 0 &&

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Alert, LogBox, StyleSheet} from 'react-native';
@@ -9,6 +10,7 @@ import RNOtpVerify from 'react-native-otp-verify';
 import PrimaryButton from '../../../components/PrimaryButton';
 import {getSingleUserDetails} from '../../../helper/Firebase.helper';
 import {changeUserData} from '../../../store/redux/UserData';
+import {useTranslation} from 'react-i18next';
 
 interface AuthProps {
   data: {
@@ -27,10 +29,13 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const AuthData = route.params;
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
   ]);
+
+  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
 
   useEffect(() => {
     RNOtpVerify.getHash().then().catch();
@@ -110,12 +115,13 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
       paddingTop="xl">
       <Box height={300}>
         <Box justifyContent="center" paddingTop="l" paddingHorizontal="xs">
-          <Text variant="subHeader">Enter authentication code</Text>
+          <Text variant="subHeader">
+            {t('AuthenticateOtp.EnterAuthenticationCode')}
+          </Text>
         </Box>
         <Box paddingTop="xs" alignItems="flex-start">
           <Text variant="TextButtonTitle" lineHeight={24} textAlign="center">
-            Enter the 4-digit that we have sent via the{'\n'}
-            phone number +91 {AuthData.phno}
+            {t('AuthenticateOtp.Enter4digit')} {AuthData.phno}
           </Text>
         </Box>
         <Box paddingTop="s">
@@ -124,7 +130,10 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
             pinCount={6}
             code={code}
             autoFocusOnLoad={false}
-            codeInputFieldStyle={styles.underlineStyleBase}
+            codeInputFieldStyle={{
+              ...styles.underlineStyleBase,
+              color: darkMode ? 'white' : 'black',
+            }}
             codeInputHighlightStyle={styles.underlineStyleHighLighted}
             onCodeChanged={value => {
               setCode(value);
@@ -152,7 +161,6 @@ const styles = StyleSheet.create({
     borderRadius: 64,
     height: 48,
     borderWidth: 1,
-    color: 'black',
     borderColor: '#E3E5E5',
   },
   opacity: {

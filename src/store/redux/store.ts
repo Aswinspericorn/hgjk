@@ -5,15 +5,21 @@ import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserData from './UserData';
 import RecentSearchesReducer from './RecentSearchesReducer';
+import DarkModeStatusReducer from './DarkModeStatus';
 // import thunk from 'redux-thunk';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
 };
 const persistedReducer = persistReducer(persistConfig, RecentSearchesReducer);
+const persistedReducerDarkMode = persistReducer(
+  persistConfig,
+  DarkModeStatusReducer,
+);
 export const store = configureStore({
   reducer: {
     AuthStatus: AuthStatusReducer,
+    DarkModeStatus: persistedReducerDarkMode,
     UserData: UserData,
     IsDataChanged: IsDataChanged,
     RecentSearches: persistedReducer,

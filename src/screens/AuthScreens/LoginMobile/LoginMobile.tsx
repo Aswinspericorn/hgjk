@@ -4,9 +4,10 @@ import PrimaryButton from '../../../components/PrimaryButton';
 import {Alert, Pressable, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-import Arrow from '../../../assets/icons/Svg/downArrow.svg';
 import Flag from '../../../assets/icons/Svg/indian.svg';
 import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
+import {ArrowDown} from '../../../assets/icons/Svg/Icons';
 interface Props {
   navigation: any;
 }
@@ -15,6 +16,7 @@ const LoginMobile = ({navigation}: Props) => {
   const [phno, setPhno] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
 
   const {t} = useTranslation();
   async function signInWithPhoneNumber() {
@@ -83,7 +85,7 @@ const LoginMobile = ({navigation}: Props) => {
                 </Text>
               </Box>
               <Box paddingHorizontal="xs">
-                <Arrow width={10} height={13} fill="none" />
+                <ArrowDown color={darkMode ? 'white' : 'black'} fill="none" />
               </Box>
             </TouchableBox>
           </Box>

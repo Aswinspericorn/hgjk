@@ -5,9 +5,16 @@ import {HomeBottomNaviation} from './HomeBottomNavigation';
 import UserDetails from '../screens/HomeScreens/UserDetails';
 import Map from '../components/Map/Map';
 import {HomeNaviationParamList} from '../Types/Navigation';
+import Settings from '../screens/HomeScreens/Settings/components/Settings';
+import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
+
 const Stack = createNativeStackNavigator<HomeNaviationParamList>();
 
 const HomeNativeStackNavigation = () => {
+  const {t} = useTranslation();
+  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -24,6 +31,7 @@ const HomeNativeStackNavigation = () => {
         options={{
           title: '',
           headerTransparent: true,
+          headerTintColor: darkMode ? 'white' : '#262626',
         }}
       />
       <Stack.Screen
@@ -39,6 +47,17 @@ const HomeNativeStackNavigation = () => {
         component={Map}
         options={{
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerTitle: t('Personaliz.Settings'),
+          headerTitleAlign: 'center',
+          headerTitleStyle: {fontFamily: 'inter-Regular', fontSize: 18},
+          headerTintColor: darkMode ? 'white' : '#262626',
+          headerStyle: {backgroundColor: darkMode ? '#262626' : 'white'},
         }}
       />
     </Stack.Navigator>

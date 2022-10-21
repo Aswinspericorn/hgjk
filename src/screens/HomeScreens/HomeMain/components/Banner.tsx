@@ -58,7 +58,7 @@ const Banner = () => {
       justifyContent="space-between"
       alignItems="center"
       flexDirection="row">
-      <Box>
+      <Box flex={4}>
         <Box justifyContent="center">
           <Text lineHeight={40} variant="header">
             {currentDate(userData?.language).time}

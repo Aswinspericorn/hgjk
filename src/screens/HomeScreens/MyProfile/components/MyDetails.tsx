@@ -5,7 +5,6 @@ import Input from '../../../../components/Input';
 import {userDetailsUpdate} from '../../../../helper/Firebase.helper';
 import {changeIsDataChanged} from '../../../../store/redux/IsDataChanged';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
-import Arrow from '../../../../assets/icons/Svg/rightArrow.svg';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {API_KEY} from '../../../../constants/confiq';
@@ -14,6 +13,7 @@ import UserImagePicker from '../../../AuthScreens/SetupPersonalizatioTwo/compone
 import Modal from 'react-native-modal';
 import {useTranslation} from 'react-i18next';
 import SelectDropdown from 'react-native-select-dropdown';
+import {RightArrow} from '../../../../assets/icons/Svg/Icons';
 interface Props {
   fname: string;
   lname: string;
@@ -26,6 +26,8 @@ const MyDetails = ({navigation}) => {
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [modalShow, setMdalShow] = useState<boolean>(false);
   const userData = useSelector((state: any) => state?.UserData.userData);
+  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
+
   const [input, setInput] = useState<Props>(
     userData
       ? userData
@@ -40,7 +42,7 @@ const MyDetails = ({navigation}) => {
   const dispatch = useDispatch();
   const dropRef = useRef();
   useEffect(() => {
-    ref.current?.setAddressText(input?.location?.shortName);
+    ref?.current?.setAddressText(input?.location?.shortName);
   }, [input?.location?.shortName, isEditable]);
 
   const updateHandler = () => {
@@ -161,7 +163,10 @@ const MyDetails = ({navigation}) => {
                   <Box flexDirection="row" justifyContent="flex-start">
                     <Marker width={24} height={24} fill="none" />
                     <Box paddingLeft="s">
-                      <Text variant="TextButtonTitle" lineHeight={20}>
+                      <Text
+                        variant="TextButtonTitle"
+                        color="scrollTextBlack"
+                        lineHeight={20}>
                         {title}
                       </Text>
                       <Text
@@ -190,10 +195,11 @@ const MyDetails = ({navigation}) => {
                   textAlign: 'right',
                   marginBottom: 0,
                   marginTop: 5,
-                  color: 'black',
+                  backgroundColor: darkMode ? '#262626' : 'white',
                   fontSize: 16,
                   lineHeight: 16,
                   fontFamily: 'Inter-Regular',
+                  color: darkMode ? 'white' : 'black',
                 },
               }}
             />
@@ -257,7 +263,7 @@ const MyDetails = ({navigation}) => {
                 </Box>
               </Box>
               <Box>
-                <Arrow width={10} height={15} fill="none" />
+                <RightArrow color={darkMode ? 'white' : 'black'} fill="none" />
               </Box>
             </Box>
           </TouchableBox>
@@ -301,12 +307,12 @@ const styles = StyleSheet.create({
     borderRadius: 200,
   },
   buttonStyle: {
-    backgroundColor: 'white',
     width: '50%',
     alignSelf: 'flex-end',
     marginHorizontal: 10,
+    backgroundColor: 'transparent',
   },
-  buttonTextStyle: {color: 'white'},
+  buttonTextStyle: {color: 'transparent'},
   dropdownStyle: {borderRadius: 10},
   selected: {backgroundColor: '#E7E7FF'},
 });

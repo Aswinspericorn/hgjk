@@ -51,6 +51,7 @@ const SearchUser = () => {
         <Box flex={5}>
           <TextInput
             value={search}
+            color="scrollTextBlack"
             placeholderTextColor="#6C7072"
             style={styles.width}
             variant="TextButtonTitle"

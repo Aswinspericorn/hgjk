@@ -2,7 +2,6 @@ import React, {Dispatch, SetStateAction} from 'react';
 import {NativeModules, ScrollView} from 'react-native';
 import {HomePageDetailsArrayEn} from '../../../../constants/HomePageDetailsArrayEn';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
-import {StatusBar} from 'react-native';
 import {HomePageDetailsArrayMal} from '../../../../constants/HomePageDetailsArrayMal';
 import {useSelector} from 'react-redux';
 
@@ -18,7 +17,7 @@ const TopicScroll = ({setCurrentTopic, currentTopic}: Props) => {
     array = HomePageDetailsArrayMal;
   }
 
-  StatusBar.setBackgroundColor('#fff');
+  // StatusBar.setBackgroundColor(darkMode ? 'black' : '#fff');
   const {StatusBarManager} = NativeModules;
   return (
     <Box
@@ -27,7 +26,7 @@ const TopicScroll = ({setCurrentTopic, currentTopic}: Props) => {
       paddingTop="m"
       borderTopColor="pointerFill"
       borderTopWidth={1}
-      style={{marginTop: StatusBarManager.HEIGHT - 8}}
+      style={{paddingTop: StatusBarManager.HEIGHT - 8}}
       paddingBottom="xs">
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {array.map((item: {topic: string}, index: number) => (
@@ -43,7 +42,7 @@ const TopicScroll = ({setCurrentTopic, currentTopic}: Props) => {
                 lineHeight={23}
                 variant="TextButtonTitle"
                 color={
-                  currentTopic === index ? 'blueTitleText' : 'primaryTitleText'
+                  currentTopic === index ? 'blueTitleText' : 'scrollTextBlack'
                 }>
                 {item.topic}
               </Text>

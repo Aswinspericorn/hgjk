@@ -5,7 +5,7 @@ interface Props {
   currentQuestion: number;
   questionHandler: (a: string, b: string) => void;
   selected: string;
-  Questions:Array<object>;
+  Questions: Array<object>;
 }
 const OptionalQuestion = ({
   currentQuestion,

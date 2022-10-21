@@ -50,6 +50,10 @@
       "MobileNumber": "മൊബൈൽ നമ്പർ",
       "Continue": "തുടരുക"
     },
+    "AuthenticateOtp": {
+      "EnterAuthenticationCode": "പ്രാമാണീകരണ കോഡ് നൽകുക",
+      "Enter4digit": "+91 എന്ന ഫോൺ നമ്പർ വഴി ഞങ്ങൾ അയച്ച 4 അക്കങ്ങൾ നൽകുക"
+    },
     "Personaliz": {
       "ViewProfile": "വ്യക്തിവിവരങ്ങൾ",
       "Address": "വിലാസം",

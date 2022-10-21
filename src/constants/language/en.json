@@ -43,6 +43,10 @@
       "and": "and",
       "PrivacyPolicy": "Privacy Policy."
     },
+    "AuthenticateOtp": {
+      "EnterAuthenticationCode": "Enter authentication code",
+      "Enter4digit": "Enter the 4-digit that we have sent via the phone number +91"
+    },
     "Personaliz": {
       "ViewProfile": "View Profile",
       "Address": "Address",
@@ -50,10 +54,21 @@
       "Help": "Help",
       "Settings": "Settings",
       "About": "About",
-      "Logout": "Log out"
+      "Logout": "Log out",
+      "MyDetails": "My Details"
+    },   
+     "Settings": {
+      "Profile": "Profile",
+      "Password": "Password",
+      "Notifications": "Notifications",
+      "More": "More",
+      "Settings": "Settings",
+      "About": "About",
+      "Logout": "Log out",
+      "MyDetails": "My Details",
+      "DarkMode": "Dark mode"
     },
     "MyDetails": {
-      "MyDetails": "My Details",
       "FirstName": "First name",
       "LastName": "Last name",
       "Location": "Location",

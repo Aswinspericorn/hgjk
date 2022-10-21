@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ImageBackground, NativeModules, StyleSheet} from 'react-native';
+import {ImageBackground, LogBox, NativeModules, StyleSheet} from 'react-native';
 import {Box, Text, TouchableBox} from '../../../theme/theme';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
@@ -19,8 +19,12 @@ export const GetStarted = ({navigation}: Props) => {
     if (auth().currentUser?.uid) {
       dispatch(changeAuthStatus(true));
     }
-  });
+  }, [dispatch]);
   const {t, i18n} = useTranslation();
+
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+  ]);
 
   useEffect(() => {
     requestUserPermission();
@@ -52,7 +56,7 @@ export const GetStarted = ({navigation}: Props) => {
           </Text>
         </Box>
       </Box>
-      <Box flex={3}>
+      <Box flex={3} backgroundColor="mainBackground">
         <ImageBackground
           source={require('../../../assets/images/getStarted.png')}
           style={styles.background}>
