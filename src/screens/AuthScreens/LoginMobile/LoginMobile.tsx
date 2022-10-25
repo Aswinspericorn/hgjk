@@ -16,7 +16,7 @@ const LoginMobile = ({navigation}: Props) => {
   const [phno, setPhno] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
+  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
 
   const {t} = useTranslation();
   async function signInWithPhoneNumber() {
@@ -85,7 +85,10 @@ const LoginMobile = ({navigation}: Props) => {
                 </Text>
               </Box>
               <Box paddingHorizontal="xs">
-                <ArrowDown color={darkMode ? 'white' : 'black'} fill="none" />
+                <ArrowDown
+                  color={mode === 'dark' ? 'white' : 'black'}
+                  fill="none"
+                />
               </Box>
             </TouchableBox>
           </Box>

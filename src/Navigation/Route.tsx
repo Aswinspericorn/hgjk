@@ -10,16 +10,16 @@ import {StatusBar} from 'react-native';
 
 const Route = () => {
   const IsLoggedIn = useSelector((state: any) => state.AuthStatus.isLoggedIn);
-  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
+  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
 
   return (
     <>
       <StatusBar
-        barStyle={darkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={darkMode ? '#262626' : 'white'}
+        barStyle={mode === 'dark' ? 'light-content' : 'dark-content'}
+        backgroundColor={mode === 'dark' ? '#262626' : 'white'}
         translucent
       />
-      <ThemeProvider theme={darkMode ? darkTheme : theme}>
+      <ThemeProvider theme={mode === 'dark' ? darkTheme : theme}>
         <NavigationContainer linking={linking}>
           {IsLoggedIn ? <StackNavigation /> : <AuthNavigation />}
         </NavigationContainer>

@@ -135,8 +135,8 @@ const Map = ({route}: any) => {
           mapType="standard"
           region={region}
           ref={mapRef}
-          zoomControlEnabled={true}
-          rotateEnabled={true}
+          zoomControlEnabled
+          rotateEnabled
           maxZoomLevel={18}
           minZoomLevel={0}
           style={styles.maps}

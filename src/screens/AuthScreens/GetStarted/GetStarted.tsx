@@ -8,12 +8,14 @@ import requestUserPermission, {
   NotificationLIsterner,
 } from '../../../helper/PushNotification.helper';
 import {useTranslation} from 'react-i18next';
+import {StatusBar} from 'react-native';
 
 interface Props {
   navigation: any;
 }
 
 export const GetStarted = ({navigation}: Props) => {
+  StatusBar.setBackgroundColor('#DAE2EB');
   const dispatch = useDispatch();
   useEffect(() => {
     if (auth().currentUser?.uid) {
@@ -28,6 +30,7 @@ export const GetStarted = ({navigation}: Props) => {
 
   useEffect(() => {
     requestUserPermission();
+
     NotificationLIsterner(navigation);
   }, [navigation]);
   const RNI18n = NativeModules.I18nManager.localeIdentifier;

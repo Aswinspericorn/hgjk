@@ -26,7 +26,7 @@ const MyDetails = ({navigation}) => {
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [modalShow, setMdalShow] = useState<boolean>(false);
   const userData = useSelector((state: any) => state?.UserData.userData);
-  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
+  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
 
   const [input, setInput] = useState<Props>(
     userData
@@ -195,11 +195,11 @@ const MyDetails = ({navigation}) => {
                   textAlign: 'right',
                   marginBottom: 0,
                   marginTop: 5,
-                  backgroundColor: darkMode ? '#262626' : 'white',
+                  backgroundColor: mode === 'dark' ? '#262626' : 'white',
                   fontSize: 16,
                   lineHeight: 16,
                   fontFamily: 'Inter-Regular',
-                  color: darkMode ? 'white' : 'black',
+                  color: mode === 'dark' ? 'white' : 'black',
                 },
               }}
             />
@@ -263,7 +263,7 @@ const MyDetails = ({navigation}) => {
                 </Box>
               </Box>
               <Box>
-                <RightArrow color={darkMode ? 'white' : 'black'} fill="none" />
+                <RightArrow color={mode === 'dark' ? 'white' : 'black'} fill="none" />
               </Box>
             </Box>
           </TouchableBox>

@@ -265,6 +265,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     implementation 'com.facebook.android:facebook-android-sdk:[13,0,1)'
+    implementation project(':react-native-splash-screen')
+
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

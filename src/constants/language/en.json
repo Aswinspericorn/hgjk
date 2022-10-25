@@ -61,12 +61,14 @@
       "Profile": "Profile",
       "Password": "Password",
       "Notifications": "Notifications",
-      "More": "More",
+      "Theme": "Theme",
       "Settings": "Settings",
       "About": "About",
       "Logout": "Log out",
       "MyDetails": "My Details",
-      "DarkMode": "Dark mode"
+      "Default": "Default",
+      "Dark": "Dark",
+      "Light": "Light"
     },
     "MyDetails": {
       "FirstName": "First name",

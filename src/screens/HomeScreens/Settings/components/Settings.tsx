@@ -4,14 +4,14 @@ import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {useTranslation} from 'react-i18next';
 import {changeDarkModeStatus} from '../../../../store/redux/DarkModeStatus';
 import {Lock, Notification, Person} from '../../../../assets/icons/Svg/Icons';
-import {Switch} from 'react-native';
+// import {Switch} from 'react-native';
 const Settings = ({navigation}) => {
-  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
+  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
   const dispatch = useDispatch();
   const {t} = useTranslation();
 
-  const toggleSwitch = () => {
-    dispatch(changeDarkModeStatus());
+  const toggleSwitch = status => {
+    dispatch(changeDarkModeStatus(status));
   };
   return (
     <Box
@@ -48,7 +48,7 @@ const Settings = ({navigation}) => {
             paddingBottom="l"
             onPress={() => navigation.navigate('Map')}>
             <Box paddingRight="xss" justifyContent="center" alignItems="center">
-              <Person color={darkMode ? 'white' : 'black'} fill="none" />
+              <Person color={mode === 'dark' ? 'white' : 'black'} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Settings.Profile')}
@@ -56,7 +56,7 @@ const Settings = ({navigation}) => {
           </TouchableBox>
           <TouchableBox flexDirection="row" paddingBottom="l">
             <Box paddingRight="xs">
-              <Lock color={darkMode ? 'white' : 'black'} fill="none" />
+              <Lock color={mode === 'dark' ? 'white' : 'black'} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Settings.Password')}
@@ -64,7 +64,10 @@ const Settings = ({navigation}) => {
           </TouchableBox>
           <TouchableBox flexDirection="row" paddingBottom="l">
             <Box paddingRight="xss" justifyContent="center" alignItems="center">
-              <Notification color={darkMode ? 'white' : 'black'} fill="none" />
+              <Notification
+                color={mode === 'dark' ? 'white' : 'black'}
+                fill="none"
+              />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Settings.Notifications')}
@@ -74,24 +77,69 @@ const Settings = ({navigation}) => {
         <Box paddingTop="m">
           <Box paddingBottom="l">
             <Text variant="buttonTitle" lineHeight={20}>
-              {t('Settings.More')}
+              {t('Settings.Theme')}
             </Text>
           </Box>
           <TouchableBox
-            flexDirection="row"
-            paddingBottom="l"
+            paddingVertical="s"
+            borderRadius="m"
+            onPress={() => toggleSwitch('default')}
             paddingLeft="xs"
             justifyContent="space-between">
-            <Text variant="PersonalizationRegular" lineHeight={20}>
-              {t('Settings.DarkMode')}
+            <Text
+              variant="PersonalizationRegular"
+              color={
+                mode === 'default'
+                  ? 'primaryCardBackground'
+                  : mode === 'dark'
+                  ? 'primaryTitleText'
+                  : 'scrollTextBlack'
+              }
+              lineHeight={20}>
+              {t('Settings.Default')}
             </Text>
-            <Switch
+          </TouchableBox>
+          <TouchableBox
+            flexDirection="row"
+            paddingVertical="s"
+            borderRadius="m"
+            paddingLeft="xs"
+            onPress={() => toggleSwitch('light')}
+            justifyContent="space-between">
+            <Text
+              variant="PersonalizationRegular"
+              color={
+                mode === 'light'
+                  ? 'primaryCardBackground'
+                  : mode === 'dark'
+                  ? 'primaryTitleText'
+                  : 'scrollTextBlack'
+              }
+              lineHeight={20}>
+              {t('Settings.Light')}
+            </Text>
+            {/* <Switch
               trackColor={{false: '#767577', true: '#81b0ff'}}
-              thumbColor={darkMode ? '#6B4EFF' : '#f4f3f4'}
+              thumbColor={mode ==='dark' ? '#6B4EFF' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
-              value={darkMode}
-            />
+              value={mode ==='dark'}
+            /> */}
+          </TouchableBox>
+          <TouchableBox
+            onPress={() => toggleSwitch('dark')}
+            borderRadius="m"
+            paddingVertical="s"
+            paddingLeft="xs"
+            justifyContent="space-between">
+            <Text
+              variant="PersonalizationRegular"
+              color={
+                mode === 'dark' ? 'primaryCardBackground' : 'scrollTextBlack'
+              }
+              lineHeight={20}>
+              {t('Settings.Dark')}
+            </Text>
           </TouchableBox>
         </Box>
       </Box>

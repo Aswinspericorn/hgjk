@@ -35,7 +35,7 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
     'Non-serializable values were found in the navigation state',
   ]);
 
-  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
+  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
 
   useEffect(() => {
     RNOtpVerify.getHash().then().catch();
@@ -132,7 +132,7 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
             autoFocusOnLoad={false}
             codeInputFieldStyle={{
               ...styles.underlineStyleBase,
-              color: darkMode ? 'white' : 'black',
+              color: mode === 'dark' ? 'white' : 'black',
             }}
             codeInputHighlightStyle={styles.underlineStyleHighLighted}
             onCodeChanged={value => {

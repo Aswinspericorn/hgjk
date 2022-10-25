@@ -22,6 +22,7 @@ export const palette = {
   myDetailsTopic: '#F7F9FA',
   mapGreen: '#34a853',
   mapBlue: '#1a73e8',
+  transparent: 'transparent',
 };
 
 const theme = createTheme({
@@ -56,6 +57,7 @@ const theme = createTheme({
     myDetailsTopic: palette.myDetailsTopic,
     mapGreen: palette.mapGreen,
     mapButtonBlue: palette.mapBlue,
+    transparent: palette.transparent,
   },
   breakpoints: {
     phone: 0,

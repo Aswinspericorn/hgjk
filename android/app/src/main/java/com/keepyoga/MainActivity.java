@@ -3,6 +3,8 @@ package com.keepyoga;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
+import org.devio.rn.splashscreen.SplashScreen;
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -20,6 +22,12 @@ public class MainActivity extends ReactActivity {
    * you can specify the renderer you wish to use - the new renderer (Fabric) or the old renderer
    * (Paper).
    */
+   @Override
+       protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this);  // here
+        super.onCreate(savedInstanceState);
+    }
+
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
     return new MainActivityDelegate(this, getMainComponentName());
@@ -37,7 +45,6 @@ public class MainActivity extends ReactActivity {
       reactRootView.setIsFabric(BuildConfig.IS_NEW_ARCHITECTURE_ENABLED);
       return reactRootView;
     }
-
     @Override
     protected boolean isConcurrentRootEnabled() {
       // If you opted-in for the New Architecture, we enable Concurrent Root (i.e. React 18).

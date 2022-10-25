@@ -14,7 +14,7 @@ import {
 } from '../../../../assets/icons/Svg/Icons';
 const PersonalDetailsHome = ({navigation}) => {
   const userData = useSelector((state: any) => state?.UserData.userData);
-  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
+  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
 
   const dispatch = useDispatch();
   const {t} = useTranslation();
@@ -65,7 +65,10 @@ const PersonalDetailsHome = ({navigation}) => {
             paddingBottom="l"
             onPress={() => navigation.navigate('Map')}>
             <Box paddingRight="xss" justifyContent="center" alignItems="center">
-              <Location color={darkMode ? 'white' : 'black'} fill="none" />
+              <Location
+                color={mode === 'dark' ? 'white' : 'black'}
+                fill="none"
+              />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Personaliz.Address')}
@@ -73,7 +76,7 @@ const PersonalDetailsHome = ({navigation}) => {
           </TouchableBox>
           <TouchableBox flexDirection="row" paddingBottom="l">
             <Box paddingRight="xs">
-              <Wallet color={darkMode ? 'white' : 'black'} fill="none" />
+              <Wallet color={mode === 'dark' ? 'white' : 'black'} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Personaliz.PaymentMethod')}
@@ -81,7 +84,7 @@ const PersonalDetailsHome = ({navigation}) => {
           </TouchableBox>
           <TouchableBox flexDirection="row" paddingBottom="l">
             <Box paddingRight="xss" justifyContent="center" alignItems="center">
-              <Help color={darkMode ? 'white' : 'black'} fill="none" />
+              <Help color={mode === 'dark' ? 'white' : 'black'} fill="none" />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Personaliz.Help')}
@@ -94,7 +97,10 @@ const PersonalDetailsHome = ({navigation}) => {
               navigation.navigate('Settings');
             }}>
             <Box paddingRight="xs" justifyContent="center" alignItems="center">
-              <Settings color={darkMode ? 'white' : 'black'} fill="none" />
+              <Settings
+                color={mode === 'dark' ? 'white' : 'black'}
+                fill="none"
+              />
             </Box>
             <Text variant="PersonalizationRegular" lineHeight={20}>
               {t('Personaliz.Settings')}

@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 
 const PersonalDetailsStackNavigation = () => {
   const {t} = useTranslation();
-  const darkMode = useSelector((state: any) => state.DarkModeStatus.darkMode);
+  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
 
   return (
     <Stack.Navigator>
@@ -26,9 +26,9 @@ const PersonalDetailsStackNavigation = () => {
         options={{
           headerTitle: t('Personaliz.MyDetails'),
           headerTitleAlign: 'center',
-          headerTintColor: darkMode ? 'white' : '#262626',
+          headerTintColor: mode === 'dark' ? 'white' : '#262626',
+          headerStyle: {backgroundColor: mode === 'dark' ? '#262626' : 'white'},
           headerTitleStyle: {fontFamily: 'inter-Regular', fontSize: 18},
-          headerStyle: {backgroundColor: darkMode ? '#262626' : 'white'},
         }}
       />
     </Stack.Navigator>

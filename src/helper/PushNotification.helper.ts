@@ -1,8 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 import messaging from '@react-native-firebase/messaging';
 import {Linking} from 'react-native';
-import {getUser} from './Firebase.helper';
 
 async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
@@ -49,7 +47,6 @@ export const NotificationLIsterner = () => {
             `demo://app/${remoteMessage?.data?.type}/${remoteMessage?.data?.id}`,
           );
         } else {
-
           Linking.openURL(`demo://app/${remoteMessage?.data?.type}`);
         }
       }
