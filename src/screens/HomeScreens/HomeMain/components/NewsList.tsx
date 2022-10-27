@@ -5,8 +5,7 @@ import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
 import {getNews} from '../../../../helper/Firebase.helper';
 import {useDispatch, useSelector} from 'react-redux';
-import {changeIsDataChanged} from '../../../../store/redux/IsDataChanged';
-
+import {changeIsDataChanged} from '../../../../store/redux/actions/changeIsDataChanged';
 interface Props {
   currentTopic: number;
 }
@@ -28,7 +27,9 @@ const NewsList = ({currentTopic}: Props) => {
       },
     ],
   });
-  const userData = useSelector((state: any) => state?.UserData.userData);
+  const userData = useSelector(
+    (state: any) => state?.AppReducer.UserData.userData,
+  );
   const navigation = useNavigation();
   const dispatch = useDispatch();
 

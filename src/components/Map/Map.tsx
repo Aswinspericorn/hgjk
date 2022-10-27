@@ -2,7 +2,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Box, Text} from '../../theme/theme';
 import MapView, {Camera, Marker} from 'react-native-maps';
-import {Alert, Dimensions, Image, StyleSheet} from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  Image,
+  StyleSheet,
+  useColorScheme,
+} from 'react-native';
 import MapViewDirections from 'react-native-maps-directions';
 import {API_KEY} from '../../constants/confiq';
 import {useSelector} from 'react-redux';
@@ -17,11 +23,11 @@ import Navigate from '../../assets/icons/Svg/compass.svg';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import MarkersOfAllUsers from './MarkersOfUsers';
 import MapUserScroll from './MapUserSCroll';
+import {MapDarkStyle} from './MapDarkStyle';
 
 const Map = ({route}: any) => {
   const mapRef = useRef<undefined>();
   const markerRef = useRef();
-  const {width, height} = Dimensions.get('window');
   const [distance, setDistance] = useState<number>(0);
   const [heading, setHeading] = useState<number>(0);
   const [cameraHeading, setCameraHeading] = useState<number>(0);
@@ -29,7 +35,9 @@ const Map = ({route}: any) => {
   const [users, setUsers] = useState<Array<object>>([{}]);
   const [permission, setPermission] = useState<object>({});
   const [duration, setDuration] = useState<number[]>([0, 0]);
-  const userData = useSelector((state: any) => state?.UserData.userData);
+  const userData = useSelector(
+    (state: any) => state?.AppReducer.UserData.userData,
+  );
   const [scrollToIndex, setScrollToIndex] = useState(0);
   const [region, setRegion] = useState<object>({
     latitude: userData.location.location.lat,
@@ -48,7 +56,10 @@ const Map = ({route}: any) => {
   const email = route?.params?.email;
   const phno = route?.params?.phno;
   const id = route?.params?.id;
-
+  const mode = useSelector(
+    (state: any) => state.AppReducer.DarkModeStatus.mode,
+  );
+  const themeDevice = useColorScheme();
   const origin = {
     latitude: userData.location.location.lat,
     longitude: userData.location.location.lng,
@@ -132,6 +143,9 @@ const Map = ({route}: any) => {
     <GestureHandlerRootView style={styles.screen}>
       <Box flex={1}>
         <MapView
+          customMapStyle={
+            mode === 'dark' || themeDevice === 'dark' ? MapDarkStyle : []
+          }
           mapType="standard"
           region={region}
           ref={mapRef}

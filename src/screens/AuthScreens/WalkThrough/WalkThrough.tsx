@@ -6,9 +6,8 @@ import Facebook from '../../../assets/icons/Svg/facebook.svg';
 import Google from '../../../assets/icons/Svg/google.svg';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-import {changeAuthStatus} from '../../../store/redux/AuthStatus';
+import {changeAuthStatus} from '../../../store/redux/actions/AuthStatus';
 import {getSingleUserDetails} from '../../../helper/Firebase.helper';
-import {changeUserData} from '../../../store/redux/UserData';
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
@@ -25,6 +24,7 @@ import {
   onFacebookButtonPress,
   onGoogleButtonPress,
 } from '../../../helper/WalkThrough.helper';
+import {changeUserData} from '../../../store/redux/actions/UserData';
 interface Props {
   navigation: any;
 }
@@ -33,7 +33,8 @@ const {width} = Dimensions.get('window');
 const WalkThrough = ({navigation}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const [walkThroughArray, setWalkThroughArray] = useState<Array<object>>(WalkThroughArrayEn);
+  const [walkThroughArray, setWalkThroughArray] =
+    useState<Array<object>>(WalkThroughArrayEn);
   const scrollViewRef = useRef<any>();
   const dispatch = useDispatch();
   GoogleSignin.configure({
@@ -42,8 +43,7 @@ const WalkThrough = ({navigation}: Props) => {
   });
   const RNI18n = NativeModules.I18nManager.localeIdentifier;
 
-
- useEffect(() => {
+  useEffect(() => {
     if (RNI18n.split('_')[0] === 'ml') {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       setWalkThroughArray(WalkThroughArrayMal);

@@ -3,7 +3,7 @@ import {Image, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
-import {changeAuthStatus} from '../../../../store/redux/AuthStatus';
+import {changeAuthStatus} from '../../../../store/redux/actions/AuthStatus';
 
 import {useTranslation} from 'react-i18next';
 import {
@@ -13,9 +13,12 @@ import {
   Wallet,
 } from '../../../../assets/icons/Svg/Icons';
 const PersonalDetailsHome = ({navigation}) => {
-  const userData = useSelector((state: any) => state?.UserData.userData);
-  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
-
+  const userData = useSelector(
+    (state: any) => state?.AppReducer.UserData.userData,
+  );
+  const mode = useSelector(
+    (state: any) => state.AppReducer.DarkModeStatus.mode,
+  );
   const dispatch = useDispatch();
   const {t} = useTranslation();
   return (

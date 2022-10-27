@@ -1,11 +1,11 @@
-import {configureStore} from '@reduxjs/toolkit';
-import AuthStatusReducer from './AuthStatus';
-import IsDataChanged from './IsDataChanged';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import UserData from './UserData';
-import RecentSearchesReducer from './RecentSearchesReducer';
-import DarkModeStatusReducer from './DarkModeStatus';
+import AuthStatusReducer from './reducers/AuthStatusReducer';
+import DarkModeStatusReducer from './reducers/DarkModeStatusReducer';
+import IsDataChanged from './reducers/IsDataChangedReducer';
+import RecentSearchesReducer from './reducers/RecentSearchesReducer';
+import UserDataReducer from './reducers/UserDataReducer';
 // import thunk from 'redux-thunk';
 const persistConfig = {
   key: 'root',
@@ -16,15 +16,16 @@ const persistedReducerDarkMode = persistReducer(
   persistConfig,
   DarkModeStatusReducer,
 );
+const AppReducer = combineReducers({
+  AuthStatus: AuthStatusReducer,
+  IsDataChanged: IsDataChanged,
+  UserData: UserDataReducer,
+  DarkModeStatus: persistedReducerDarkMode,
+  RecentSearches: persistedReducer,
+});
 export const store = configureStore({
   reducer: {
-    AuthStatus: AuthStatusReducer,
-    DarkModeStatus: persistedReducerDarkMode,
-    UserData: UserData,
-    IsDataChanged: IsDataChanged,
-    RecentSearches: persistedReducer,
-    // middleware: [thunk],
+    AppReducer,
   },
 });
-
 export const persistor = persistStore(store);

@@ -3,7 +3,6 @@ import {Image, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Input from '../../../../components/Input';
 import {userDetailsUpdate} from '../../../../helper/Firebase.helper';
-import {changeIsDataChanged} from '../../../../store/redux/IsDataChanged';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
@@ -14,6 +13,7 @@ import Modal from 'react-native-modal';
 import {useTranslation} from 'react-i18next';
 import SelectDropdown from 'react-native-select-dropdown';
 import {RightArrow} from '../../../../assets/icons/Svg/Icons';
+import {changeIsDataChanged} from '../../../../store/redux/actions/changeIsDataChanged';
 interface Props {
   fname: string;
   lname: string;
@@ -25,9 +25,12 @@ interface Props {
 const MyDetails = ({navigation}) => {
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [modalShow, setMdalShow] = useState<boolean>(false);
-  const userData = useSelector((state: any) => state?.UserData.userData);
-  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
-
+  const userData = useSelector(
+    (state: any) => state?.AppReducer.UserData.userData,
+  );
+  const mode = useSelector(
+    (state: any) => state.AppReducer.DarkModeStatus.mode,
+  );
   const [input, setInput] = useState<Props>(
     userData
       ? userData
@@ -263,7 +266,10 @@ const MyDetails = ({navigation}) => {
                 </Box>
               </Box>
               <Box>
-                <RightArrow color={mode === 'dark' ? 'white' : 'black'} fill="none" />
+                <RightArrow
+                  color={mode === 'dark' ? 'white' : 'black'}
+                  fill="none"
+                />
               </Box>
             </Box>
           </TouchableBox>

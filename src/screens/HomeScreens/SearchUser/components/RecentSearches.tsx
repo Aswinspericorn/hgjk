@@ -8,7 +8,9 @@ interface Props {
   setSearch: (a: string) => void;
 }
 const RecentSearchesList = ({setSearch}: Props) => {
-  const list = useSelector((state: any) => state?.RecentSearches.searchData);
+  const list = useSelector(
+    (state: any) => state?.AppReducer.RecentSearches.searchData,
+  );
   const {t} = useTranslation();
   return (
     <Box>

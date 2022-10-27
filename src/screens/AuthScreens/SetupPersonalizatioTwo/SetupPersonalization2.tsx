@@ -34,9 +34,7 @@ const SetupPersonalizationTwo = ({navigation, route}: Props) => {
     }
   }, [RNI18n]);
   const questionHandler = (opt: string, question: string) => {
-    console.log(currentQuestion + 1, '==');
     const tempData = currentQuestion + 1;
-    console.log(tempData);
     setCurrentQuestion(tempData);
     setSelectedAnswers(prev => {
       return {

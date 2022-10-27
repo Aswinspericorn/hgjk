@@ -16,8 +16,7 @@ export async function onGoogleButtonPress(checkIsNewUser: () => void) {
         checkIsNewUser();
         return;
       })
-      .catch(errr => {
-        console.log(errr);
+      .catch(() => {
         Alert.alert('Something went wrong,try again later');
         return;
       });

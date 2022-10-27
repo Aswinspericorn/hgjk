@@ -2,16 +2,18 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {useTranslation} from 'react-i18next';
-import {changeDarkModeStatus} from '../../../../store/redux/DarkModeStatus';
 import {Lock, Notification, Person} from '../../../../assets/icons/Svg/Icons';
+import {changeDarkMode} from '../../../../store/redux/actions/DarkModeStatus';
 // import {Switch} from 'react-native';
 const Settings = ({navigation}) => {
-  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
+  const mode = useSelector(
+    (state: any) => state.AppReducer.DarkModeStatus.mode,
+  );
   const dispatch = useDispatch();
   const {t} = useTranslation();
 
   const toggleSwitch = status => {
-    dispatch(changeDarkModeStatus(status));
+    dispatch(changeDarkMode(status));
   };
   return (
     <Box

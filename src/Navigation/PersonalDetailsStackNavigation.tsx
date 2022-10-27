@@ -8,8 +8,9 @@ const Stack = createNativeStackNavigator();
 
 const PersonalDetailsStackNavigation = () => {
   const {t} = useTranslation();
-  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
-
+  const mode = useSelector(
+    (state: any) => state.AppReducer.DarkModeStatus.mode,
+  );
   return (
     <Stack.Navigator>
       <Stack.Screen

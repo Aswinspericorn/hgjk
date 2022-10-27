@@ -6,12 +6,15 @@ import {useSelector} from 'react-redux';
 import linking from './Linking';
 import {ThemeProvider} from '@shopify/restyle';
 import theme, {darkTheme} from '../../src/theme/theme';
-import {StatusBar} from 'react-native';
+import {StatusBar, useColorScheme} from 'react-native';
 
 const Route = () => {
-  const IsLoggedIn = useSelector((state: any) => state.AuthStatus.isLoggedIn);
-  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
-
+  const IsLoggedIn = useSelector(
+    (state: any) => state.AppReducer.AuthStatus.isLoggedIn,
+  );
+  const mode = useSelector(
+    (state: any) => state.AppReducer.DarkModeStatus.mode,
+  );  const themeDevice = useColorScheme();
   return (
     <>
       <StatusBar
@@ -19,7 +22,16 @@ const Route = () => {
         backgroundColor={mode === 'dark' ? '#262626' : 'white'}
         translucent
       />
-      <ThemeProvider theme={mode === 'dark' ? darkTheme : theme}>
+      <ThemeProvider
+        theme={
+          mode === 'default'
+            ? themeDevice === 'dark'
+              ? darkTheme
+              : theme
+            : mode === 'dark'
+            ? darkTheme
+            : theme
+        }>
         <NavigationContainer linking={linking}>
           {IsLoggedIn ? <StackNavigation /> : <AuthNavigation />}
         </NavigationContainer>

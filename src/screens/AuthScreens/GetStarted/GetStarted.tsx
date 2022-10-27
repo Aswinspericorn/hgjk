@@ -3,12 +3,13 @@ import {ImageBackground, LogBox, NativeModules, StyleSheet} from 'react-native';
 import {Box, Text, TouchableBox} from '../../../theme/theme';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
-import {changeAuthStatus} from '../../../store/redux/AuthStatus';
+// import {changeAuthStatus} from '../../../store/redux/AuthStatus';
 import requestUserPermission, {
   NotificationLIsterner,
 } from '../../../helper/PushNotification.helper';
 import {useTranslation} from 'react-i18next';
 import {StatusBar} from 'react-native';
+import {changeAuthStatus} from '../../../store/redux/actions/AuthStatus';
 
 interface Props {
   navigation: any;

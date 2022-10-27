@@ -5,7 +5,7 @@ import Lens from '../../../assets/icons/Svg/Vector.svg';
 import Marker from '../../../assets/icons/Svg/Avatar.svg';
 import auth from '@react-native-firebase/auth';
 import {Alert} from 'react-native';
-import {changeAuthStatus} from '../../../store/redux/AuthStatus';
+import {changeAuthStatus} from '../../../store/redux/actions/AuthStatus';
 import {Box, Text} from '../../../theme/theme';
 import {API_KEY} from '../../../constants/confiq';
 import firestore from '@react-native-firebase/firestore';

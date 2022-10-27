@@ -23,7 +23,6 @@ const UserImagePicker = ({onPress, name}: Props) => {
 
   const UploadImage = async () => {
     if (photo) {
-      console.log(photo);
       try {
         await task
           .putFile(photo)

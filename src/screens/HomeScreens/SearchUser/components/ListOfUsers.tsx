@@ -2,10 +2,10 @@ import React from 'react';
 import {Pressable, ScrollView} from 'react-native';
 import UserTile from '../../../../components/UserTile';
 import {Box, Text} from '../../../../theme/theme';
-import {changeRecentSearch} from '../../../../store/redux/RecentSearchesReducer';
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import {changeRecentSearch} from '../../../../store/redux/actions/RecentSearchesReducer';
 
 interface Props {
   list:

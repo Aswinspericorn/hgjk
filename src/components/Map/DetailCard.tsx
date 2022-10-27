@@ -48,7 +48,9 @@ const DetailCard = ({
   setStart,
 }: Props) => {
   const [users, setUsers] = useState<Array<object>>([{}]);
-  const userData = useSelector((state: any) => state?.UserData.userData);
+  const userData = useSelector(
+    (state: any) => state?.AppReducer.UserData.userData,
+  );
   const translateY = useSharedValue(0);
   const context = useSharedValue({y: 0});
   const scrollTo = useCallback((destination: number) => {

@@ -10,7 +10,9 @@ import {useSelector} from 'react-redux';
 const Tab = createBottomTabNavigator<HomeBottomNaviationParamList>();
 
 export const HomeBottomNaviation = () => {
-  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
+  const mode = useSelector(
+    (state: any) => state.AppReducer.DarkModeStatus.mode,
+  );
   return (
     <Tab.Navigator
       screenOptions={{

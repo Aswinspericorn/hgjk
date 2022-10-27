@@ -13,9 +13,11 @@ const Banner = () => {
     icon: weatherImagesObj['01d'],
   });
   const IsFavouriteChanged = useSelector(
-    (state: any) => state?.IsDataChanged.isChanged,
+    (state: any) => state?.AppReducer.IsDataChanged.isChanged,
   );
-  const userData = useSelector((state: any) => state?.UserData.userData);
+  const userData = useSelector(
+    (state: any) => state?.AppReducer.UserData.userData,
+  );
 
   const API_KEY = 'e0110331adf97afda6ab257d0534f64c';
   const userId = auth().currentUser?.uid;

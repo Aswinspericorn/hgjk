@@ -16,8 +16,9 @@ const LoginMobile = ({navigation}: Props) => {
   const [phno, setPhno] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const mode = useSelector((state: any) => state.DarkModeStatus.mode);
-
+  const mode = useSelector(
+    (state: any) => state.AppReducer.DarkModeStatus.mode,
+  );
   const {t} = useTranslation();
   async function signInWithPhoneNumber() {
     try {

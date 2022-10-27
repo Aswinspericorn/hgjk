@@ -8,13 +8,13 @@ import {
   userFavouritesAdd,
   userFavouritesRemove,
 } from '../../../../helper/Firebase.helper';
-import {changeIsDataChanged} from '../../../../store/redux/IsDataChanged';
+import {changeIsDataChanged} from '../../../../store/redux/actions/changeIsDataChanged';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 
 const DetailNews = ({route}) => {
   const [favourite, setFavourite] = useState<boolean>(false);
   const nav = useNavigation();
-  const user = useSelector((state: any) => state?.UserData.userData);
+  const user = useSelector((state: any) => state?.AppReducer.UserData.userData);
   const favourites = user?.favourites;
   const data = route.params;
   const isExits = favourites?.find(

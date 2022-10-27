@@ -4,10 +4,10 @@ import EmailAndPasswordInput from '../../EmailSignUp/components/EmailAndPassword
 import ButtonContainer from '../../EmailSignUp/components/ButtonContainer';
 import SigninAccountHelper from '../../../../helper/EmailSignIn.helper';
 import {useDispatch} from 'react-redux';
-import {changeAuthStatus} from '../../../../store/redux/AuthStatus';
+import {changeAuthStatus} from '../../../../store/redux/actions/AuthStatus';
 import {getSingleUserDetails} from '../../../../helper/Firebase.helper';
-import {changeUserData} from '../../../../store/redux/UserData';
 import {useTranslation} from 'react-i18next';
+import {changeUserData} from '../../../../store/redux/actions/UserData';
 
 const EmailSignIn = ({navigation}) => {
   const [email, setEmail] = useState<string>('');

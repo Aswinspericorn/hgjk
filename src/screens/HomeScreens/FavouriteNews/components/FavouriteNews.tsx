@@ -10,7 +10,7 @@ import {ScrollView, StyleSheet} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 const FavouriteNews = () => {
-  const user = useSelector((state: any) => state?.UserData.userData);
+  const user = useSelector((state: any) => state?.AppReducer.UserData.userData);
   const favourites = user?.favourites;
   const navigation = useNavigation<HomeNaviationParamList>();
   const {t} = useTranslation();
