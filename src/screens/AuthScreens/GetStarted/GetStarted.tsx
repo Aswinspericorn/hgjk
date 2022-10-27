@@ -3,7 +3,6 @@ import {ImageBackground, LogBox, NativeModules, StyleSheet} from 'react-native';
 import {Box, Text, TouchableBox} from '../../../theme/theme';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
-// import {changeAuthStatus} from '../../../store/redux/AuthStatus';
 import requestUserPermission, {
   NotificationLIsterner,
 } from '../../../helper/PushNotification.helper';
@@ -28,7 +27,6 @@ export const GetStarted = ({navigation}: Props) => {
   LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
   ]);
-
   useEffect(() => {
     requestUserPermission();
 

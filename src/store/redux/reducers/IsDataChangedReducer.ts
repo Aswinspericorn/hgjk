@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
   switch (type) {
     case types.CHANGE_ISDATA_CHANGED:
       return {
-        mode: !state.isChanged,
+        isChanged: !state.isChanged,
       };
     default:
       return state;

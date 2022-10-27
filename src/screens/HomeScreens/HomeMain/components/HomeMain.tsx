@@ -9,18 +9,19 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {useTranslation} from 'react-i18next';
 import {changeUserData} from '../../../../store/redux/actions/UserData';
+import {
+  getIsDataChangedStatus,
+  getUserData,
+} from '../../../../store/redux/selectors/AllSelector';
 // import I18n from 'react-native-i18n';
 
 const HomeMain = () => {
   const [currentTopic, setCurrentTopic] = useState<number>(0);
   const dispatch = useDispatch();
-  const IsFavouriteChanged = useSelector(
-    (state: any) => state?.AppReducer.IsDataChanged.isChanged,
-  );
+  const IsFavouriteChanged = useSelector(getIsDataChangedStatus);
+  console.log(IsFavouriteChanged);
   const RNI18n = NativeModules.I18nManager.localeIdentifier;
-  const userData = useSelector(
-    (state: any) => state?.AppReducer.UserData.userData,
-  );
+  const userData = useSelector(getUserData);
 
   const {i18n} = useTranslation();
   useEffect(() => {
@@ -52,8 +53,7 @@ const HomeMain = () => {
     };
     getFavouritesHandler();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [IsFavouriteChanged]);
-
+  }, []);
   return (
     <Box flex={1} backgroundColor="secondaryBackground" paddingTop="xs">
       <ScrollView

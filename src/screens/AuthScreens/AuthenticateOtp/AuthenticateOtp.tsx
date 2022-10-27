@@ -10,7 +10,8 @@ import RNOtpVerify from 'react-native-otp-verify';
 import PrimaryButton from '../../../components/PrimaryButton';
 import {getSingleUserDetails} from '../../../helper/Firebase.helper';
 import {useTranslation} from 'react-i18next';
-import { changeUserData } from '../../../store/redux/actions/UserData';
+import {changeUserData} from '../../../store/redux/actions/UserData';
+import {getDarkModeStatus} from '../../../store/redux/selectors/AllSelector';
 
 interface AuthProps {
   data: {
@@ -34,10 +35,8 @@ const AuthenticateOtp = ({navigation, route}: Props) => {
   LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
   ]);
+  const mode = useSelector(getDarkModeStatus);
 
-  const mode = useSelector(
-    (state: any) => state.AppReducer.DarkModeStatus.mode,
-  );
   useEffect(() => {
     RNOtpVerify.getHash().then().catch();
 

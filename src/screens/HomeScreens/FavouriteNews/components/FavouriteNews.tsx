@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import HomeTile from '../../../../components/HomeTile';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 
@@ -8,13 +8,25 @@ import {useSelector} from 'react-redux';
 import {HomeNaviationParamList} from '../../../../Types/Navigation';
 import {ScrollView, StyleSheet} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import {getIsDataChangedStatus} from '../../../../store/redux/selectors/AllSelector';
+import {getSingleUserDetails} from '../../../../helper/Firebase.helper';
 
 const FavouriteNews = () => {
-  const user = useSelector((state: any) => state?.AppReducer.UserData.userData);
-  const favourites = user?.favourites;
+  // const user = useSelector(getUserData);
+  const [favourites, setFavourites] = useState<
+    Array<{title: string; describe: string; image: string}>
+  >([]);
+  const IsFavouriteChanged = useSelector(getIsDataChangedStatus);
+
+  useEffect(() => {
+    const getData = async () => {
+      const user = await getSingleUserDetails();
+      setFavourites(user?.favourites);
+    };
+    getData();
+  }, [IsFavouriteChanged]);
   const navigation = useNavigation<HomeNaviationParamList>();
   const {t} = useTranslation();
-
   return (
     <Box
       paddingHorizontal="m"

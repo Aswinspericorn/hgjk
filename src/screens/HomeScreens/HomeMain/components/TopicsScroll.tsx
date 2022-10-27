@@ -4,6 +4,7 @@ import {HomePageDetailsArrayEn} from '../../../../constants/HomePageDetailsArray
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {HomePageDetailsArrayMal} from '../../../../constants/HomePageDetailsArrayMal';
 import {useSelector} from 'react-redux';
+import {getUserData} from '../../../../store/redux/selectors/AllSelector';
 
 interface Props {
   setCurrentTopic: Dispatch<SetStateAction<number>>;
@@ -11,9 +12,7 @@ interface Props {
 }
 
 const TopicScroll = ({setCurrentTopic, currentTopic}: Props) => {
-  const userData = useSelector(
-    (state: any) => state?.AppReducer.UserData.userData,
-  );
+  const userData = useSelector(getUserData);
   let array = HomePageDetailsArrayEn;
   if (userData?.language === 'Malayalam') {
     array = HomePageDetailsArrayMal;

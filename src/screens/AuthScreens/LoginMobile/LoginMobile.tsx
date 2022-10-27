@@ -8,6 +8,7 @@ import Flag from '../../../assets/icons/Svg/indian.svg';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 import {ArrowDown} from '../../../assets/icons/Svg/Icons';
+import {getDarkModeStatus} from '../../../store/redux/selectors/AllSelector';
 interface Props {
   navigation: any;
 }
@@ -16,9 +17,8 @@ const LoginMobile = ({navigation}: Props) => {
   const [phno, setPhno] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const mode = useSelector(
-    (state: any) => state.AppReducer.DarkModeStatus.mode,
-  );
+  const mode = useSelector(getDarkModeStatus);
+
   const {t} = useTranslation();
   async function signInWithPhoneNumber() {
     try {

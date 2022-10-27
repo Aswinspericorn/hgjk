@@ -3,14 +3,13 @@ import {Pressable, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import {Box, Text} from '../../../../theme/theme';
 import {useTranslation} from 'react-i18next';
+import {getRecentSearch} from '../../../../store/redux/selectors/AllSelector';
 
 interface Props {
   setSearch: (a: string) => void;
 }
 const RecentSearchesList = ({setSearch}: Props) => {
-  const list = useSelector(
-    (state: any) => state?.AppReducer.RecentSearches.searchData,
-  );
+  const list = useSelector(getRecentSearch);
   const {t} = useTranslation();
   return (
     <Box>

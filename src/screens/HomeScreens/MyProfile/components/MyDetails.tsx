@@ -14,6 +14,10 @@ import {useTranslation} from 'react-i18next';
 import SelectDropdown from 'react-native-select-dropdown';
 import {RightArrow} from '../../../../assets/icons/Svg/Icons';
 import {changeIsDataChanged} from '../../../../store/redux/actions/changeIsDataChanged';
+import {
+  getDarkModeStatus,
+  getUserData,
+} from '../../../../store/redux/selectors/AllSelector';
 interface Props {
   fname: string;
   lname: string;
@@ -25,12 +29,10 @@ interface Props {
 const MyDetails = ({navigation}) => {
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [modalShow, setMdalShow] = useState<boolean>(false);
-  const userData = useSelector(
-    (state: any) => state?.AppReducer.UserData.userData,
-  );
-  const mode = useSelector(
-    (state: any) => state.AppReducer.DarkModeStatus.mode,
-  );
+  const userData = useSelector(getUserData);
+
+  const mode = useSelector(getDarkModeStatus);
+
   const [input, setInput] = useState<Props>(
     userData
       ? userData

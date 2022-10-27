@@ -4,13 +4,13 @@ import PersonalDetailsHome from '../screens/HomeScreens/PersonalDetaillHome/comp
 import MyDetails from '../screens/HomeScreens/MyProfile';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
+import {getDarkModeStatus} from '../store/redux/selectors/AllSelector';
 const Stack = createNativeStackNavigator();
 
 const PersonalDetailsStackNavigation = () => {
   const {t} = useTranslation();
-  const mode = useSelector(
-    (state: any) => state.AppReducer.DarkModeStatus.mode,
-  );
+  const mode = useSelector(getDarkModeStatus);
+
   return (
     <Stack.Navigator>
       <Stack.Screen

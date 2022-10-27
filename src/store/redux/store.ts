@@ -16,16 +16,14 @@ const persistedReducerDarkMode = persistReducer(
   persistConfig,
   DarkModeStatusReducer,
 );
-const AppReducer = combineReducers({
-  AuthStatus: AuthStatusReducer,
-  IsDataChanged: IsDataChanged,
-  UserData: UserDataReducer,
-  DarkModeStatus: persistedReducerDarkMode,
-  RecentSearches: persistedReducer,
-});
+
 export const store = configureStore({
   reducer: {
-    AppReducer,
+    AuthStatus: AuthStatusReducer,
+    IsDataChanged: IsDataChanged,
+    UserData: UserDataReducer,
+    DarkModeStatus: persistedReducerDarkMode,
+    RecentSearches: persistedReducer,
   },
 });
 export const persistor = persistStore(store);

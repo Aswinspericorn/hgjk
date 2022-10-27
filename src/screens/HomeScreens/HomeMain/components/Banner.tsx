@@ -7,17 +7,17 @@ import firestore from '@react-native-firebase/firestore';
 import {Image, StyleSheet} from 'react-native';
 import {weatherImagesObj} from '../../../../constants/weatherImagesObj';
 import {useSelector} from 'react-redux';
+import {
+  getIsDataChangedStatus,
+  getUserData,
+} from '../../../../store/redux/selectors/AllSelector';
 const Banner = () => {
   const [temparature, setTemparature] = useState<{temp: string; icon: {}}>({
     temp: '24',
     icon: weatherImagesObj['01d'],
   });
-  const IsFavouriteChanged = useSelector(
-    (state: any) => state?.AppReducer.IsDataChanged.isChanged,
-  );
-  const userData = useSelector(
-    (state: any) => state?.AppReducer.UserData.userData,
-  );
+  const IsFavouriteChanged = useSelector(getIsDataChangedStatus);
+  const userData = useSelector(getUserData);
 
   const API_KEY = 'e0110331adf97afda6ab257d0534f64c';
   const userId = auth().currentUser?.uid;

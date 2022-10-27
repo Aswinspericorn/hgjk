@@ -18,6 +18,7 @@ import {getAllUsersWithoutFilter} from '../../helper/Firebase.helper';
 import {useSelector} from 'react-redux';
 import NoFriends from '../NoFriends';
 import ListOfFriends from '../../screens/HomeScreens/SearchUser/components/ListOfFriends';
+import {getUserData} from '../../store/redux/selectors/AllSelector';
 
 interface Props {
   distance: number;
@@ -48,9 +49,7 @@ const DetailCard = ({
   setStart,
 }: Props) => {
   const [users, setUsers] = useState<Array<object>>([{}]);
-  const userData = useSelector(
-    (state: any) => state?.AppReducer.UserData.userData,
-  );
+  const userData = useSelector(getUserData);
   const translateY = useSharedValue(0);
   const context = useSharedValue({y: 0});
   const scrollTo = useCallback((destination: number) => {

@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {getNews} from '../../../../helper/Firebase.helper';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeIsDataChanged} from '../../../../store/redux/actions/changeIsDataChanged';
+import {getUserData} from '../../../../store/redux/selectors/AllSelector';
 interface Props {
   currentTopic: number;
 }
@@ -27,9 +28,8 @@ const NewsList = ({currentTopic}: Props) => {
       },
     ],
   });
-  const userData = useSelector(
-    (state: any) => state?.AppReducer.UserData.userData,
-  );
+  const userData = useSelector(getUserData);
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
 

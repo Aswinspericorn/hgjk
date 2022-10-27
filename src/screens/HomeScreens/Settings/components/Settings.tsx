@@ -4,11 +4,11 @@ import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {useTranslation} from 'react-i18next';
 import {Lock, Notification, Person} from '../../../../assets/icons/Svg/Icons';
 import {changeDarkMode} from '../../../../store/redux/actions/DarkModeStatus';
+import {getDarkModeStatus} from '../../../../store/redux/selectors/AllSelector';
 // import {Switch} from 'react-native';
 const Settings = ({navigation}) => {
-  const mode = useSelector(
-    (state: any) => state.AppReducer.DarkModeStatus.mode,
-  );
+  const mode = useSelector(getDarkModeStatus);
+
   const dispatch = useDispatch();
   const {t} = useTranslation();
 

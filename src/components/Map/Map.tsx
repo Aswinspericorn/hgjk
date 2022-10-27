@@ -24,6 +24,10 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import MarkersOfAllUsers from './MarkersOfUsers';
 import MapUserScroll from './MapUserSCroll';
 import {MapDarkStyle} from './MapDarkStyle';
+import {
+  getDarkModeStatus,
+  getUserData,
+} from '../../store/redux/selectors/AllSelector';
 
 const Map = ({route}: any) => {
   const mapRef = useRef<undefined>();
@@ -35,9 +39,7 @@ const Map = ({route}: any) => {
   const [users, setUsers] = useState<Array<object>>([{}]);
   const [permission, setPermission] = useState<object>({});
   const [duration, setDuration] = useState<number[]>([0, 0]);
-  const userData = useSelector(
-    (state: any) => state?.AppReducer.UserData.userData,
-  );
+  const userData = useSelector(getUserData);
   const [scrollToIndex, setScrollToIndex] = useState(0);
   const [region, setRegion] = useState<object>({
     latitude: userData.location.location.lat,
@@ -56,9 +58,7 @@ const Map = ({route}: any) => {
   const email = route?.params?.email;
   const phno = route?.params?.phno;
   const id = route?.params?.id;
-  const mode = useSelector(
-    (state: any) => state.AppReducer.DarkModeStatus.mode,
-  );
+  const mode = useSelector(getDarkModeStatus);
   const themeDevice = useColorScheme();
   const origin = {
     latitude: userData.location.location.lat,

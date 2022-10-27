@@ -5,19 +5,31 @@ import {Image, ScrollView, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Love} from '../../../../assets/icons/Svg/Icons';
 import {
+  getSingleUserDetails,
   userFavouritesAdd,
   userFavouritesRemove,
 } from '../../../../helper/Firebase.helper';
 import {changeIsDataChanged} from '../../../../store/redux/actions/changeIsDataChanged';
+import {
+  getIsDataChangedStatus,
+  getUserData,
+} from '../../../../store/redux/selectors/AllSelector';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 
 const DetailNews = ({route}) => {
   const [favourite, setFavourite] = useState<boolean>(false);
+  const [favouritesList, setFavouritesList] = useState<Array<{id: number}>>([]);
   const nav = useNavigation();
-  const user = useSelector((state: any) => state?.AppReducer.UserData.userData);
-  const favourites = user?.favourites;
+
+  useEffect(() => {
+    const getData = async () => {
+      const user = await getSingleUserDetails();
+      setFavouritesList(user?.favourites);
+    };
+    getData();
+  }, []);
   const data = route.params;
-  const isExits = favourites?.find(
+  const isExits = favouritesList?.find(
     (element: {id: number}) => element?.id === data?.id,
   );
 
@@ -46,6 +58,7 @@ const DetailNews = ({route}) => {
       ),
     });
   }, [favourite]);
+
   return (
     <Box
       flex={1}
