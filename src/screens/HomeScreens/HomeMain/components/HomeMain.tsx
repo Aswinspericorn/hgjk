@@ -4,22 +4,20 @@ import {NativeModules, ScrollView, StyleSheet} from 'react-native';
 import Banner from './Banner';
 import TopicScroll from './TopicsScroll';
 import NewsList from './NewsList';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {useTranslation} from 'react-i18next';
 import {changeUserData} from '../../../../store/redux/actions/UserData';
-import {
-  getIsDataChangedStatus,
-  getUserData,
-} from '../../../../store/redux/selectors/AllSelector';
+import {getUserData} from '../../../../store/redux/selectors/AllSelector';
+import {useAppDispatch} from '../../../../store/redux/store';
 // import I18n from 'react-native-i18n';
 
 const HomeMain = () => {
   const [currentTopic, setCurrentTopic] = useState<number>(0);
-  const dispatch = useDispatch();
-  const IsFavouriteChanged = useSelector(getIsDataChangedStatus);
-  console.log(IsFavouriteChanged);
+
+  const dispatch = useAppDispatch();
+
   const RNI18n = NativeModules.I18nManager.localeIdentifier;
   const userData = useSelector(getUserData);
 

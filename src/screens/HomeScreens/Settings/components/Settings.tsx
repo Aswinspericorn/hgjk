@@ -1,18 +1,20 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {useTranslation} from 'react-i18next';
 import {Lock, Notification, Person} from '../../../../assets/icons/Svg/Icons';
 import {changeDarkMode} from '../../../../store/redux/actions/DarkModeStatus';
 import {getDarkModeStatus} from '../../../../store/redux/selectors/AllSelector';
+import {useAppDispatch} from '../../../../store/redux/store';
+import {NavigateToMap} from '../../../../Types/Navigation';
 // import {Switch} from 'react-native';
-const Settings = ({navigation}) => {
+const Settings = ({navigation}: NavigateToMap) => {
   const mode = useSelector(getDarkModeStatus);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {t} = useTranslation();
 
-  const toggleSwitch = status => {
+  const toggleSwitch = (status: string) => {
     dispatch(changeDarkMode(status));
   };
   return (

@@ -12,10 +12,14 @@ import {
   getUserData,
 } from '../../../../store/redux/selectors/AllSelector';
 const Banner = () => {
-  const [temparature, setTemparature] = useState<{temp: string; icon: {}}>({
+  const [temparature, setTemparature] = useState<{
+    temp: string;
+    icon: any;
+  }>({
     temp: '24',
     icon: weatherImagesObj['01d'],
   });
+
   const IsFavouriteChanged = useSelector(getIsDataChangedStatus);
   const userData = useSelector(getUserData);
 
@@ -31,7 +35,7 @@ const Banner = () => {
       .doc(userId)
       .get()
       .then((documentSnapshot: any) => getLocation(documentSnapshot))
-      .then((data: React.SetStateAction<{lat: string; lng: string}>) => {
+      .then((data: {lat: string; lng: string}) => {
         fetchWeather(data?.lat, data.lng);
       });
   }, [IsFavouriteChanged]);

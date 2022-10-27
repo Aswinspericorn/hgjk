@@ -5,7 +5,7 @@ import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import NoData from '../../../../components/NoData';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-import {HomeNaviationParamList} from '../../../../Types/Navigation';
+import {FavouriteMainNavigate} from '../../../../Types/Navigation';
 import {ScrollView, StyleSheet} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {getIsDataChangedStatus} from '../../../../store/redux/selectors/AllSelector';
@@ -25,7 +25,7 @@ const FavouriteNews = () => {
     };
     getData();
   }, [IsFavouriteChanged]);
-  const navigation = useNavigation<HomeNaviationParamList>();
+  const navigation = useNavigation<FavouriteMainNavigate>();
   const {t} = useTranslation();
   return (
     <Box
@@ -56,10 +56,7 @@ const FavouriteNews = () => {
                 <TouchableBox
                   key={index}
                   onPress={() => {
-                    navigation.navigate('Homestack', {
-                      screen: 'DetailNews',
-                      params: item,
-                    });
+                    navigation.navigate('DetailNews', item);
                   }}>
                   <HomeTile
                     title={item?.title}

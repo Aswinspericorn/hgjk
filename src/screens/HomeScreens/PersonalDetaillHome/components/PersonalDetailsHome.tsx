@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 
 import {useTranslation} from 'react-i18next';
@@ -16,12 +16,15 @@ import {
   getDarkModeStatus,
   getUserData,
 } from '../../../../store/redux/selectors/AllSelector';
-const PersonalDetailsHome = ({navigation}) => {
+import {useAppDispatch} from '../../../../store/redux/store';
+import {ProfileScreenProp, UniversalProps} from '../../../../Types/Navigation';
+
+const PersonalDetailsHome = ({navigation}: ProfileScreenProp) => {
   const userData = useSelector(getUserData);
 
   const mode = useSelector(getDarkModeStatus);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {t} = useTranslation();
   return (
     <Box

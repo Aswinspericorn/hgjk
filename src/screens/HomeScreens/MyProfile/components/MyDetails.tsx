@@ -1,11 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Image, StyleSheet} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Input from '../../../../components/Input';
 import {userDetailsUpdate} from '../../../../helper/Firebase.helper';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {
+  GooglePlacesAutocomplete,
+  GooglePlacesAutocompleteRef,
+} from 'react-native-google-places-autocomplete';
 import {API_KEY} from '../../../../constants/confiq';
 import Marker from '../../../../assets/icons/Svg/Avatar.svg';
 import UserImagePicker from '../../../AuthScreens/SetupPersonalizatioTwo/components/UserImagePicker';
@@ -18,22 +21,18 @@ import {
   getDarkModeStatus,
   getUserData,
 } from '../../../../store/redux/selectors/AllSelector';
-interface Props {
-  fname: string;
-  lname: string;
-  location: {shortName: string};
-  email: string;
-  language: string;
-  photo: string;
-}
-const MyDetails = ({navigation}) => {
+import {UserDataProps} from '../../../../Types/CommonProps';
+import {useAppDispatch} from '../../../../store/redux/store';
+import {MyDetailsNaviationProps} from '../../../../Types/Navigation';
+
+const MyDetails = ({navigation}: MyDetailsNaviationProps) => {
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [modalShow, setMdalShow] = useState<boolean>(false);
   const userData = useSelector(getUserData);
 
   const mode = useSelector(getDarkModeStatus);
 
-  const [input, setInput] = useState<Props>(
+  const [input, setInput] = useState<UserDataProps>(
     userData
       ? userData
       : {
@@ -44,8 +43,8 @@ const MyDetails = ({navigation}) => {
   const {t} = useTranslation();
   const countries = ['English', 'Malayalam'];
 
-  const dispatch = useDispatch();
-  const dropRef = useRef();
+  const dispatch = useAppDispatch();
+  const dropRef = useRef<SelectDropdown | null>(null);
   useEffect(() => {
     ref?.current?.setAddressText(input?.location?.shortName);
   }, [input?.location?.shortName, isEditable]);
@@ -70,7 +69,7 @@ const MyDetails = ({navigation}) => {
       setMdalShow(true);
     }
   };
-  const ref = useRef();
+  const ref = useRef<GooglePlacesAutocompleteRef | null>(null);
   return (
     <Box flex={1} backgroundColor="secondaryBackground">
       <KeyboardAwareScrollView
@@ -137,8 +136,8 @@ const MyDetails = ({navigation}) => {
             </TouchableBox>
           ) : (
             <GooglePlacesAutocomplete
+              placeholder={t('MyDetails.EnterYourPlace')}
               keyboardShouldPersistTaps="handled"
-              label={t('MyDetails.EnterYourPlace')}
               ref={ref}
               query={{
                 key: API_KEY,

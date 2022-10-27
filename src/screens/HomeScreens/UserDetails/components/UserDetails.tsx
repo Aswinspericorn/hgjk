@@ -6,17 +6,24 @@ import Arrow from '../../../../assets/icons/Svg/rightArrow.svg';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {getUser} from '../../../../helper/Firebase.helper';
 import {useTranslation} from 'react-i18next';
+import {NavigateToMap} from '../../../../Types/Navigation';
+import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import {UserDataProps} from '../../../../Types/CommonProps';
 
-const UserDetails = ({navigation, route}) => {
+const UserDetails = ({navigation, route}: NavigateToMap) => {
   let data = route?.params;
-  const [input, setInput] = useState(data);
+  const [input, setInput] = useState<
+    FirebaseFirestoreTypes.DocumentData | UserDataProps | undefined
+  >(data);
 
   const {t} = useTranslation();
   useEffect(() => {
     if (route?.params?.id) {
       const getData = async () => {
         const res = await getUser(route?.params?.id);
-        setInput(res);
+        if (res) {
+          setInput(res);
+        }
       };
       getData();
     }

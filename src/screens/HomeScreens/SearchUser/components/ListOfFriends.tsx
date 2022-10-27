@@ -1,15 +1,16 @@
 import React from 'react';
-import {Pressable, ScrollView} from 'react-native';
+import {Pressable, ScrollView, StyleSheet} from 'react-native';
 import UserTile from '../../../../components/UserTile';
 import {Box, Text} from '../../../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
+import {SearchUserNavigate} from '../../../../Types/Navigation';
 
 interface Props {
-  list: Array<{_data: {name: string; photo: string}}>;
+  list: Array<{_data: {name: string; photo: string; distance: number}}>;
   // distance: number;
 }
 const ListOfFriends = ({list}: Props) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<SearchUserNavigate>();
   const onPressHandler = (data: object) => {
     navigation.navigate('UserDetails', data);
   };
@@ -18,9 +19,12 @@ const ListOfFriends = ({list}: Props) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         {list?.length > 0 ? (
           list?.map(
-            (item: {_data: {name: string; photo: string}}, index: number) => (
+            (
+              item: {_data: {name: string; photo: string; distance: number}},
+              index: number,
+            ) => (
               <Pressable
-                style={{justifyContent: 'center'}}
+                style={styles.pressable}
                 key={index}
                 onPress={() => {
                   onPressHandler(item?._data);
@@ -48,3 +52,8 @@ const ListOfFriends = ({list}: Props) => {
   );
 };
 export default ListOfFriends;
+const styles = StyleSheet.create({
+  pressable: {
+    justifyContent: 'center',
+  },
+});

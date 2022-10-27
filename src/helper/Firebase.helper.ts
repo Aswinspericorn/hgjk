@@ -104,7 +104,7 @@ export const userDetailsUpdate = (dataToSave: object) => {
   }
 };
 
-export const getUser = async (id: string) => {
+export const getUser = async (id: string | undefined) => {
   const dataNews = await firestore()
     .collection('user')
     .where('id', '==', id)

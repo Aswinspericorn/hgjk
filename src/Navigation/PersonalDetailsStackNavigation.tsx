@@ -5,7 +5,9 @@ import MyDetails from '../screens/HomeScreens/MyProfile';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 import {getDarkModeStatus} from '../store/redux/selectors/AllSelector';
-const Stack = createNativeStackNavigator();
+import {PersonalDetailsStackNavigationParamList} from '../Types/Navigation';
+const Stack =
+  createNativeStackNavigator<PersonalDetailsStackNavigationParamList>();
 
 const PersonalDetailsStackNavigation = () => {
   const {t} = useTranslation();

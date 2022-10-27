@@ -2,10 +2,11 @@ import React from 'react';
 import {Pressable, ScrollView} from 'react-native';
 import UserTile from '../../../../components/UserTile';
 import {Box, Text} from '../../../../theme/theme';
-import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 import {changeRecentSearch} from '../../../../store/redux/actions/RecentSearchesReducer';
+import {useAppDispatch} from '../../../../store/redux/store';
+import {SearchUserNavigate} from '../../../../Types/Navigation';
 
 interface Props {
   list:
@@ -13,8 +14,8 @@ interface Props {
   search: string;
 }
 const ListOfUsers = ({list, search}: Props) => {
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation<SearchUserNavigate>();
 
   const onPressHandler = (data: object) => {
     dispatch(changeRecentSearch(search));

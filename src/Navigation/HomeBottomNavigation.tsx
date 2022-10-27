@@ -5,10 +5,10 @@ import HomeMain from '../screens/HomeScreens/HomeMain';
 import FavouriteNews from '../screens/HomeScreens/FavouriteNews';
 import SearchStackNavigation from './SearchStackNavigation';
 import PersonalDetailsStackNavigation from './PersonalDetailsStackNavigation';
-import {HomeBottomNaviationParamList} from '../Types/Navigation';
+import {BottomBarParamList} from '../Types/Navigation';
 import {useSelector} from 'react-redux';
 import {getDarkModeStatus} from '../store/redux/selectors/AllSelector';
-const Tab = createBottomTabNavigator<HomeBottomNaviationParamList>();
+const Tab = createBottomTabNavigator<BottomBarParamList>();
 
 export const HomeBottomNaviation = () => {
   const mode = useSelector(getDarkModeStatus);

@@ -4,9 +4,11 @@ import HomeTile from '../../../../components/HomeTile';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
 import {getNews} from '../../../../helper/Firebase.helper';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {changeIsDataChanged} from '../../../../store/redux/actions/changeIsDataChanged';
 import {getUserData} from '../../../../store/redux/selectors/AllSelector';
+import {useAppDispatch} from '../../../../store/redux/store';
+import {FavouriteMainNavigate} from '../../../../Types/Navigation';
 interface Props {
   currentTopic: number;
 }
@@ -30,8 +32,8 @@ const NewsList = ({currentTopic}: Props) => {
   });
   const userData = useSelector(getUserData);
 
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
+  const navigation = useNavigation<FavouriteMainNavigate>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const readNews = async () => {
@@ -51,10 +53,7 @@ const NewsList = ({currentTopic}: Props) => {
     <Box paddingHorizontal="s">
       <TouchableBox
         onPress={() => {
-          navigation.navigate('Homestack', {
-            screen: 'DetailNews',
-            params: news[currentTopic]?.content[0],
-          });
+          navigation.navigate('DetailNews', news[currentTopic]?.content[0]);
         }}>
         <Box paddingTop="xs" paddingBottom="s">
           <Box justifyContent="center" alignItems="center">
@@ -82,10 +81,10 @@ const NewsList = ({currentTopic}: Props) => {
           <TouchableBox
             key={index}
             onPress={() => {
-              navigation.navigate('Homestack', {
-                screen: 'DetailNews',
-                params: news[currentTopic]?.content[index],
-              });
+              navigation.navigate(
+                'DetailNews',
+                news[currentTopic]?.content[index],
+              );
             }}>
             <HomeTile
               title={item.title}
