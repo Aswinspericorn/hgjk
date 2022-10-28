@@ -7,7 +7,6 @@ import {changeDarkMode} from '../../../../store/redux/actions/DarkModeStatus';
 import {getDarkModeStatus} from '../../../../store/redux/selectors/AllSelector';
 import {useAppDispatch} from '../../../../store/redux/store';
 import {NavigateToMap} from '../../../../Types/Navigation';
-// import {Switch} from 'react-native';
 const Settings = ({navigation}: NavigateToMap) => {
   const mode = useSelector(getDarkModeStatus);
 

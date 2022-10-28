@@ -1,4 +1,4 @@
-import {CompositeScreenProps} from '@react-navigation/native';
+import {CompositeScreenProps, RouteProp} from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
@@ -9,10 +9,22 @@ export type RootStackParamList = {
   Homestack: HomeNaviationParamList;
 };
 
+export type AuthStackParamList = {
+  GetStarted: undefined;
+  YouLearn: undefined;
+  LoginMobile: undefined;
+  AuthenticateOtp: undefined;
+  EmailSignup: undefined;
+  EmailSignin: undefined;
+  SetupPersonalizationOne: undefined;
+  SetupPersonalizationTwo: undefined;
+  AddEmail: undefined;
+  SetupLocation: undefined;
+};
 export type HomeNaviationParamList = {
-  Homemain: BottomBarParamList;
   DetailNews: object;
-  UserDetails: object;
+  Homemain: BottomBarParamList;
+  UserDetails: UserDataProps;
   Map: UserDataProps | FirebaseReturnData;
   Settings: undefined;
 };
@@ -43,7 +55,7 @@ export type ProfileScreenProp = CompositeScreenProps<
   >
 >;
 
-export type FavouriteMainNavigate = NativeStackNavigationProp<
+export type FavouriteMainNavigate = NativeStackScreenProps<
   HomeNaviationParamList,
   'DetailNews'
 >;
@@ -53,12 +65,13 @@ export type MyDetailsNaviationProps = NativeStackScreenProps<
   'Map'
 >;
 
-export type SearchUserNavigate = NativeStackNavigationProp<
+export type SearchUserNavigate = NativeStackScreenProps<
   HomeNaviationParamList,
   'UserDetails'
 >;
 
-export type NavigateToMap = NativeStackScreenProps<
+export type NavigateToMap = NativeStackNavigationProp<
   HomeNaviationParamList,
   'Map'
 >;
+export type RouteToMap = RouteProp<HomeNaviationParamList, 'Map'>;

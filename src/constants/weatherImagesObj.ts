@@ -1,4 +1,4 @@
-export const weatherImagesObj = {
+export const weatherImagesObj: {[name: string]: NodeRequire} = {
   '01d': require('../assets/images/weather/01d.png'),
   '02d': require('../assets/images/weather/02d.png'),
   '03d': require('../assets/images/weather/03d.png'),

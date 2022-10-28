@@ -15,20 +15,22 @@ interface Props {
 interface ObjectProps {
   title: string;
   image: string;
-  description: string;
+  describe: string;
   details: string;
 }
 const NewsList = ({currentTopic}: Props) => {
-  const [news, setNews] = useState<{content: [ObjectProps]}>({
-    content: [
-      {
-        title: '',
-        image:
-          'https://static.vecteezy.com/system/resources/previews/004/639/580/non_2x/waiting-loading-icon-illustration-isolated-on-white-background-vector.jpg',
-        description: '',
-        details: '',
-      },
-    ],
+  const [news, setNews] = useState<{[name: string]: {content: ObjectProps[]}}>({
+    name: {
+      content: [
+        {
+          title: '',
+          image:
+            'https://static.vecteezy.com/system/resources/previews/004/639/580/non_2x/waiting-loading-icon-illustration-isolated-on-white-background-vector.jpg',
+          describe: '',
+          details: '',
+        },
+      ],
+    },
   });
   const userData = useSelector(getUserData);
 

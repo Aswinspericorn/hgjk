@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import StackNavigation from './StackNavigation';
 import AuthNavigation from './AuthNavigation';
@@ -11,12 +11,23 @@ import {
   getAuthStatus,
   getDarkModeStatus,
 } from '../store/redux/selectors/AllSelector';
+import {useAppDispatch} from '../store/redux/store';
+import {changeDarkMode} from '../store/redux/actions/DarkModeStatus';
 
 const Route = () => {
   const IsLoggedIn = useSelector(getAuthStatus);
   const mode = useSelector(getDarkModeStatus);
-
   const themeDevice = useColorScheme();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (mode === 'default') {
+      if (themeDevice === 'dark') {
+        dispatch(changeDarkMode('dark'));
+      } else {
+        dispatch(changeDarkMode('light'));
+      }
+    }
+  }, [dispatch, mode, themeDevice]);
   return (
     <>
       <StatusBar
@@ -24,16 +35,7 @@ const Route = () => {
         backgroundColor={mode === 'dark' ? '#262626' : 'white'}
         translucent
       />
-      <ThemeProvider
-        theme={
-          mode === 'default'
-            ? themeDevice === 'dark'
-              ? darkTheme
-              : theme
-            : mode === 'dark'
-            ? darkTheme
-            : theme
-        }>
+      <ThemeProvider theme={mode === 'dark' ? darkTheme : theme}>
         <NavigationContainer linking={linking}>
           {IsLoggedIn ? <StackNavigation /> : <AuthNavigation />}
         </NavigationContainer>

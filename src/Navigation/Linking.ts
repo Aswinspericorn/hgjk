@@ -1,3 +1,5 @@
+import {LinkingOptions} from '@react-navigation/native';
+
 const config = {
   screens: {
     Homestack: {
@@ -20,7 +22,7 @@ const config = {
     GetStarted: '*',
   },
 };
-const linking = {
+const linking: LinkingOptions<{}> = {
   prefixes: ['demo://app'],
   config,
 };

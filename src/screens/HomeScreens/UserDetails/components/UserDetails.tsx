@@ -6,11 +6,19 @@ import Arrow from '../../../../assets/icons/Svg/rightArrow.svg';
 import {Box, Text, TouchableBox} from '../../../../theme/theme';
 import {getUser} from '../../../../helper/Firebase.helper';
 import {useTranslation} from 'react-i18next';
-import {NavigateToMap} from '../../../../Types/Navigation';
+import {NavigateToMap, RouteToMap} from '../../../../Types/Navigation';
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 import {UserDataProps} from '../../../../Types/CommonProps';
 
-const UserDetails = ({navigation, route}: NavigateToMap) => {
+type Props = {
+  navigation: NavigateToMap;
+  route: RouteToMap;
+};
+
+const UserDetails: React.FunctionComponent<Props> = ({
+  navigation,
+  route,
+}: Props) => {
   let data = route?.params;
   const [input, setInput] = useState<
     FirebaseFirestoreTypes.DocumentData | UserDataProps | undefined
@@ -55,7 +63,7 @@ const UserDetails = ({navigation, route}: NavigateToMap) => {
         />
         <TouchableBox
           onPress={() => {
-            navigation.navigate('Map', input);
+            navigation?.navigate('Map', input);
           }}>
           <Input
             name="location"

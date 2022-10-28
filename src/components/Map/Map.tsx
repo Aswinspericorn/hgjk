@@ -1,14 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useRef, useState} from 'react';
 import {Box, Text} from '../../theme/theme';
-import MapView, {Camera, Marker} from 'react-native-maps';
-import {
-  Alert,
-  Dimensions,
-  Image,
-  StyleSheet,
-  useColorScheme,
-} from 'react-native';
+import MapView, {Camera, MapMarker, Marker, Region} from 'react-native-maps';
+import {Alert, Image, StyleSheet} from 'react-native';
 import MapViewDirections from 'react-native-maps-directions';
 import {API_KEY} from '../../constants/confiq';
 import {useSelector} from 'react-redux';
@@ -28,12 +22,14 @@ import {
   getDarkModeStatus,
   getUserData,
 } from '../../store/redux/selectors/AllSelector';
+import {UserDataProps} from '../../Types/CommonProps';
 
-const Map = ({route}: any) => {
-  const mapRef = useRef<undefined>();
-  const markerRef = useRef();
+interface Props {
+  route: {params: UserDataProps};
+}
+const Map = ({route}: Props) => {
   const [distance, setDistance] = useState<number>(0);
-  const [heading, setHeading] = useState<number>(0);
+  const [heading, setHeading] = useState<number | null>(0);
   const [cameraHeading, setCameraHeading] = useState<number>(0);
   const [start, setStart] = useState<boolean>(false);
   const [users, setUsers] = useState<Array<object>>([{}]);
@@ -41,25 +37,26 @@ const Map = ({route}: any) => {
   const [duration, setDuration] = useState<number[]>([0, 0]);
   const userData = useSelector(getUserData);
   const [scrollToIndex, setScrollToIndex] = useState(0);
-  const [region, setRegion] = useState<object>({
-    latitude: userData.location.location.lat,
+  const [region, setRegion] = useState<Region>({
+    latitude: userData?.location?.location.lat,
     longitude: userData.location.location.lng,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
 
-  const [curLoc, setCurLoc] = useState<{}>({
+  const [curLoc, setCurLoc] = useState<{latitude: number; longitude: number}>({
     latitude: userData.location.location.lat,
     longitude: userData.location.location.lng,
   });
+  const mapRef = useRef<MapView | null>(null);
   const location = route?.params?.location;
+  const markerRef = useRef<MapMarker | null>();
   const image = route?.params?.photo;
   const fname = route?.params?.fname;
   const email = route?.params?.email;
   const phno = route?.params?.phno;
   const id = route?.params?.id;
   const mode = useSelector(getDarkModeStatus);
-  const themeDevice = useColorScheme();
   const origin = {
     latitude: userData.location.location.lat,
     longitude: userData.location.location.lng,
@@ -70,7 +67,7 @@ const Map = ({route}: any) => {
     longitude: location?.location?.lng,
   };
   const animate = (latitude: number, longitude: number) => {
-    markerRef.current?.animateMarkerToCoordinate(
+    markerRef?.current?.animateMarkerToCoordinate(
       latitude && longitude
         ? {latitude, longitude}
         : userData.location.location,
@@ -81,7 +78,7 @@ const Map = ({route}: any) => {
   //TO GET CAMERA HEADING
   function updateCameraHeading() {
     const map = mapRef.current;
-    map.getCamera().then((info: Camera) => {
+    map?.getCamera().then((info: Camera) => {
       setCameraHeading(info.heading);
     });
   }
@@ -134,7 +131,7 @@ const Map = ({route}: any) => {
   useEffect(() => {
     if (distance === 0) {
       setTimeout(function () {
-        mapRef?.current?.fitToElements(true);
+        mapRef?.current?.fitToElements;
       }, 2000);
     }
   }, []);
@@ -143,9 +140,7 @@ const Map = ({route}: any) => {
     <GestureHandlerRootView style={styles.screen}>
       <Box flex={1}>
         <MapView
-          customMapStyle={
-            mode === 'dark' || themeDevice === 'dark' ? MapDarkStyle : []
-          }
+          customMapStyle={mode === 'dark' ? MapDarkStyle : []}
           mapType="standard"
           region={region}
           ref={mapRef}
@@ -196,7 +191,9 @@ const Map = ({route}: any) => {
                   height={30}
                   width={40}
                   style={{
-                    transform: [{rotate: `${heading - cameraHeading - 90}deg`}],
+                    transform: [
+                      {rotate: `${heading && heading - cameraHeading - 90}deg`},
+                    ],
                   }}
                 />
               </Box>
@@ -240,7 +237,7 @@ const Map = ({route}: any) => {
                 onReady={result => {
                   setDistance(result?.distance);
                   setDuration(timeConvert(result?.duration));
-                  !start && mapRef?.current.fitToElements(true);
+                  !start && mapRef?.current?.fitToElements;
                 }}
               />
             </>

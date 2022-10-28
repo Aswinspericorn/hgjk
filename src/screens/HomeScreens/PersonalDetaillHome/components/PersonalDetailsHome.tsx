@@ -17,7 +17,7 @@ import {
   getUserData,
 } from '../../../../store/redux/selectors/AllSelector';
 import {useAppDispatch} from '../../../../store/redux/store';
-import {ProfileScreenProp, UniversalProps} from '../../../../Types/Navigation';
+import {ProfileScreenProp} from '../../../../Types/Navigation';
 
 const PersonalDetailsHome = ({navigation}: ProfileScreenProp) => {
   const userData = useSelector(getUserData);

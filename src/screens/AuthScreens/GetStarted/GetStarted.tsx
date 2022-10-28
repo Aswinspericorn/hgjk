@@ -2,13 +2,13 @@ import React, {useEffect} from 'react';
 import {ImageBackground, LogBox, NativeModules, StyleSheet} from 'react-native';
 import {Box, Text, TouchableBox} from '../../../theme/theme';
 import auth from '@react-native-firebase/auth';
-import {useDispatch} from 'react-redux';
 import requestUserPermission, {
   NotificationLIsterner,
 } from '../../../helper/PushNotification.helper';
 import {useTranslation} from 'react-i18next';
 import {StatusBar} from 'react-native';
 import {changeAuthStatus} from '../../../store/redux/actions/AuthStatus';
+import {useAppDispatch} from '../../../store/redux/store';
 
 interface Props {
   navigation: any;
@@ -16,7 +16,7 @@ interface Props {
 
 export const GetStarted = ({navigation}: Props) => {
   StatusBar.setBackgroundColor('#DAE2EB');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (auth().currentUser?.uid) {
       dispatch(changeAuthStatus(true));
@@ -30,7 +30,7 @@ export const GetStarted = ({navigation}: Props) => {
   useEffect(() => {
     requestUserPermission();
 
-    NotificationLIsterner(navigation);
+    NotificationLIsterner();
   }, [navigation]);
   const RNI18n = NativeModules.I18nManager.localeIdentifier;
   useEffect(() => {

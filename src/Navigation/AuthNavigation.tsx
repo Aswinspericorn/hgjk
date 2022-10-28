@@ -10,7 +10,8 @@ import SetupPersonalizationTwo from '../screens/AuthScreens/SetupPersonalizatioT
 import AddEmail from '../screens/AuthScreens/AddEmailAndPhone/AddEmail';
 import SetupLocation from '../screens/AuthScreens/SetupLocation/SetupLocation';
 import AuthenticateOtp from '../screens/AuthScreens/AuthenticateOtp/AuthenticateOtp';
-const Auth = createNativeStackNavigator();
+import {AuthStackParamList} from '../Types/Navigation';
+const Auth = createNativeStackNavigator<AuthStackParamList>();
 const AuthNavigation = () => {
   return (
     <Auth.Navigator>

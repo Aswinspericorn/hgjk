@@ -17,8 +17,6 @@ export const requestPermission = () =>
 export const getCurrentLoc = async (
   permission: {} | undefined,
   setCurLoc: {
-    (value: SetStateAction<{}>): void;
-    (value: SetStateAction<{}>): void;
     (arg0: {latitude: number; longitude: number}): void;
   },
   animate: {
@@ -49,18 +47,17 @@ export const getCurrentLoc = async (
 export const getHeader = async (
   permission: {} | undefined,
   setHeading: {
-    (value: SetStateAction<number>): void;
-    (arg0: number | null): void;
+    (value: SetStateAction<number | null>): void;
   },
 ) => {
   if (permission) {
     Geolocation.getCurrentPosition(
       position => {
         const cords = {
-          heading: position.coords.heading,
+          heading: position?.coords?.heading,
         };
 
-        setHeading(cords.heading);
+        setHeading(cords?.heading);
       },
       error => {
         return error.message;
